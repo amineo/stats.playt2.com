@@ -3,7 +3,8 @@ import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { ApiClient } from 'api/client';
 // Api Mixins
-import { UserApi } from 'api/user';
+import { GamesApi } from 'api/games';
+import { PlayersApi } from 'api/players';
 
 import appConfig from 'config';
 
@@ -18,11 +19,8 @@ const FetchProvider: React.FC = ({ children }) => {
 	const apiConfig: AxiosRequestConfig = {
 		timeout: 30000,
 		baseURL: appConfig.apiServer.endpoint,
-		withCredentials: true,
 		headers: {
 			common: {
-				'Cache-Control': 'no-cache, no-store, must-revalidate',
-				Pragma: 'no-cache',
 				'Content-Type': 'application/json',
 				Accept: 'application/json'
 			}
@@ -47,7 +45,8 @@ const FetchProvider: React.FC = ({ children }) => {
 	);
 
 	// Augment the ApiClient with mixins
-	Object.assign(authAxios, UserApi);
+	Object.assign(authAxios, GamesApi);
+	Object.assign(authAxios, PlayersApi);
 
 	return (
 		<Provider
