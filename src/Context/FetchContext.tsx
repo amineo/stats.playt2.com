@@ -9,10 +9,10 @@ import { PlayersApi } from 'api/players';
 import appConfig from 'config';
 
 interface IAxios {
-	authAxios: any;
+	apiClient: any;
 }
 
-const FetchContext = createContext<IAxios>({ authAxios: null });
+const FetchContext = createContext<IAxios>({ apiClient: null });
 const { Provider } = FetchContext;
 
 const FetchProvider: React.FC = ({ children }) => {
@@ -28,10 +28,10 @@ const FetchProvider: React.FC = ({ children }) => {
 	};
 
 	// Setup an axios instance
-	const authAxios = new ApiClient(apiConfig);
+	const apiClient = new ApiClient(apiConfig);
 
 	// Error response interceptor  -- used for getting a new token
-	authAxios.api.interceptors.response.use(
+	apiClient.api.interceptors.response.use(
 		(response: AxiosResponse) => {
 			return response;
 		},
@@ -45,13 +45,13 @@ const FetchProvider: React.FC = ({ children }) => {
 	);
 
 	// Augment the ApiClient with mixins
-	Object.assign(authAxios, GamesApi);
-	Object.assign(authAxios, PlayersApi);
+	Object.assign(apiClient, GamesApi);
+	Object.assign(apiClient, PlayersApi);
 
 	return (
 		<Provider
 			value={{
-				authAxios
+				apiClient
 			}}
 		>
 			{children}

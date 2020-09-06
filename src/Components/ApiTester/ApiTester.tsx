@@ -7,7 +7,7 @@ import CardDisplay from 'Components/CardDisplay';
 
 const ApiTester: React.FC = (props) => {
 	const fetchContext = useContext(FetchContext);
-	const apiClient = fetchContext.authAxios;
+	const apiClient = fetchContext.apiClient;
 
 	const getLatestGames = async () => {
 		await apiClient.getLatestGames().then((res: any) => {
