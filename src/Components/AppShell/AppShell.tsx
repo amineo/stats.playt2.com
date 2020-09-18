@@ -1,26 +1,69 @@
 import React from 'react';
-import TestNav from 'Components/TestNav';
+import { Link } from 'react-router-dom';
+
+// @ts-ignore
+import { Header, Footer, Button } from 'arwes';
 
 const AppShell: React.FC = ({ children }) => {
 	return (
-		<div className="flex">
-			<div className="sm:w-64 px-4 sm:px-8 pt-6 bg-white">
-				<div className="flex flex-col flex-grow overflow-y-auto">
-					<div className="flex items-center flex-shrink-0 px-4">
-						<h1>
-							<strong>App</strong>
-						</h1>
+		<div>
+			<Header animate>
+				<nav>
+					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+						<div className="flex items-center justify-between h-16">
+							<div className="flex items-center">
+								<div className="flex-shrink-0">
+									<Link to="/">
+										<img
+											className="h-8 w-8"
+											src="https://d33wubrfki0l68.cloudfront.net/1699fc97aa9b1cb851a6c0039162a9241724e1fb/7289f/images/logo.png"
+											alt="Tribes 2 Stats"
+										/>
+									</Link>
+								</div>
+								<div className="md:block">
+									<div className="ml-10 flex items-baseline">
+										<Link
+											to="/games"
+											className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+										>
+											Games
+										</Link>
+										<Link
+											to="/players"
+											className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
+										>
+											Players
+										</Link>
+									</div>
+								</div>
+							</div>
+							<div className="md:block">
+								<div className="ml-4 flex items-center md:ml-6">
+									<span className="inline-flex rounded-md shadow-sm">
+										<a
+											href="https://www.playt2.com/discord"
+											className="inline-flex items-center px-2.5 py-1.5"
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											<Button animate layer="header">
+												Join Discord
+											</Button>
+										</a>
+									</span>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div className="mt-5 flex-grow flex flex-col" />
-				</div>
-			</div>
-			<div className="flex flex-col w-full border-l border-gray-200">
-				<div className="p-4 border-b border-gray-200 bg-white">
-					<TestNav />
-				</div>
-				<div className="px-4 sm:px-8 py-2 bg-gray-100">{children}</div>
-				Footer
-			</div>
+				</nav>
+			</Header>
+
+			<div className="w-full px-4 sm:px-8 py-2">{children}</div>
+
+			<Footer animate>
+				<p>Footer</p>
+			</Footer>
 		</div>
 	);
 };

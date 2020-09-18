@@ -1,9 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 
-/* for userlist */
 import { FetchContext } from 'Context/FetchContext';
 
 import CardDisplay from 'Components/CardDisplay';
+
+// @ts-ignore
+import { Button, Line, Content, Appear } from 'arwes';
 
 const ApiTester: React.FC = (props) => {
 	const fetchContext = useContext(FetchContext);
@@ -46,52 +48,37 @@ const ApiTester: React.FC = (props) => {
 	};
 
 	return (
-		<div className="mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-sm">
-			<CardDisplay title="User List">
-				<div>
-					<button
-						onClick={getLatestGames}
-						className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-					>
+		<div className="mx-auto shadow-md rounded pt-6 pb-8 mb-4 max-w-sm">
+			<CardDisplay header="Api Endpoint Tester">
+				<Appear animate>
+					<Button onClick={getLatestGames} className="mt-4">
 						getLatestGames
-					</button>
+					</Button>
 
-					<button
-						onClick={getLatestGamesWithSummary}
-						className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-					>
+					<Button onClick={getLatestGamesWithSummary} className="mt-4">
 						getLatestGamesWithSummary
-					</button>
+					</Button>
 
-					<button
-						onClick={getGamesByGametype}
-						className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-					>
+					<Button onClick={getGamesByGametype} className="mt-4">
 						getGamesByGametype
-					</button>
+					</Button>
 
-					<button
-						onClick={getGameStatsById}
-						className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-					>
+					<Button onClick={getGameStatsById} className="mt-4">
 						getGameStatsById
-					</button>
-					<hr className="my-5" />
+					</Button>
 
-					<button
-						onClick={getAllPlayers}
-						className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-					>
+					<div className="my-10">
+						<Line />
+					</div>
+
+					<Button onClick={getAllPlayers} className="mx-2">
 						getAllPlayers
-					</button>
+					</Button>
 
-					<button
-						onClick={getPlayerById}
-						className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-					>
+					<Button onClick={getPlayerById} className="mx-2" animate>
 						getPlayerById
-					</button>
-				</div>
+					</Button>
+				</Appear>
 			</CardDisplay>
 		</div>
 	);

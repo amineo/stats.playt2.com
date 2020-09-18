@@ -1,22 +1,20 @@
 import React from 'react';
 
+// @ts-ignore
+import { Project } from 'arwes';
+
 export interface ICardDisplay {
-	title: string;
-	showHR?: boolean;
+	header: string;
 }
 
 const CardDisplay: React.FC<ICardDisplay> = (props) => {
 	return (
-		<div className="mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-sm">
-			<div className="font-bold text-xl mb-2">{props.title}</div>
-			{props.showHR ? <hr className="pb-6" /> : ''}
+		<Project animate {...props}>
 			{props.children}
-		</div>
+		</Project>
 	);
 };
 
-CardDisplay.defaultProps = {
-	showHR: true
-};
+CardDisplay.defaultProps = {};
 
 export default CardDisplay;
