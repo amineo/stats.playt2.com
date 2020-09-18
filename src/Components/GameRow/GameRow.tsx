@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { queryCache } from 'react-query';
+import { FetchContext } from 'Context/FetchContext';
 
-const GameRow = (game: any, index: number) => {
+const GameRow: React.FC = (game: any, index: number) => {
+	const fetchContext = useContext(FetchContext);
+	const apiClient = fetchContext.apiClient;
 	return (
-		<div key={index}>
+		<div
+			key={index}
+			onMouseEnter={() => {
+				queryCache.prefetchQuery([ 'game', game.gameId ], () => apiClient.getGameStatsById(game.gameId), {
+					refetchOnWindowFocus: false,
+					staleTime: Infinity
+				});
+			}}
+		>
 			<Link
 				to={`/game/${game.gameId}`}
 				className="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out"

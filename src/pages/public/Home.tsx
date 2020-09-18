@@ -1,5 +1,5 @@
-import React, { useContext, useCallback, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { useQuery } from 'react-query';
 import { FetchContext } from 'Context/FetchContext';
 import CardDisplay from 'Components/CardDisplay';
 import GameRow from 'Components/GameRow';
@@ -7,51 +7,76 @@ import GameRow from 'Components/GameRow';
 import ApiTester from 'Components/ApiTester';
 
 // @ts-ignore
-import { Header, Footer, Content, Frame, Button } from 'arwes';
+import { Header, Content, Loading } from 'arwes';
 
 const Home = () => {
 	const fetchContext = useContext(FetchContext);
 	const apiClient = fetchContext.apiClient;
 
-	const [ ctfGames, setCtfGames ] = useState([]);
-	const [ lakGames, setLakGames ] = useState([]);
+	const ctfGamesQuery = useQuery([ 'latest', 'CTFGame' ], () => apiClient.getGamesByGametype('CTFGame'), {
+		refetchOnWindowFocus: false,
+		staleTime: 300000
+	});
 
-	const getLatestCTFGames = useCallback(
-		async () => {
-			await apiClient.getGamesByGametype('CTFGame').then((res: any) => {
-				setCtfGames(res);
-			});
-		},
-		[ apiClient ]
-	);
-	const getLatestLakGames = useCallback(
-		async () => {
-			await apiClient.getGamesByGametype('LakRabbitGame').then((res: any) => {
-				setLakGames(res);
-			});
-		},
-		[ apiClient ]
-	);
+	const lakGamesQuery = useQuery([ 'latest', 'LakRabbitGame' ], () => apiClient.getGamesByGametype('LakRabbitGame'), {
+		refetchOnWindowFocus: false,
+		staleTime: 300000
+	});
 
-	useEffect(
-		() => {
-			getLatestCTFGames();
-			getLatestLakGames();
-		},
-		[ getLatestCTFGames, getLatestLakGames ]
-	);
+	const ltCtfGamesQuery = useQuery([ 'latest', 'SCtFGame' ], () => apiClient.getGamesByGametype('SCtFGame'), {
+		refetchOnWindowFocus: false,
+		staleTime: 300000
+	});
+
+	const dmGamesQuery = useQuery([ 'latest', 'DMGame' ], () => apiClient.getGamesByGametype('DMGame'), {
+		refetchOnWindowFocus: false,
+		staleTime: 300000
+	});
 
 	return (
 		<Content>
-			<Header className="py-4 mb-8">
+			<Header className="py-4 mb-4">
 				<h5>Latest Games</h5>
 			</Header>
-			<div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+			<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 my-5">
 				<div className="col-span-1">
-					<CardDisplay header="CTF">{ctfGames.map((game, index) => GameRow(game, index))}</CardDisplay>
+					<CardDisplay header="CTF">
+						{ctfGamesQuery.isLoading ? (
+							<Loading animate />
+						) : (
+							ctfGamesQuery.data.map((game: any, index: number) => GameRow(game, index))
+						)}
+					</CardDisplay>
 				</div>
 				<div className="col-span-1">
-					<CardDisplay header="Lak">{lakGames.map((game, index) => GameRow(game, index))}</CardDisplay>
+					<CardDisplay header="Lak">
+						{lakGamesQuery.isLoading ? (
+							<Loading animate />
+						) : (
+							lakGamesQuery.data.map((game: any, index: number) => GameRow(game, index))
+						)}
+					</CardDisplay>
+				</div>
+			</div>
+
+			<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 my-5">
+				<div className="col-span-1">
+					<CardDisplay header="LT CTF">
+						{ltCtfGamesQuery.isLoading ? (
+							<Loading animate />
+						) : (
+							ltCtfGamesQuery.data.map((game: any, index: number) => GameRow(game, index))
+						)}
+					</CardDisplay>
+				</div>
+				<div className="col-span-1">
+					<CardDisplay header="DM">
+						{dmGamesQuery.isLoading ? (
+							<Loading animate />
+						) : (
+							dmGamesQuery.data.map((game: any, index: number) => GameRow(game, index))
+						)}
+					</CardDisplay>
 				</div>
 			</div>
 			<div className="py-16 lg:py-24">
