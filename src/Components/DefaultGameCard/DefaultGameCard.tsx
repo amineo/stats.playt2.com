@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Frame, Header } from 'arwes';
 import CardDisplay from 'Components/CardDisplay';
 
-const CtfGameCard: React.FC = (gameStats: any) => {
+const DefaultGameCard: React.FC = (gameStats: any) => {
 	return (
 		<div>
 			<Header className="py-4 mb-8">
@@ -26,4 +26,4 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 	);
 };
 
-export default CtfGameCard;
+export default DefaultGameCard;
