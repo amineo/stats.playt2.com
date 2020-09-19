@@ -42,7 +42,7 @@ const Home = () => {
 				<div className="col-span-1">
 					<CardDisplay header="CTF">
 						{ctfGamesQuery.isLoading ? (
-							<Loading animate />
+							<Loading animate full />
 						) : (
 							ctfGamesQuery.data.map((game: any, index: number) => GameRow(game, index))
 						)}
@@ -51,7 +51,7 @@ const Home = () => {
 				<div className="col-span-1">
 					<CardDisplay header="Lak">
 						{lakGamesQuery.isLoading ? (
-							<Loading animate />
+							<Loading animate full />
 						) : (
 							lakGamesQuery.data.map((game: any, index: number) => GameRow(game, index))
 						)}
@@ -63,7 +63,7 @@ const Home = () => {
 				<div className="col-span-1">
 					<CardDisplay header="LT CTF">
 						{ltCtfGamesQuery.isLoading ? (
-							<Loading animate />
+							<Loading animate full />
 						) : (
 							ltCtfGamesQuery.data.map((game: any, index: number) => GameRow(game, index))
 						)}
@@ -72,7 +72,7 @@ const Home = () => {
 				<div className="col-span-1">
 					<CardDisplay header="DM">
 						{dmGamesQuery.isLoading ? (
-							<Loading animate />
+							<Loading animate full />
 						) : (
 							dmGamesQuery.data.map((game: any, index: number) => GameRow(game, index))
 						)}

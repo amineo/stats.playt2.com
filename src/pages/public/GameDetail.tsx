@@ -35,7 +35,7 @@ const GameDetail = () => {
 						<h1>{gameQuery.data.map}</h1>
 
 						<h5>
-							Game ID: {gameId} - {gameQuery.data.gametype} -
+							Game ID: {gameId} - {gameQuery.data.gametype}
 						</h5>
 					</Header>
 
