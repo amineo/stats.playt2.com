@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // @ts-ignore
-import { Header, Footer, Button } from 'arwes';
+import { Header, Footer, Button, Content } from 'arwes';
 
 const AppShell: React.FC = ({ children }) => {
 	return (
@@ -17,24 +17,23 @@ const AppShell: React.FC = ({ children }) => {
 										<img
 											className="h-8 w-8"
 											src="https://d33wubrfki0l68.cloudfront.net/1699fc97aa9b1cb851a6c0039162a9241724e1fb/7289f/images/logo.png"
-											alt="Tribes 2 Stats"
+											alt="Tribes 2 Stats Project"
 										/>
 									</Link>
 								</div>
 								<div className="md:block">
 									<div className="ml-10 flex items-baseline">
-										<Link
-											to="/games"
-											className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
-										>
-											Games
-										</Link>
-										<Link
-											to="/players"
-											className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"
-										>
-											Players
-										</Link>
+										<Content>
+											<Link to="/games" className="ml-4 px-3 py-2 rounded-md text-sm font-medium">
+												Games
+											</Link>
+											<Link
+												to="/players"
+												className="ml-4 px-3 py-2 rounded-md text-sm font-medium"
+											>
+												Players
+											</Link>
+										</Content>
 									</div>
 								</div>
 							</div>

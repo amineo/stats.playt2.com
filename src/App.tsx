@@ -26,6 +26,9 @@ import AppShell from 'Components/AppShell';
 // Public Pages
 import Home from 'pages/public/Home';
 import GameDetail from 'pages/public/GameDetail';
+import Players from 'pages/public/Players';
+import PlayerDetail from 'pages/public/PlayerDetail';
+
 import FourOFour from 'pages/error/404';
 
 const LoadingFallback: React.SFC = () => <div className="p-4">Loading...</div>;
@@ -39,10 +42,18 @@ const AppRoutes: React.FC = () => {
 						<Route exact path="/">
 							<Home />
 						</Route>
+						<Route exact path="/games">
+							<Home />
+						</Route>
 						<Route path="/game/:gameId">
 							<GameDetail />
 						</Route>
-
+						<Route exact path="/players">
+							<Players />
+						</Route>
+						<Route exact path="/player/:playerGuid">
+							<PlayerDetail />
+						</Route>
 						{/** Site 404 */}
 						<Route component={FourOFour} />
 					</Switch>
