@@ -97,6 +97,9 @@ const RowDefault: React.FC = (game: any) => {
 const GameRow: React.FC<IGameRow> = (game: any, index: number) => {
 	const fetchContext = useContext(FetchContext);
 	const apiClient = fetchContext.apiClient;
+
+	// Should rework this, react warning about hook load order (prob not a real issue though)
+
 	return (
 		<div
 			key={index}

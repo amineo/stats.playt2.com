@@ -27,7 +27,7 @@ const GameDetail = () => {
 	});
 
 	return (
-		<Content>
+		<div>
 			{gameQuery.isLoading ? (
 				'Loading stats...'
 			) : (
@@ -47,7 +47,7 @@ const GameDetail = () => {
 					</div>
 				</>
 			)}
-		</Content>
+		</div>
 	);
 };
 
