@@ -31,7 +31,7 @@ import PlayerDetail from 'pages/public/PlayerDetail';
 
 import FourOFour from 'pages/error/404';
 
-const LoadingFallback: React.SFC = () => <div className="p-4">Loading...</div>;
+const LoadingFallback: React.FC = () => <div className="p-4">Loading...</div>;
 
 const AppRoutes: React.FC = () => {
 	return (
