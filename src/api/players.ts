@@ -17,7 +17,7 @@ export const PlayersApi = {
 	async getAllPlayers(): Promise<any> {
 		try {
 			// @ts-ignore
-			const response: AxiosResponse<any> = await this.get<IGame, AxiosResponse<any>>('/players');
+			const response: AxiosResponse<any> = await this.get<IGame, AxiosResponse<any>>('/players?limit=300');
 
 			return this.success(response);
 		} catch (error) {
