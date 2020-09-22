@@ -36,8 +36,8 @@ const returnWeaponTotals = (statTotals: any) => {
 };
 
 const GameStatCard = (game: any) => {
-	return (
-		<Frame animate level={1} corners={3} layer={'header'} className="mb-6">
+	return game.stats ? (
+		<Frame key={game.stats.gameID} animate level={1} corners={3} layer={'header'} className="mb-6">
 			<div className="py-4 px-4">
 				<div className="table w-full mb-4">
 					<div className="table-cell align-top">
@@ -84,6 +84,8 @@ const GameStatCard = (game: any) => {
 				/>
 			</div>
 		</Frame>
+	) : (
+		<div />
 	);
 };
 
@@ -142,10 +144,9 @@ const PlayerDetail = () => {
 						</Header>
 					</div>
 					<div>
-						<Frame border={false}>
-							<h5>Aggregate Totals</h5>
-
-							<div className="px-4">
+						<Frame border={false} corners={2}>
+							<div className="px-4 py-4">
+								<h5>Aggregate Totals</h5>
 								<Table
 									animate
 									headers={[
