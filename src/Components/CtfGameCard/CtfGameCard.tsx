@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 // @ts-ignore
-import { Content, Words, Header, Button } from 'arwes';
+import { Content, Frame, Table, Words, Header, Line, Button } from 'arwes';
 import CardDisplay from 'Components/CardDisplay';
 
 const PlayerRow: React.FC = (player: any) => {
@@ -19,6 +19,14 @@ const PlayerRow: React.FC = (player: any) => {
 };
 
 const CtfGameCard: React.FC = (gameStats: any) => {
+	const fullPlayerListByScore = [
+		...gameStats.teams.storm.players,
+		...gameStats.teams.inferno.players,
+		...gameStats.teams.obs.players
+	];
+	// sort by high score
+	fullPlayerListByScore.sort((a, b) => b.stats.scoreTG - a.stats.scoreTG);
+
 	return (
 		<div>
 			<Header className="py-4 mb-8">
@@ -100,6 +108,54 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 						</Content>
 					</CardDisplay>
 				</div>
+			</div>
+			<div className="my-6">
+				<Frame border={false} corners={2}>
+					<Content>
+						<div className="px-6 py-4">
+							<h4>Leaderboard</h4>
+							<Line />
+							<Table
+								animate
+								headers={[
+									'Player',
+									'Score',
+									'Team',
+									'Kills',
+									'Assists',
+									'MAs',
+									'Kill Streak',
+									'Flag Caps',
+									'Grabs',
+									'Defends',
+									'Returns',
+									'Carrier Kills'
+								]}
+								dataset={fullPlayerListByScore.map(
+									(player) =>
+										player.stats.scoreTG > 0
+											? [
+													player.playerName,
+													player.stats.scoreTG,
+													player.stats.dtTeamGame === 1
+														? 'Storm'
+														: player.stats.dtTeamGame === 2 ? 'Inferno' : 'Obs',
+													player.stats.killsTG,
+													player.stats.assistTG,
+													player.stats.totalMATG,
+													player.stats.killStreakTG,
+													player.stats.flagCapsTG,
+													player.stats.flagGrabsTG,
+													player.stats.flagDefendsTG,
+													player.stats.flagReturnsTG,
+													player.stats.carrierKillsTG
+												]
+											: ''
+								)}
+							/>
+						</div>
+					</Content>
+				</Frame>
 			</div>
 		</div>
 	);
