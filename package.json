@@ -13,6 +13,7 @@
 		"@types/react-dom": "^16.9.8",
 		"@types/react-router-dom": "^5.1.5",
 		"@types/react-transition-group": "^4.4.0",
+		"@types/recharts": "^1.8.15",
 		"arwes": "1.0.0-alpha.5",
 		"autoprefixer": "^9.8.0",
 		"axios": "^0.20.0",
@@ -26,6 +27,7 @@
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "3.4.3",
 		"react-transition-group": "^4.4.1",
+		"recharts": "^1.8.5",
 		"tailwindcss": "^1.7.4",
 		"typescript": "^4.0.2"
 	},
