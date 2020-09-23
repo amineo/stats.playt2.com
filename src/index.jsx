@@ -67,7 +67,7 @@ ReactDOM.render(
 	<Router>
 		<ThemeProvider theme={createTheme(createAppTheme())}>
 			<SoundsProvider sounds={createSounds(sounds)}>
-				<App resources={resources} />
+				<App {...resources} />
 			</SoundsProvider>
 		</ThemeProvider>
 	</Router>,

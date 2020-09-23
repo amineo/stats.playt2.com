@@ -1,24 +1,11 @@
-// @ts-nocheck
 import React, { Suspense, useState } from 'react';
 import { ReactQueryDevtools } from 'react-query-devtools';
 import './assets/app.gen.css';
 import { Route, Switch } from 'react-router-dom';
 import { FetchProvider } from 'Context/FetchContext';
 
-import {
-	withStyles,
-	Arwes,
-	Content,
-	Words,
-	Image,
-	Button,
-	Loading,
-	createLoader,
-	createResponsive,
-	utils,
-	Header,
-	Frame
-} from 'arwes';
+// @ts-ignore
+import { Arwes, Loading, createLoader } from 'arwes';
 
 // Components
 import AppShell from 'Components/AppShell';
@@ -63,13 +50,13 @@ const AppRoutes: React.FC = () => {
 	);
 };
 
-const App: React.FC = (props) => {
+const App: React.FC = (resources: any) => {
 	const [ show, setShow ] = useState(false);
 	const [ loaded, setLoaded ] = useState(false);
 
 	const loader = createLoader();
 
-	loader.load(props.resources).then(
+	loader.load(resources).then(
 		() => {
 			console.log('Resources were loaded.');
 			setTimeout(() => {
@@ -97,27 +84,11 @@ const App: React.FC = (props) => {
 				animate
 				show={show}
 				showResources={show}
-				background={props.resources.background}
-				pattern={props.resources.pattern}
+				background={resources.background}
+				pattern={resources.pattern}
 			>
-				{(anim) => (
+				{(anim: any) => (
 					<AppShell>
-						{/* <Button animate show={anim.entered}>
-							Travel to Space
-						</Button>
-						<Frame animate show={anim.entered} level={1} corners={3}>
-							<p>An SciFi Project</p>
-						</Frame>
-						<Frame animate show={anim.entered} level={3} corners={6} layer="header">
-							<p>An SciFi Project</p>
-						</Frame> 				<Content>
-							<h1>Arwes</h1>
-							<p>
-								Futuristic Sci-Fi and <a href="/cyberpunk">Cyberpunk</a>
-								Graphical User Interface Framework for Web Apps
-							</p>
-						
-						</Content>*/}
 						<AppRoutes />
 					</AppShell>
 				)}

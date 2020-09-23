@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, queryCache } from 'react-query';
+
 import { FetchContext } from 'Context/FetchContext';
 import CardDisplay from 'Components/CardDisplay';
 import GameRow from 'Components/GameRow';
@@ -42,7 +43,23 @@ const Home = () => {
 						{ctfGamesQuery.isLoading ? (
 							<Loading animate full />
 						) : (
-							ctfGamesQuery.data.map((game: any, index: number) => GameRow(game, index))
+							ctfGamesQuery.data.map((game: any, index: number) => (
+								<div
+									key={game.gameId}
+									onMouseEnter={() => {
+										queryCache.prefetchQuery(
+											[ 'game', game.gameId ],
+											() => apiClient.getGameStatsById(game.gameId),
+											{
+												refetchOnWindowFocus: false,
+												staleTime: Infinity
+											}
+										);
+									}}
+								>
+									<GameRow {...game} />
+								</div>
+							))
 						)}
 					</CardDisplay>
 				</div>
@@ -51,7 +68,23 @@ const Home = () => {
 						{lakGamesQuery.isLoading ? (
 							<Loading animate full />
 						) : (
-							lakGamesQuery.data.map((game: any, index: number) => GameRow(game, index))
+							lakGamesQuery.data.map((game: any, index: number) => (
+								<div
+									key={game.gameId}
+									onMouseEnter={() => {
+										queryCache.prefetchQuery(
+											[ 'game', game.gameId ],
+											() => apiClient.getGameStatsById(game.gameId),
+											{
+												refetchOnWindowFocus: false,
+												staleTime: Infinity
+											}
+										);
+									}}
+								>
+									<GameRow {...game} />
+								</div>
+							))
 						)}
 					</CardDisplay>
 				</div>
@@ -63,7 +96,23 @@ const Home = () => {
 						{ltCtfGamesQuery.isLoading ? (
 							<Loading animate full />
 						) : (
-							ltCtfGamesQuery.data.map((game: any, index: number) => GameRow(game, index))
+							ltCtfGamesQuery.data.map((game: any, index: number) => (
+								<div
+									key={game.gameId}
+									onMouseEnter={() => {
+										queryCache.prefetchQuery(
+											[ 'game', game.gameId ],
+											() => apiClient.getGameStatsById(game.gameId),
+											{
+												refetchOnWindowFocus: false,
+												staleTime: Infinity
+											}
+										);
+									}}
+								>
+									<GameRow {...game} />
+								</div>
+							))
 						)}
 					</CardDisplay>
 				</div>
@@ -72,7 +121,23 @@ const Home = () => {
 						{dmGamesQuery.isLoading ? (
 							<Loading animate full />
 						) : (
-							dmGamesQuery.data.map((game: any, index: number) => GameRow(game, index))
+							dmGamesQuery.data.map((game: any, index: number) => (
+								<div
+									key={game.gameId}
+									onMouseEnter={() => {
+										queryCache.prefetchQuery(
+											[ 'game', game.gameId ],
+											() => apiClient.getGameStatsById(game.gameId),
+											{
+												refetchOnWindowFocus: false,
+												staleTime: Infinity
+											}
+										);
+									}}
+								>
+									<GameRow {...game} />
+								</div>
+							))
 						)}
 					</CardDisplay>
 				</div>

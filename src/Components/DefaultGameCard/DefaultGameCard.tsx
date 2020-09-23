@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 // @ts-ignore
-import { Content, Frame, Table, Words, Header, Line, Button } from 'arwes';
-import CardDisplay from 'Components/CardDisplay';
+import { Content, Frame, Table, Header, Line } from 'arwes';
 
 const DefaultGameCard: React.FC = (gameStats: any) => {
 	const fullPlayerListByScore = [ ...gameStats.players ];

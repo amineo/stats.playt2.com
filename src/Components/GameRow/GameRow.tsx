@@ -1,7 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { queryCache } from 'react-query';
-import { FetchContext } from 'Context/FetchContext';
 
 interface IGameRow {
 	game: any;
@@ -67,21 +65,8 @@ const RowDefault: React.FC = (game: any) => {
 };
 
 const GameRow: React.FC<IGameRow> = (game: any, index: number) => {
-	const fetchContext = useContext(FetchContext);
-	const apiClient = fetchContext.apiClient;
-
-	// Should rework this, react warning about hook load order (prob not a real issue though)
-
 	return (
-		<div
-			key={index}
-			onMouseEnter={() => {
-				queryCache.prefetchQuery([ 'game', game.gameId ], () => apiClient.getGameStatsById(game.gameId), {
-					refetchOnWindowFocus: false,
-					staleTime: Infinity
-				});
-			}}
-		>
+		<div key={`r_${game.gameId}`}>
 			{game.gametype === 'CTFGame' || game.gametype === 'SCtFGame' ? (
 				<RowCTF {...game} />
 			) : (
