@@ -79,13 +79,6 @@ const Home = () => {
 					</CardDisplay>
 				</div>
 			</div>
-			<div className="py-16 lg:py-24">
-				<div className="relative max-w-xl mx-auto px-4 sm:px-6 lg:px-8 lg:max-w-screen-xl">
-					<div className="relative">
-						<ApiTester />
-					</div>
-				</div>
-			</div>
 		</Content>
 	);
 };

@@ -7,8 +7,10 @@ import CardDisplay from 'Components/CardDisplay';
 const PlayerRow: React.FC = (player: any) => {
 	return (
 		<tr>
-			<td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium">
-				<Link to={`/player/${player.playerGuid}`}>{player.playerName}</Link>
+			<td className="px-6 py-4 whitespace-no-wrap  leading-5 font-medium">
+				<small>
+					<Link to={`/player/${player.playerGuid}`}>{player.playerName}</Link>
+				</small>
 			</td>
 			<td className="px-6 py-4 whitespace-no-wrap text-sm leading-5">{player.stats.scoreTG}</td>
 			<td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
@@ -135,7 +137,7 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 									(player) =>
 										player.stats.scoreTG > 0
 											? [
-													player.playerName,
+													<Link to={`/player/${player.playerGuid}`}>{player.playerName}</Link>,
 													player.stats.scoreTG,
 													player.stats.dtTeamGame === 1
 														? 'Storm'
@@ -150,7 +152,7 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 													player.stats.flagReturnsTG,
 													player.stats.carrierKillsTG
 												]
-											: ''
+											: []
 								)}
 							/>
 						</div>

@@ -220,7 +220,9 @@ const PlayerDetail = () => {
 					<div className="mt-10">
 						<h5>Game History (Past {cappedGameDetailList.length} Games)</h5>
 
-						{cappedGameDetailList.map((game: any) => <GameStatCard {...game} />)}
+						{cappedGameDetailList.map((game: any, index: number) => (
+							<GameStatCard key={`p_${playerGuid}g_${index}`} {...game} />
+						))}
 					</div>
 				</div>
 			)}
