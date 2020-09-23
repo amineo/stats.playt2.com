@@ -43,6 +43,7 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 					</div>
 				</Content>
 			</Header>
+			<div className="text-center text-sm text-teal-400">{gameStats.gametype}</div>
 			<div className=" max-w-md mx-auto sm:flex sm:justify-center ">
 				<div className="px-6 text-center w-1/3">
 					<Content>
@@ -53,8 +54,13 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 				<div className="px-6 text-center w-1/3">
 					<Content>
 						<Words>
-							{gameStats.teams.storm.players.length} vs {gameStats.teams.inferno.players.length}
+							{gameStats.teams.storm.players.length}
+							<span className="text-xs px-4">vs</span>
+							{gameStats.teams.inferno.players.length}
 						</Words>
+						<div>
+							<small className="text-xs text-teal-400">{gameStats.datestamp.split(/[T]/)[0]}</small>
+						</div>
 					</Content>
 				</div>
 				<div className="px-6 text-center w-1/3">

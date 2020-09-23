@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // @ts-ignore
-import { Header, Footer, Button, Content } from 'arwes';
+import { Header, Footer, Button, Content, Frame } from 'arwes';
 
 const AppShell: React.FC = ({ children }) => {
 	return (
@@ -39,6 +39,15 @@ const AppShell: React.FC = ({ children }) => {
 							</div>
 							<div className="md:block">
 								<div className="ml-4 flex items-center md:ml-6">
+									<div className="mr-10">
+										<Frame border={false} corners={1} layer={'secondary'}>
+											<Content>
+												<small className="text-sm block px-4 text-orange-200">
+													Hey! Things aren't quite finished yet. Stay tuned!
+												</small>
+											</Content>
+										</Frame>
+									</div>
 									<span className="inline-flex rounded-md shadow-sm">
 										<a
 											href="https://www.playt2.com/discord"
@@ -63,6 +72,8 @@ const AppShell: React.FC = ({ children }) => {
 			<Footer animate>
 				<div className="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
 					<div className="flex justify-center md:order-2">
+						<span className="text-xs">Wanna help out?</span>
+
 						<a href="https://github.com/amineo/stats.playt2.com" className="ml-6">
 							<span className="sr-only">GitHub</span>
 							<svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">

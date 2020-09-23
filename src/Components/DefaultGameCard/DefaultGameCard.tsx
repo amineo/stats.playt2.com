@@ -26,6 +26,9 @@ const DefaultGameCard: React.FC = (gameStats: any) => {
 			<div className=" max-w-md mx-auto sm:flex sm:justify-center ">
 				<div className="px-6 text-center">
 					<Content>
+						<div className="pb-2">
+							<small className="text-xs">{gameStats.datestamp.split(/[T]/)[0]}</small>
+						</div>
 						<h4 className="text-4xl text-right">{gameStats.gametype}</h4>
 					</Content>
 				</div>

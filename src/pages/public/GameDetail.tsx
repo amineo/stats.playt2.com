@@ -6,7 +6,6 @@ import { FetchContext } from 'Context/FetchContext';
 import CtfGameCard from 'Components/CtfGameCard';
 import DefaultGameCard from 'Components/DefaultGameCard';
 
-import ApiTester from 'Components/ApiTester';
 
 interface IGameDetailParams {
 	gameId: string;

@@ -4,8 +4,6 @@ import { FetchContext } from 'Context/FetchContext';
 import CardDisplay from 'Components/CardDisplay';
 import GameRow from 'Components/GameRow';
 
-import ApiTester from 'Components/ApiTester';
-
 // @ts-ignore
 import { Header, Content, Loading } from 'arwes';
 
