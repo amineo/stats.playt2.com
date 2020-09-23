@@ -9,20 +9,21 @@ import { Header, Content, Loading, Frame } from 'arwes';
 const PlayerRow: React.FC = (player: any) => {
 	return (
 		<tr>
-			<td>
+			<td className="py-1">
 				<Link to={`/player/${player.playerGuid}`} className="block transition duration-150 ease-in-out">
 					{player.playerName}
 				</Link>
 			</td>
-			<td className="text-xs">{player.totalGamesCtfgame}</td>
-			<td className="text-xs">{player.totalGamesLakrabbitgame}</td>
-			<td className="text-xs">{player.totalGamesSctfgame}</td>
-			<td className="text-xs">{player.totalGamesDmgame}</td>
-			<td className="text-xs text-white">
+			<td className="text-center text-xs border-l border-teal-500 border-dotted">{player.totalGamesCtfgame}</td>
+			<td className="text-center text-xs">{player.totalGamesLakrabbitgame}</td>
+			<td className="text-center text-xs">{player.totalGamesSctfgame}</td>
+			<td className="text-center text-xs">{player.totalGamesDmgame}</td>
+			<td className="text-center text-xs text-white">
 				{Number(player.totalGamesCtfgame) +
 					Number(player.totalGamesLakrabbitgame) +
 					(Number(player.totalGamesSctfgame) + Number(player.totalGamesDmgame))}
 			</td>
+			<td className="text-center text-xs">{player.updatedAt.split(/[T]/)[0]}</td>
 		</tr>
 	);
 };
@@ -38,13 +39,13 @@ const Players = () => {
 
 	return (
 		<Content>
-			<Header className="py-4 mb-4">
-				<h5>Players</h5>
+			<Header className="py-4 mb-4 text-center">
+				<h5>Recent Players</h5>
 			</Header>
 
 			<div className="relative max-w-3xl mx-auto px-4">
-				<Frame>
-					<div className="px-4 py-4">
+				<Frame border={false} corners={2} layer={'header'}>
+					<div className="px-12 py-4">
 						{playersQuery.isLoading ? (
 							<Loading animate full />
 						) : (
@@ -52,19 +53,24 @@ const Players = () => {
 								<thead>
 									<tr>
 										<th className="px-6 pt-3 text-left text-xs leading-4 font-bold  uppercase tracking-wider" />
-										<th className="px-1 py-3  text-left text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
+										<th className="px-3 py-3  text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-l border-teal-500 border-dotted">
 											CTF
 										</th>
-										<th className="px-1 py-3  text-left text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
+										<th className="px-1 py-3  text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
 											LAK
 										</th>
-										<th className="px-1 py-3  text-left text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
+										<th className="px-1 py-3  text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
 											LT CTF
 										</th>
-										<th className="px-1 py-3  text-left text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
+										<th className="px-1 py-3  text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
 											DM
 										</th>
-										<th className="px-1 py-3 text-left text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted" />
+										<th className="px-1 py-3 text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
+											Total Games
+										</th>
+										<th className="px-1 py-3 text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
+											Last Played
+										</th>
 									</tr>
 								</thead>
 								{playersQuery.data.map((player: any, index: number) => PlayerRow(player, index))}

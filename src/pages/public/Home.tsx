@@ -12,29 +12,33 @@ const Home = () => {
 	const fetchContext = useContext(FetchContext);
 	const apiClient = fetchContext.apiClient;
 
-	const ctfGamesQuery = useQuery([ 'latest', 'CTFGame' ], () => apiClient.getGamesByGametype('CTFGame'), {
+	const ctfGamesQuery = useQuery([ 'latest', 'CTFGame' ], () => apiClient.getGamesByGametype('CTFGame', 15), {
 		refetchOnWindowFocus: false,
 		staleTime: 300000
 	});
 
-	const lakGamesQuery = useQuery([ 'latest', 'LakRabbitGame' ], () => apiClient.getGamesByGametype('LakRabbitGame'), {
+	const lakGamesQuery = useQuery(
+		[ 'latest', 'LakRabbitGame' ],
+		() => apiClient.getGamesByGametype('LakRabbitGame', 27),
+		{
+			refetchOnWindowFocus: false,
+			staleTime: 300000
+		}
+	);
+
+	const ltCtfGamesQuery = useQuery([ 'latest', 'SCtFGame' ], () => apiClient.getGamesByGametype('SCtFGame', 11), {
 		refetchOnWindowFocus: false,
 		staleTime: 300000
 	});
 
-	const ltCtfGamesQuery = useQuery([ 'latest', 'SCtFGame' ], () => apiClient.getGamesByGametype('SCtFGame'), {
-		refetchOnWindowFocus: false,
-		staleTime: 300000
-	});
-
-	const dmGamesQuery = useQuery([ 'latest', 'DMGame' ], () => apiClient.getGamesByGametype('DMGame'), {
+	const dmGamesQuery = useQuery([ 'latest', 'DMGame' ], () => apiClient.getGamesByGametype('DMGame', 15), {
 		refetchOnWindowFocus: false,
 		staleTime: 300000
 	});
 
 	return (
 		<Content>
-			<Header className="py-4 mb-4">
+			<Header className="py-4 mb-4 text-center">
 				<h5>Latest Games</h5>
 			</Header>
 			<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 my-5">

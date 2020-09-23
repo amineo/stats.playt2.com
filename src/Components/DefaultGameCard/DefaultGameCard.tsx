@@ -34,7 +34,7 @@ const DefaultGameCard: React.FC = (gameStats: any) => {
 			</div>
 
 			<div className="my-6">
-				<Frame border={false} corners={2}>
+				<Frame border={false} corners={2} layer={'header'}>
 					<Content>
 						<div className="px-6 py-4">
 							<h4>Leaderboard</h4>

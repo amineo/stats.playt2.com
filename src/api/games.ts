@@ -44,11 +44,12 @@ export const GamesApi = {
 		}
 	},
 
-	async getGamesByGametype(gametype: string): Promise<any> {
+	async getGamesByGametype(gametype: string, limit?: number): Promise<any> {
+		const displayLimit = limit ? `?limit=${limit}` : '';
 		try {
 			// @ts-ignore
 			const response: AxiosResponse<any> = await this.get<IGame, AxiosResponse<any>>(
-				'/games/gametype/' + gametype
+				`/games/gametype/${gametype}${displayLimit}`
 			);
 
 			return this.success(response);
@@ -63,7 +64,7 @@ export const GamesApi = {
 	async getGameStatsById(gameId: string): Promise<any> {
 		try {
 			// @ts-ignore
-			const response: AxiosResponse<any> = await this.get<IGame, AxiosResponse<any>>('/game/' + gameId);
+			const response: AxiosResponse<any> = await this.get<IGame, AxiosResponse<any>>(`/game/${gameId}`);
 
 			return this.success(response);
 		} catch (error) {
