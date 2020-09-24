@@ -1,26 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Transition } from '@tailwindui/react';
 // @ts-ignore
 import { Content, Frame, Table, Words, Header, Line, Button } from 'arwes';
 import CardDisplay from 'Components/CardDisplay';
-
-const PlayerRow: React.FC = (player: any) => {
-	return (
-		<tr>
-			<td className="px-6 py-4 whitespace-no-wrap  leading-5 font-medium">
-				<small>
-					<Link to={`/player/${player.playerGuid}`}>{player.playerName}</Link>
-				</small>
-			</td>
-			<td className="px-6 py-4 whitespace-no-wrap text-sm leading-5">{player.stats.scoreTG}</td>
-			<td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-				<Button>More</Button>
-			</td>
-		</tr>
-	);
-};
+import PlayerStatModal from 'Components/PlayerStatModal';
 
 const CtfGameCard: React.FC = (gameStats: any) => {
+	const [ isOpen, setIsOpen ] = useState(false);
+	const [ modalPlayerData, setModalPlayerData ] = useState();
+
 	const fullPlayerListByScore = [
 		...gameStats.teams.storm.players,
 		...gameStats.teams.inferno.players,
@@ -28,6 +17,11 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 	];
 	// sort by high score
 	fullPlayerListByScore.sort((a, b) => b.stats.scoreTG - a.stats.scoreTG);
+
+	function fireModal(toggle: boolean, player: any) {
+		setIsOpen(toggle);
+		setModalPlayerData(player);
+	}
 
 	return (
 		<div>
@@ -87,9 +81,21 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 									</tr>
 								</thead>
 
-								{gameStats.teams.storm.players.map((player: any, index: number) =>
-									PlayerRow(player, index)
-								)}
+								{gameStats.teams.storm.players.map((player: any) => (
+									<tr>
+										<td className="px-6 py-4 whitespace-no-wrap  leading-5 font-medium">
+											<small>
+												<Link to={`/player/${player.playerGuid}`}>{player.playerName}</Link>
+											</small>
+										</td>
+										<td className="px-6 py-4 whitespace-no-wrap text-sm leading-5">
+											{player.stats.scoreTG}
+										</td>
+										<td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+											<Button onClick={() => fireModal(!isOpen, player)}>More</Button>
+										</td>
+									</tr>
+								))}
 							</table>
 						</Content>{' '}
 					</CardDisplay>
@@ -109,9 +115,21 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 										<th className="px-6 pt-2" />
 									</tr>
 								</thead>
-								{gameStats.teams.inferno.players.map((player: any, index: number) =>
-									PlayerRow(player, index)
-								)}
+								{gameStats.teams.inferno.players.map((player: any, index: number) => (
+									<tr>
+										<td className="px-6 py-4 whitespace-no-wrap  leading-5 font-medium">
+											<small>
+												<Link to={`/player/${player.playerGuid}`}>{player.playerName}</Link>
+											</small>
+										</td>
+										<td className="px-6 py-4 whitespace-no-wrap text-sm leading-5">
+											{player.stats.scoreTG}
+										</td>
+										<td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+											<Button onClick={() => fireModal(!isOpen, player)}>More</Button>
+										</td>
+									</tr>
+								))}
 							</table>
 						</Content>
 					</CardDisplay>
@@ -165,6 +183,69 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 					</Content>
 				</Frame>
 			</div>
+
+			<Transition
+				show={isOpen}
+				enter="transition-opacity duration-75"
+				enterFrom="opacity-0"
+				enterTo="opacity-100"
+				leave="transition-opacity duration-150"
+				leaveFrom="opacity-100"
+				leaveTo="opacity-0"
+				className="z-50"
+			>
+				<div className="fixed z-10 inset-0 overflow-y-auto">
+					<div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+						<div className="fixed inset-0 transition-opacity ">
+							<div className="absolute inset-0 bg-gray-900 opacity-75" />
+						</div>
+
+						<div
+							className="inline-block align-bottom  p-5 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-5xl sm:w-full"
+							role="dialog"
+							aria-modal="true"
+							aria-labelledby="modal-headline"
+						>
+							<Frame border={false} corners={2}>
+								<div className="pt-5 pb-4 px-4 relative">
+									<div className="absolute right-1 top-1">
+										<Button
+											animate
+											type="button"
+											layer={'secondary'}
+											onClick={() => fireModal(false, {})}
+											className="text-xs"
+										>
+											<svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+												<path
+													fillRule="evenodd"
+													d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+													clipRule="evenodd"
+												/>
+											</svg>
+										</Button>
+									</div>
+									<PlayerStatModal {...modalPlayerData} />
+
+									<div className="mt-5 sm:mt-6">
+										<span className="flex w-full rounded-md shadow-sm">
+											<Button
+												animate
+												type="button"
+												layer={'secondary'}
+												onClick={() => fireModal(false, {})}
+												className="inline-flex justify-center w-full text-center"
+											>
+												Close
+											</Button>
+										</span>
+									</div>
+								</div>
+							</Frame>
+						</div>
+					</div>
+				</div>
+			</Transition>
 		</div>
 	);
 };
