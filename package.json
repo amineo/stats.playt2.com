@@ -1,6 +1,6 @@
 {
 	"name": "stats.playt2.com",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
 		"@tailwindcss/ui": "^0.5.0",
