@@ -293,17 +293,7 @@ const PlayerStatModal = (player: any) => {
 			</div>
 			<Table
 				animate
-				headers={[
-					'Weapon',
-					'Kills',
-					'Deaths',
-					'MAs',
-					'Combos',
-					'Max Dist (m)',
-					'Speed (km/h)',
-					'Damage',
-					'Wep. Score'
-				]}
+				headers={[ 'Weapon', 'Kills', 'Deaths', 'MAs', 'Combos', 'Max Dist (m)', 'Speed (km/h)', 'Damage' ]}
 				dataset={[
 					[
 						'Blaster',
@@ -313,8 +303,7 @@ const PlayerStatModal = (player: any) => {
 						player.stats.blasterComTG,
 						parseFloat(player.stats.blasterHitDistMax.toFixed(2)),
 						parseFloat(player.stats.blasterHitSVMax.toFixed(2)),
-						parseFloat(player.stats.blasterDmgTG.toFixed(2)),
-						parseFloat(player.stats.blasterScoreTG.toFixed(2))
+						parseFloat(player.stats.blasterDmgTG.toFixed(2))
 					],
 					[
 						'Plasma Rifle',
@@ -324,8 +313,7 @@ const PlayerStatModal = (player: any) => {
 						player.stats.plasmaComTG,
 						parseFloat(player.stats.plasmaHitDistMax.toFixed(2)),
 						parseFloat(player.stats.plasmaHitSVMax.toFixed(2)),
-						parseFloat(player.stats.plasmaDmgTG.toFixed(2)),
-						parseFloat(player.stats.plasmaScoreTG.toFixed(2))
+						parseFloat(player.stats.plasmaDmgTG.toFixed(2))
 					],
 					[
 						'Chaingun',
@@ -335,8 +323,7 @@ const PlayerStatModal = (player: any) => {
 						player.stats.cgComTG,
 						parseFloat(player.stats.cgHitDistMax.toFixed(2)),
 						parseFloat(player.stats.cgHitSVMax.toFixed(2)),
-						parseFloat(player.stats.cgDmgTG.toFixed(2)),
-						parseFloat(player.stats.cgScoreTG.toFixed(2))
+						parseFloat(player.stats.cgDmgTG.toFixed(2))
 					],
 					[
 						'Spinfusor',
@@ -346,8 +333,7 @@ const PlayerStatModal = (player: any) => {
 						player.stats.discComTG,
 						parseFloat(player.stats.discHitDistMax.toFixed(2)),
 						parseFloat(player.stats.discHitSVMax.toFixed(2)),
-						parseFloat(player.stats.discDmgTG.toFixed(2)),
-						parseFloat(player.stats.discScoreTG.toFixed(2))
+						parseFloat(player.stats.discDmgTG.toFixed(2))
 					],
 					[
 						'Grenade Launcher',
@@ -357,8 +343,7 @@ const PlayerStatModal = (player: any) => {
 						player.stats.grenadeComTG,
 						parseFloat(player.stats.grenadeHitDistMax.toFixed(2)),
 						parseFloat(player.stats.grenadeHitSVMax.toFixed(2)),
-						parseFloat(player.stats.grenadeDmgTG.toFixed(2)),
-						parseFloat(player.stats.grenadeScoreTG.toFixed(2))
+						parseFloat(player.stats.grenadeDmgTG.toFixed(2))
 					],
 					[
 						'Laser Rifle',
@@ -368,8 +353,7 @@ const PlayerStatModal = (player: any) => {
 						player.stats.laserComTG,
 						parseFloat(player.stats.laserHitDistMax.toFixed(2)),
 						parseFloat(player.stats.laserHitSVMax.toFixed(2)),
-						parseFloat(player.stats.laserDmgTG.toFixed(2)),
-						parseFloat(player.stats.laserScoreTG.toFixed(2))
+						parseFloat(player.stats.laserDmgTG.toFixed(2))
 					],
 					[
 						'Fusion Mortar',
@@ -379,8 +363,7 @@ const PlayerStatModal = (player: any) => {
 						player.stats.mortarComTG,
 						parseFloat(player.stats.mortarHitDistMax.toFixed(2)),
 						parseFloat(player.stats.mortarHitSVMax.toFixed(2)),
-						parseFloat(player.stats.mortarDmgTG.toFixed(2)),
-						parseFloat(player.stats.mortarScoreTG.toFixed(2))
+						parseFloat(player.stats.mortarDmgTG.toFixed(2))
 					],
 					[
 						'Missile Launcher',
@@ -390,8 +373,7 @@ const PlayerStatModal = (player: any) => {
 						player.stats.missileComTG,
 						parseFloat(player.stats.missileHitDistMax.toFixed(2)),
 						parseFloat(player.stats.missileHitSVMax.toFixed(2)),
-						parseFloat(player.stats.missileDmgTG.toFixed(2)),
-						parseFloat(player.stats.missileScoreTG.toFixed(2))
+						parseFloat(player.stats.missileDmgTG.toFixed(2))
 					],
 					[
 						'Shocklance',
@@ -401,8 +383,7 @@ const PlayerStatModal = (player: any) => {
 						player.stats.shockComTG,
 						parseFloat(player.stats.shockHitDistMax.toFixed(2)),
 						parseFloat(player.stats.shockHitSVMax.toFixed(2)),
-						parseFloat(player.stats.shockDmgTG.toFixed(2)),
-						parseFloat(player.stats.shockScoreTG.toFixed(2))
+						parseFloat(player.stats.shockDmgTG.toFixed(2))
 					],
 					[
 						'Hand Grenade',
@@ -412,8 +393,7 @@ const PlayerStatModal = (player: any) => {
 						player.stats.hGrenadeComTG,
 						parseFloat(player.stats.hGrenadeHitDistMax.toFixed(2)),
 						parseFloat(player.stats.hGrenadeHitSVMax.toFixed(2)),
-						parseFloat(player.stats.hGrenadeDmgTG.toFixed(2)),
-						parseFloat(player.stats.hGrenadeScoreTG.toFixed(2))
+						parseFloat(player.stats.hGrenadeDmgTG.toFixed(2))
 					],
 					[
 						'Mine',
@@ -423,8 +403,7 @@ const PlayerStatModal = (player: any) => {
 						player.stats.mineComTG,
 						parseFloat(player.stats.mineHitDistMax.toFixed(2)),
 						parseFloat(player.stats.mineHitVVMax.toFixed(2)),
-						parseFloat(player.stats.mineDmgTG.toFixed(2)),
-						parseFloat(player.stats.mineScoreTG.toFixed(2))
+						parseFloat(player.stats.mineDmgTG.toFixed(2))
 					]
 				]}
 			/>
