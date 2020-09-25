@@ -169,7 +169,7 @@ const returnWeaponTotals = (statTotals: any) => {
 
 function ModalStatLine(props: any) {
 	return (
-		<div>
+		<div key={`w_${props.name}`}>
 			<h5 className="inline-block">{props.name} : </h5> {' '}
 			<p className="inline-block py-0">
 				<small>{parseFloat(props.statValue.toFixed(2))}</small>
@@ -259,7 +259,7 @@ const PlayerStatModal = (player: any) => {
 			</div>
 
 			<div className="border-b border-teal-500 border-dotted table w-full mb-6 ">
-				<div class="table-cell w-6/12 align-top">
+				<div className="table-cell w-6/12 align-top">
 					<RadarChart
 						cx={300}
 						cy={250}
@@ -284,7 +284,7 @@ const PlayerStatModal = (player: any) => {
 						<Radar name="Damage" dataKey="dmg" stroke="#ffeb3b" fill="#ffeb3b" fillOpacity={0.2} />
 					</RadarChart>
 				</div>
-				<div class="table-cell w-6/12 align-top pt-4">
+				<div className="table-cell w-6/12 align-top pt-4">
 					<TwoLevelPieChart
 						data={{
 							oScore: Number(player.stats.offenseScoreTG),
