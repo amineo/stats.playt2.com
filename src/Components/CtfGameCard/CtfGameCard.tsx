@@ -101,7 +101,7 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 					</CardDisplay>
 				</div>
 				<div className="col-span-1">
-					<CardDisplay header="Interno">
+					<CardDisplay header="Inferno">
 						<Content>
 							<table className="min-w-full">
 								<thead className="border-b border-teal-500 border-dotted">
