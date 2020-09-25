@@ -8,6 +8,7 @@ import {
 	PolarAngleAxis,
 	PolarRadiusAxis,
 	Tooltip,
+	Legend,
 	PieChart,
 	Pie,
 	Sector
@@ -98,23 +99,71 @@ export class TwoLevelPieChart extends PureComponent {
 
 const returnWeaponTotals = (statTotals: any) => {
 	let totals = [
-		{ weapon: 'Chaingun', val: statTotals['cgKillsTG'] },
-		{ weapon: 'Disc', val: statTotals['discKillsTG'] },
-		{ weapon: 'Grenade Launcher', val: statTotals['grenadeKillsTG'] },
-		{ weapon: 'Shocklance', val: statTotals['shockKillsTG'] },
-		{ weapon: 'Laser Rifle', val: statTotals['laserKillsTG'] },
-		{ weapon: 'Blaster', val: statTotals['blasterKillsTG'] },
-		{ weapon: 'Plasma Rifle', val: statTotals['plasmaKillsTG'] },
-		{ weapon: 'Mortar Launcher', val: statTotals['mortarKillsTG'] },
-		{ weapon: 'Missile Launcher', val: statTotals['missileKillsTG'] },
-		{ weapon: 'Hand Grenade', val: statTotals['hGrenadeKillsTG'] },
-		{ weapon: 'Mine', val: statTotals['mineKillsTG'] },
-		{ weapon: 'Satchel', val: statTotals['satchelKillsTG'] }
+		{
+			weapon: 'Chaingun',
+			kills: statTotals['cgKillsTG'],
+			dmg: parseFloat(statTotals['cgDmgTG'].toFixed(2))
+		},
+		{
+			weapon: 'Disc',
+			kills: statTotals['discKillsTG'],
+			dmg: parseFloat(statTotals['discDmgTG'].toFixed(2))
+		},
+		{
+			weapon: 'Grenade Launcher',
+			kills: statTotals['grenadeKillsTG'],
+			dmg: parseFloat(statTotals['grenadeDmgTG'].toFixed(2))
+		},
+		{
+			weapon: 'Shocklance',
+			kills: statTotals['shockKillsTG'],
+			dmg: parseFloat(statTotals['shockDmgTG'].toFixed(2))
+		},
+		{
+			weapon: 'Laser Rifle',
+			kills: statTotals['laserKillsTG'],
+			dmg: parseFloat(statTotals['laserDmgTG'].toFixed(2))
+		},
+		{
+			weapon: 'Blaster',
+			kills: statTotals['blasterKillsTG'],
+			dmg: parseFloat(statTotals['blasterDmgTG'].toFixed(2))
+		},
+		{
+			weapon: 'Plasma Rifle',
+			kills: statTotals['plasmaKillsTG'],
+			dmg: parseFloat(statTotals['plasmaDmgTG'].toFixed(2))
+		},
+		{
+			weapon: 'Mortar Launcher',
+			kills: statTotals['mortarKillsTG'],
+			dmg: parseFloat(statTotals['mortarDmgTG'].toFixed(2))
+		},
+		{
+			weapon: 'Missile Launcher',
+			kills: statTotals['missileKillsTG'],
+			dmg: parseFloat(statTotals['missileDmgTG'].toFixed(2))
+		},
+		{
+			weapon: 'Hand Grenade',
+			kills: statTotals['hGrenadeKillsTG'],
+			dmg: parseFloat(statTotals['hGrenadeDmgTG'].toFixed(2))
+		},
+		{
+			weapon: 'Mine',
+			kills: statTotals['mineKillsTG'],
+			dmg: parseFloat(statTotals['mineDmgTG'].toFixed(2))
+		},
+		{
+			weapon: 'Satchel',
+			kills: statTotals['satchelKillsTG'],
+			dmg: parseFloat(statTotals['satchelDmgTG'].toFixed(2))
+		}
 	];
 
 	// dont return if the val is 0
 	return totals.filter(function(el) {
-		return el.val > 0;
+		return el.dmg > 0;
 	});
 };
 
@@ -127,6 +176,33 @@ function ModalStatLine(props: any) {
 	);
 }
 
+const weaponLegend = (props) => {
+	const { payload } = props;
+	return (
+		<div className="text-center w-full relative">
+			{payload.map((entry, index) => (
+				<span className="inline-block px-4" key={`item-${index}`}>
+					<svg
+						width="14"
+						height="14"
+						style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '4px' }}
+						viewBox="0 0 32 32"
+						version="1.1"
+					>
+						<path
+							fill={entry.color}
+							className="recharts-symbols"
+							transform="translate(16, 16)"
+							d="M16,0A16,16,0,1,1,-16,0A16,16,0,1,1,16,0"
+						/>
+					</svg>{' '}
+					{entry.value}
+				</span>
+			))}
+		</div>
+	);
+};
+
 const WeaponTooltip = ({ payload, label }: any) => {
 	if (!payload.length) {
 		return <div />;
@@ -134,7 +210,7 @@ const WeaponTooltip = ({ payload, label }: any) => {
 	return (
 		<div className="bg-opacity-50 bg-black px-6 shadow">
 			<h5>
-				{label} - {payload[0].value} kills
+				{label} - Kills: {payload[0].payload.kills}; Damage: {payload[0].payload.dmg}
 			</h5>
 		</div>
 	);
@@ -179,6 +255,7 @@ const PlayerStatModal = (player: any) => {
 					<ModalStatLine name="Survival (mins)" statValue={player.stats.timeTLAvg / 60} />
 				</div>
 			</div>
+
 			<div className="border-b border-teal-500 border-dotted table w-full mb-6 ">
 				<div class="table-cell w-6/12 align-top">
 					<RadarChart
@@ -196,11 +273,13 @@ const PlayerStatModal = (player: any) => {
 						}
 						className="text-xs text-white mx-auto"
 					>
+						<Legend verticalAlign="top" iconType="circle" content={weaponLegend} />
 						<PolarGrid stroke="#035659" />
 						<PolarAngleAxis dataKey="weapon" stroke="#A1ECFB" />
 						<PolarRadiusAxis stroke="#DF9527" />
 						<Tooltip content={<WeaponTooltip />} />
-						<Radar name="weaponUsage" dataKey="val" stroke="#3FD7F6" fill="#3FD7F6" fillOpacity={0.4} />
+						<Radar name="Kills" dataKey="kills" stroke="#3FD7F6" fill="#3FD7F6" fillOpacity={0.4} />
+						<Radar name="Damage" dataKey="dmg" stroke="#ffeb3b" fill="#ffeb3b" fillOpacity={0.2} />
 					</RadarChart>
 				</div>
 				<div class="table-cell w-6/12 align-top pt-4">
