@@ -172,7 +172,7 @@ function ModalStatLine(props: any) {
 		<div key={`w_${props.name}`}>
 			<h5 className="inline-block">{props.name} : </h5> {' '}
 			<p className="inline-block py-0">
-				{props.statValue ? <small>{parseFloat(props.statValue.toFixed(2))}</small> : <small>N/A</small>}
+				{props.statValue ? <small>{parseFloat(props.statValue.toFixed(2))}</small> : <small>0</small>}
 			</p>
 		</div>
 	);
