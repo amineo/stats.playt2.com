@@ -37,7 +37,7 @@ const resources = {
 		small: '/arwes/img/background-small.jpg',
 		medium: '/arwes/img/background-medium.jpg',
 		large: '/arwes/img/background-large.jpg',
-		xlarge: '/arwes/img/background-xlarge.png'
+		xlarge: '/arwes/img/background-xlarge.jpg'
 	},
 	pattern: '/arwes/img/glow.png'
 };
