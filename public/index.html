@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" href="%PUBLIC_URL%/T2logo.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Titillium+Web:400,600"/>
@@ -29,9 +29,37 @@
     -->
     <title>Tribes 2 Stats</title>
   </head>
-  <body class="antialiased site-bg-color ">
+  <body class="antialiased site-bg-color" onload="checkIE()">
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+        <!--Check if browser is IE and give warning is necessary-->
+        <script>
+            function checkIE() {
+              var ua = window.navigator.userAgent;
+              var IE = "";
+              //document.getElementById("result").innerHTML = ua;
+
+              var msie = ua.indexOf('MSIE ');
+              if (msie > 0) {
+              // IE 10 or older => return version number
+              IE = parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+              }
+
+              var trident = ua.indexOf('Trident/');
+              if (trident > 0) {
+              // IE 11 => return version number
+              var rv = ua.indexOf('rv:');
+              IE = parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+
+              }
+
+              if(IE !="")
+                var warning = "<div><center><a href=\"https://www.mozilla.org/en-US/firefox/new/\"><img src=\"IEwarning.png\"></a></center></div>";
+                document.getElementById("result").innerHTML = warning;
+            }
+        </script>
+        <p id="result"></p>
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
