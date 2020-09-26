@@ -39,36 +39,36 @@ const Players = () => {
 
 	return (
 		<Content>
-			<Header className="py-4 mb-4 text-center">
+			<Header className="px-1 py-4 mb-4 text-center md:px-4">
 				<h5>Recent Players</h5>
 			</Header>
 
-			<div className="relative max-w-3xl mx-auto px-4">
+			<div className="relative max-w-3xl mx-auto px-2">
 				<Frame border={false} corners={2} layer={'header'}>
-					<div className="px-12 py-4">
+					<div className="px-1 py-4 sm:px-6 md:px-12">
 						{playersQuery.isLoading ? (
 							<Loading animate full />
 						) : (
 							<table className="min-w-full">
 								<thead>
 									<tr>
-										<th className="px-6 pt-3 text-left text-xs leading-4 font-bold  uppercase tracking-wider" />
-										<th className="px-3 py-3  text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-l border-teal-500 border-dotted">
+										<th className="px-0 pt-3 text-left text-xs leading-4 font-bold  uppercase tracking-wider md:px-6" />
+										<th className="px-0 py-3  text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-l border-teal-500 border-dotted md:px-3">
 											CTF
 										</th>
-										<th className="px-1 py-3  text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
+										<th className="px-0 py-3  text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
 											LAK
 										</th>
-										<th className="px-1 py-3  text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
-											LT CTF
+										<th className="px-0 py-3  text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
+											LCTF
 										</th>
-										<th className="px-1 py-3  text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
+										<th className="px-0 py-3  text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
 											DM
 										</th>
-										<th className="px-1 py-3 text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
+										<th className="px-0 py-3 text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
 											Total Games
 										</th>
-										<th className="px-1 py-3 text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
+										<th className="px-0 py-3 text-center text-xs leading-4 font-bold uppercase tracking-wider border-b border-teal-500 border-dotted">
 											Last Played
 										</th>
 									</tr>

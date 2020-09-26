@@ -25,7 +25,7 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 
 	return (
 		<div>
-			<Header className="py-4 mb-8">
+			<Header className="py-1 mb-8 md:px-4">
 				<Content>
 					<div className="table w-full">
 						<div className="table-cell">
@@ -37,15 +37,15 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 					</div>
 				</Content>
 			</Header>
-			<div className="text-center text-sm text-teal-400">{gameStats.gametype}</div>
-			<div className=" max-w-md mx-auto sm:flex sm:justify-center ">
-				<div className="px-6 text-center w-1/3">
+			<div className="justify-center text-center text-sm text-teal-400">{gameStats.gametype}</div>
+			<div className=" max-w flex justify-center ">
+			<div className="px-1 text-center md:px-6 flex w-full justify-center">
 					<Content>
-						<h1 className="text-6xl font-bold text-white text-right ">{gameStats.teams.storm.score}</h1>
-						<h4 className="text-4xl text-right">Storm</h4>
+					<h1 className="text-6xl font-bold text-white">{gameStats.teams.storm.score}</h1>
+						<h4 className="text-4xl">Storm</h4>
 					</Content>
 				</div>
-				<div className="px-6 text-center w-1/3">
+				<div className="px-1 text-center md:px-6 flex w-full justify-center">
 					<Content>
 						<Words>
 							{gameStats.teams.storm.players.length}
@@ -57,9 +57,9 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 						</div>
 					</Content>
 				</div>
-				<div className="px-6 text-center w-1/3">
+				<div className="px-1 text-center md:px-6 flex w-full justify-center">
 					<Content>
-						<h1 className="text-6xl font-bold text-white ">{gameStats.teams.inferno.score}</h1>
+					<h1 className="text-6xl font-bold text-white ">{gameStats.teams.inferno.score}</h1>
 						<h4 className="text-4xl">Inferno</h4>
 					</Content>
 				</div>
@@ -71,27 +71,27 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 							<table className="min-w-full">
 								<thead className="border-b border-teal-500 border-dotted">
 									<tr>
-										<th className="px-6 pt-2 text-left text-xs leading-4 font-bold  uppercase tracking-wider">
+									   <th className="px-1 pt-2 text-left text-xs leading-4 font-bold  uppercase tracking-wider md:px-6">
 											<h6>Player</h6>
 										</th>
-										<th className="px-6 pt-2 text-left text-xs leading-4 font-bold uppercase tracking-wider">
+										<th className="px-1 pt-2 text-left text-xs leading-4 font-bold  uppercase tracking-wider md:px-6">
 											<h6>Score</h6>
 										</th>
-										<th className="px-6 pt-2" />
+										<th className="px-1 pt-2 md:px-6" />
 									</tr>
 								</thead>
 
 								{gameStats.teams.storm.players.map((player: any) => (
 									<tr>
-										<td className="px-6 py-4 whitespace-no-wrap  leading-5 font-medium">
+										<td className="px-1 py-4 whitespace-no-wrap  leading-5 font-medium md:px-6">
 											<small>
 												<Link to={`/player/${player.playerGuid}`}>{player.playerName}</Link>
 											</small>
 										</td>
-										<td className="px-6 py-4 whitespace-no-wrap text-sm leading-5">
+										<td className="px-1 py-4 whitespace-no-wrap text-sm leading-5 md:px-6">
 											{player.stats.scoreTG}
 										</td>
-										<td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+										<td className="px-1 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium md:px-6">
 											<Button onClick={() => fireModal(!isOpen, player)}>More</Button>
 										</td>
 									</tr>
@@ -106,26 +106,26 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 							<table className="min-w-full">
 								<thead className="border-b border-teal-500 border-dotted">
 									<tr>
-										<th className="px-6 pt-2 text-left text-xs leading-4 font-bold  uppercase tracking-wider">
+										<th className="px-1 pt-2 text-left text-xs leading-4 font-bold  uppercase tracking-wider md:px-6">
 											<h6>Player</h6>
 										</th>
-										<th className="px-6 pt-2 text-left text-xs leading-4 font-bold uppercase tracking-wider">
+										<th className="px-1 pt-2 text-left text-xs leading-4 font-bold  uppercase tracking-wider md:px-6">
 											<h6>Score</h6>
 										</th>
-										<th className="px-6 pt-2" />
+										<th className="px-1 pt-2 md:px-6" />
 									</tr>
 								</thead>
 								{gameStats.teams.inferno.players.map((player: any, index: number) => (
 									<tr>
-										<td className="px-6 py-4 whitespace-no-wrap  leading-5 font-medium">
+										<td className="px-1 py-4 whitespace-no-wrap  leading-5 font-medium md:px-6">
 											<small>
 												<Link to={`/player/${player.playerGuid}`}>{player.playerName}</Link>
 											</small>
 										</td>
-										<td className="px-6 py-4 whitespace-no-wrap text-sm leading-5">
+										<td className="px-1 py-4 whitespace-no-wrap text-sm leading-5 md:px-6">
 											{player.stats.scoreTG}
 										</td>
-										<td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+										<td className="px-1 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium md:px-6">
 											<Button onClick={() => fireModal(!isOpen, player)}>More</Button>
 										</td>
 									</tr>
@@ -138,7 +138,7 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 			<div className="my-6">
 				<Frame border={false} corners={2} layer={'header'}>
 					<Content>
-						<div className="px-6 py-4">
+						<div className="px-1 py-1 md:px-6 md:py-4">
 							<h4>Leaderboard</h4>
 							<Line />
 							<Table
@@ -207,7 +207,7 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 							aria-labelledby="modal-headline"
 						>
 							<Frame border={false} corners={2}>
-								<div className="pt-5 pb-4 px-4 relative">
+								<div className="pt-5 pb-4 px-1 relative md:px-6">
 									<div className="absolute right-1 top-1">
 										<Button
 											animate

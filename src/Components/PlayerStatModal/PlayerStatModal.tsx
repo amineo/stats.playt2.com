@@ -170,8 +170,8 @@ const returnWeaponTotals = (statTotals: any) => {
 function ModalStatLine(props: any) {
 	return (
 		<div key={`w_${props.name}`}>
-			<h5 className="inline-block">{props.name} : </h5> {' '}
-			<p className="inline-block py-0">
+			<div className="text-sm inline-block sm:text-base md:text-lg">{props.name} : </div> {' '}
+			<p className="text-sm inline-block py-0 sm:text-base md:text-lg">
 				{props.statValue ? <small>{parseFloat(props.statValue.toFixed(2))}</small> : <small>0</small>}
 			</p>
 		</div>
@@ -229,28 +229,28 @@ const PlayerStatModal = (player: any) => {
 			<Line />
 
 			<div className="border-b border-teal-500 border-dotted table w-full mb-6">
-				<div className="table-cell w-3/12">
+				<div className="text-sm px-1 flex table-cell w-3/12 sm:text-base md:text-lg">
 					<ModalStatLine name="Score" statValue={player.stats.scoreTG} />
 					<ModalStatLine name="KDR" statValue={player.stats.kdrAvg} />
 					<ModalStatLine name="Damage" statValue={player.stats.totalWepDmgTG} />
 					<ModalStatLine name="Lt Kills" statValue={player.stats.armorLTG} />
 				</div>
 
-				<div className="table-cell w-3/12">
+				<div className="text-sm px-1 flex table-cell w-3/12">
 					<ModalStatLine name="Kills" statValue={player.stats.killsTG} />
 					<ModalStatLine name="Kill Streak" statValue={player.stats.killStreakTG} />
 					<ModalStatLine name="Avg. Speed" statValue={player.stats.avgSpeedAvg} />
 					<ModalStatLine name="Med Kills" statValue={player.stats.armorMTG} />
 				</div>
 
-				<div className="table-cell w-3/12">
+				<div className="text-sm px-1 flex table-cell w-3/12">
 					<ModalStatLine name="Deaths" statValue={player.stats.deathsTG} />
 					<ModalStatLine name="Mine Disc" statValue={player.stats.minePlusDiscKillTG} />
 					<ModalStatLine name="Shots Fired" statValue={player.stats.shotsFiredTG} />
 					<ModalStatLine name="Hvy Kills" statValue={player.stats.armorHTG} />
 				</div>
 
-				<div className="table-cell w-3/12">
+				<div className="text-sm px-1 flex table-cell w-3/12">
 					<ModalStatLine name="Assists" statValue={player.stats.assistTG} />
 					<ModalStatLine name="Shot Rating" statValue={player.stats.weaponScoreTG} />
 					<ModalStatLine name="Dist Moved (km)" statValue={player.stats.distMovTG} />
@@ -258,7 +258,7 @@ const PlayerStatModal = (player: any) => {
 				</div>
 			</div>
 
-			<div className="border-b border-teal-500 border-dotted table w-full mb-6 ">
+			<div className="border-b border-teal-500 border-dotted table w-full mb-6">
 				<div className="table-cell w-6/12 align-top">
 					<RadarChart
 						cx={300}

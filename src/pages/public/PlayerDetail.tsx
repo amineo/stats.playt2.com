@@ -126,7 +126,7 @@ const WeaponTooltip = ({ payload, label }: any) => {
 const GameStatCard = (game: any) => {
 	return game.stats ? (
 		<Frame key={game.stats.gameID} animate level={1} corners={3} layer={'header'} className="mb-6">
-			<div className="py-4 px-4">
+			<div className="py-1 px-1 md:px-4 md:py-4">
 				<div className="table w-full mb-4">
 					<div className="table-cell align-top">
 						<Link to={`/game/${game.stats.gameID}`}>

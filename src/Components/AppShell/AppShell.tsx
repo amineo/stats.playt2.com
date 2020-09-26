@@ -9,27 +9,27 @@ const AppShell: React.FC = ({ children }) => {
 		<div>
 			<Header animate>
 				<nav>
-					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
 						<div className="flex items-center justify-between h-16">
 							<div className="flex items-center">
 								<div className="flex-shrink-0">
 									<Link to="/">
 										<img
 											className="h-8 w-8"
-											src="https://d33wubrfki0l68.cloudfront.net/1699fc97aa9b1cb851a6c0039162a9241724e1fb/7289f/images/logo.png"
+											src="logo512.png"
 											alt="Tribes 2 Stats Project"
 										/>
 									</Link>
 								</div>
 								<div className="md:block">
-									<div className="ml-10 flex items-baseline">
+									<div className="ml-3 flex items-baseline md:ml-10">
 										<Content>
-											<Link to="/games" className="ml-4 px-3 py-2 rounded-md text-sm font-medium">
+											<Link to="/games" className="ml-3 px-3 py-2 rounded-md text-sm md:ml-4">
 												Games
 											</Link>
 											<Link
 												to="/players"
-												className="ml-4 px-3 py-2 rounded-md text-sm font-medium"
+												className="ml-3 px-3 py-2 rounded-md text-sm md:ml-4"
 											>
 												Players
 											</Link>
@@ -38,8 +38,8 @@ const AppShell: React.FC = ({ children }) => {
 								</div>
 							</div>
 							<div className="md:block">
-								<div className="ml-4 flex items-center md:ml-6">
-									<div className="mr-10">
+								<div className="ml-3 flex items-center md:ml-4">
+									<div className="mr-3 invisible md:visible md:ml-10">
 										<Frame border={false} corners={1} layer={'secondary'}>
 											<Content>
 												<small className="text-sm block px-4 text-orange-200">
@@ -48,7 +48,7 @@ const AppShell: React.FC = ({ children }) => {
 											</Content>
 										</Frame>
 									</div>
-									<span className="inline-flex rounded-md shadow-sm">
+									<span className="whitespace-no-wrap rounded-md shadow-sm">
 										<a
 											href="https://www.playt2.com/discord"
 											className="inline-flex items-center px-2.5 py-1.5"
