@@ -45,7 +45,7 @@ const Players = () => {
 
 			<div className="relative max-w-3xl mx-auto px-2">
 				<Frame border={false} corners={2} layer={'header'}>
-					<div className="px-1 py-4 sm:px-6 md:px-12">
+					<div className="text-sm px-1 py-4 sm:px-6 md:px-12 sm:text-base">
 						{playersQuery.isLoading ? (
 							<Loading animate full />
 						) : (

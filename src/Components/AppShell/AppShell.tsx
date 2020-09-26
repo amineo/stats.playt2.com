@@ -48,7 +48,7 @@ const AppShell: React.FC = ({ children }) => {
 											</Content>
 										</Frame>
 									</div>
-									<span className="px-1 whitespace-no-wrap rounded-md shadow-sm mr-2">
+									<span className="px-1 whitespace-no-wrap rounded-md shadow-sm mr-3">
 										<a
 											href="https://www.playt2.com/discord"
 											className="inline-flex items-center px-1 py-1.5 md:px-2.5"
