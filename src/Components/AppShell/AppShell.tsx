@@ -38,8 +38,8 @@ const AppShell: React.FC = ({ children }) => {
 								</div>
 							</div>
 							<div className="md:block">
-								<div className="ml-1 flex items-center md:ml-4">
-									<div className="ml-1 invisible md:visible md:ml-10">
+								<div className="mr-2 flex items-center md:ml-4">
+									<div className="mr-1 invisible md:visible lg:mr-5">
 										<Frame border={false} corners={1} layer={'secondary'}>
 											<Content>
 												<small className="text-sm block px-1 text-orange-200 md:px-6">
@@ -48,7 +48,7 @@ const AppShell: React.FC = ({ children }) => {
 											</Content>
 										</Frame>
 									</div>
-									<span className="px-1 whitespace-no-wrap rounded-md shadow-sm">
+									<span className="px-1 whitespace-no-wrap rounded-md shadow-sm mr-2">
 										<a
 											href="https://www.playt2.com/discord"
 											className="inline-flex items-center px-1 py-1.5 md:px-2.5"
