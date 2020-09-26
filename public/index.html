@@ -37,7 +37,6 @@
             function checkIE() {
               var ua = window.navigator.userAgent;
               var IE = "";
-              //document.getElementById("result").innerHTML = ua;
 
               var msie = ua.indexOf('MSIE ');
               if (msie > 0) {
@@ -55,7 +54,11 @@
 
               if(IE !="")
                 var warning = "<div><center><a href=\"https://www.mozilla.org/en-US/firefox/new/\">Please open stats.playt2.com in a modern browser</a></center></div>";
-                document.getElementById("result").innerHTML = warning;
+                var newdiv = document.createElement("div");
+                newdiv.innerHTML = warning;
+                var container = document.getElementById("result");
+                container.appendChild(newdiv);
+                //document.getElementById("result").innerHTML = warning;
             }
         </script>
         <p id="result"></p>
