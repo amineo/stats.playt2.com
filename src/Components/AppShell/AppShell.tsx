@@ -16,7 +16,7 @@ const AppShell: React.FC = ({ children }) => {
 									<Link to="/">
 										<img
 											className="h-8 w-8"
-											src="logo512.png"
+											src="https://stats.playt2.com/logo512.png"
 											alt="Tribes 2 Stats Project"
 										/>
 									</Link>
@@ -38,11 +38,11 @@ const AppShell: React.FC = ({ children }) => {
 								</div>
 							</div>
 							<div className="md:block">
-								<div className="ml-3 flex items-center md:ml-4">
-									<div className="mr-3 invisible md:visible md:ml-10">
+								<div className="ml-1 flex items-center md:ml-4">
+									<div className="ml-1 invisible md:visible md:ml-10">
 										<Frame border={false} corners={1} layer={'secondary'}>
 											<Content>
-												<small className="text-sm block px-4 text-orange-200">
+												<small className="text-sm block px-1 text-orange-200 md:px-4">
 													Hey! Things aren't quite finished yet. Stay tuned!
 												</small>
 											</Content>
