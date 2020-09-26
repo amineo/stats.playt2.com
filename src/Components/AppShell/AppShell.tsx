@@ -42,16 +42,16 @@ const AppShell: React.FC = ({ children }) => {
 									<div className="ml-1 invisible md:visible md:ml-10">
 										<Frame border={false} corners={1} layer={'secondary'}>
 											<Content>
-												<small className="text-sm block px-1 text-orange-200 md:px-4">
+												<small className="text-sm block px-1 text-orange-200 md:px-6">
 													Hey! Things aren't quite finished yet. Stay tuned!
 												</small>
 											</Content>
 										</Frame>
 									</div>
-									<span className="whitespace-no-wrap rounded-md shadow-sm">
+									<span className="px-1 whitespace-no-wrap rounded-md shadow-sm">
 										<a
 											href="https://www.playt2.com/discord"
-											className="inline-flex items-center px-2.5 py-1.5"
+											className="inline-flex items-center px-1 py-1.5 md:px-2.5"
 											target="_blank"
 											rel="noopener noreferrer"
 										>
