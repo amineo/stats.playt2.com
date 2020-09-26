@@ -38,11 +38,11 @@ const AppShell: React.FC = ({ children }) => {
 								</div>
 							</div>
 							<div className="md:block">
-								<div className="mr-2 flex items-center md:ml-4">
-									<div className="mr-1 invisible md:visible lg:mr-5">
+								<div className="mr-0 flex items-center md:ml-4">
+									<div className="mr-0 invisible md:visible md:mr-1 lg:mr-5">
 										<Frame border={false} corners={1} layer={'secondary'}>
 											<Content>
-												<small className="text-sm block px-1 text-orange-200 md:px-6">
+												<small className="px-0 text-sm block px-1 text-orange-200 sm:px-3 md:px-6">
 													Hey! Things aren't quite finished yet. Stay tuned!
 												</small>
 											</Content>
