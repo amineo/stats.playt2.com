@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="icon" href="%PUBLIC_URL%/T2logo.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
@@ -28,50 +29,42 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Tribes 2 Stats</title>
+
+
+    <script>
+      function GetIEVersion() {
+        var sAgent = window.navigator.userAgent;
+        var Idx = sAgent.indexOf("MSIE");
+
+        // If IE, return version number.
+        if (Idx > 0) 
+          return parseInt(sAgent.substring(Idx+ 5, sAgent.indexOf(".", Idx)));
+
+        // If IE 11 then look for Updated user agent string.
+        else if (!!navigator.userAgent.match(/Trident\/7\./)) 
+          return 11;
+
+        else
+          return 0; 
+      }
+      function checkIE() {
+        if (GetIEVersion() > 0) {
+          var upgradeLink = document.createElement('a');
+              upgradeLink.setAttribute("id", "ie");
+              upgradeLink.setAttribute('href',"https://www.mozilla.org/en-US/firefox/new/");
+          document.body.appendChild(upgradeLink); 
+
+          var ieWarningIMG = document.createElement('img'); 
+              ieWarningIMG.src = '%PUBLIC_URL%/IEwarning.png'; 
+          
+          document.getElementById("ie").appendChild(ieWarningIMG);
+        }
+      }
+
+    </script>
   </head>
   <body class="antialiased site-bg-color" onload="checkIE()">
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root">
-        <!--Check if browser is IE and give warning is necessary-->
-        <script>
-            function checkIE() {
-              var ua = window.navigator.userAgent;
-              var IE = "";
-
-              var msie = ua.indexOf('MSIE ');
-              if (msie > 0) {
-              // IE 10 or older => return version number
-              IE = parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
-              }
-
-              var trident = ua.indexOf('Trident/');
-              if (trident > 0) {
-              // IE 11 => return version number
-              var rv = ua.indexOf('rv:');
-              IE = parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
-
-              }
-
-              if(IE !="")
-                var warning = "<div><center><a href=\"https://www.mozilla.org/en-US/firefox/new/\">Please open stats.playt2.com in a modern browser</a></center></div>";
-                var newdiv = document.createElement("div");
-                newdiv.innerHTML = warning;
-                var container = document.getElementById("result");
-                container.appendChild(newdiv);
-                //document.getElementById("result").innerHTML = warning;
-            }
-        </script>
-        <p id="result"></p>
-    </div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <div id="root"></div>
   </body>
 </html>
