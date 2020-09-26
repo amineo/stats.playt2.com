@@ -29,7 +29,7 @@ const AppShell: React.FC = ({ children }) => {
 											</Link>
 											<Link
 												to="/players"
-												className="ml-3 px-3 py-2 rounded-md text-sm md:ml-4"
+												className="ml-3 px-0 py-2 rounded-md text-sm md:ml-4 sm:px-3"
 											>
 												Players
 											</Link>
