@@ -28,7 +28,7 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 			<Header className="py-1 mb-8 md:px-4">
 				<Content>
 					<div className="table w-full">
-						<div className="table-cell">
+						<div className="table-cell pt-2">
 							<h1>{gameStats.map}</h1>
 						</div>
 						<div className="table-cell text-right">
