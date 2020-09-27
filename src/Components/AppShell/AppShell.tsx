@@ -21,7 +21,7 @@ const AppShell: React.FC = ({ children }) => {
 										/>
 									</Link>
 								</div>
-								<div className="md:block z-50">
+								<div className="md:block z-10">
 									<div className="ml-3 flex items-baseline md:ml-10">
 										<Content>
 											<Link to="/games" className="ml-3 px-3 py-2 rounded-md text-sm md:ml-4">
