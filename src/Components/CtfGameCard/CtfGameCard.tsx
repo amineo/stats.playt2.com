@@ -39,9 +39,9 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 			</Header>
 			<div className="justify-center text-center text-sm text-teal-400">{gameStats.gametype}</div>
 			<div className=" max-w flex justify-center ">
-			<div className="px-1 text-center md:px-2 lg:px-6 flex w-full justify-center">
+				<div className="px-1 text-center md:px-2 lg:px-6 flex w-full justify-center">
 					<Content>
-					<h1 className="text-6xl font-bold text-white">{gameStats.teams.storm.score}</h1>
+						<h1 className="text-6xl font-bold text-white">{gameStats.teams.storm.score}</h1>
 						<h4 className="text-4xl">Storm</h4>
 					</Content>
 				</div>
@@ -59,7 +59,7 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 				</div>
 				<div className="px-1 text-center md:px-2 lg:px-6 flex w-full justify-center">
 					<Content>
-					<h1 className="text-6xl font-bold text-white ">{gameStats.teams.inferno.score}</h1>
+						<h1 className="text-6xl font-bold text-white ">{gameStats.teams.inferno.score}</h1>
 						<h4 className="text-4xl">Inferno</h4>
 					</Content>
 				</div>
@@ -71,7 +71,7 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 							<table className="min-w-full">
 								<thead className="border-b border-teal-500 border-dotted">
 									<tr>
-									   <th className="px-1 pt-2 text-left text-xs leading-4 font-bold  uppercase tracking-wider md:px-2 lg:px-6">
+										<th className="px-1 pt-2 text-left text-xs leading-4 font-bold  uppercase tracking-wider md:px-2 lg:px-6">
 											<h6>Player</h6>
 										</th>
 										<th className="px-1 pt-2 text-left text-xs leading-4 font-bold  uppercase tracking-wider md:px-2 lg:px-6">
@@ -194,10 +194,10 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 				leaveTo="opacity-0"
 				className="z-50"
 			>
-				<div className="fixed z-20 inset-0 overflow-y-auto">
+				<div className="fixed z-10 inset-0 overflow-y-auto">
 					<div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 						<div className="fixed inset-0 transition-opacity ">
-							<div className="absolute inset-0 bg-black opacity-75" />
+							<div className="absolute inset-0 bg-gray-900 opacity-75" />
 						</div>
 
 						<div
