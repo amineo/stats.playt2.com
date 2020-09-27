@@ -37,8 +37,9 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 					</div>
 				</Content>
 			</Header>
-			<div className="justify-center text-center text-sm text-teal-400">{gameStats.gametype}</div>
-			<div className=" max-w flex justify-center ">
+
+			<div className="text-center text-sm text-teal-400">{gameStats.gametype}</div>
+			<div className="flex justify-center max-w-2xl mx-auto">
 				<div className="px-1 text-center md:px-2 lg:px-6 flex w-full justify-center">
 					<Content>
 						<h1 className="text-6xl font-bold text-white">{gameStats.teams.storm.score}</h1>
@@ -64,6 +65,7 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 					</Content>
 				</div>
 			</div>
+
 			<div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
 				<div className="col-span-1">
 					<CardDisplay header="Storm">
