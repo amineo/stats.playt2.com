@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
 import { useQuery } from 'react-query';
@@ -7,11 +7,45 @@ import { FetchContext } from 'Context/FetchContext';
 // @ts-ignore
 import { Header, Content, Loading, Frame, Line, Table } from 'arwes';
 
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Tooltip, Legend } from 'recharts';
+import {
+	Radar,
+	RadarChart,
+	PolarGrid,
+	PolarAngleAxis,
+	PolarRadiusAxis,
+	Tooltip,
+	Legend,
+	ResponsiveContainer
+} from 'recharts';
 
 interface IPlayerDetailParams {
 	playerGuid: string;
 }
+
+/* Refactor this into a util Hook */
+function getWindowDimensions() {
+	const { innerWidth: width, innerHeight: height } = window;
+	return {
+		width,
+		height
+	};
+}
+
+function useWindowDimensions() {
+	const [ windowDimensions, setWindowDimensions ] = useState(getWindowDimensions());
+
+	useEffect(() => {
+		function handleResize() {
+			setWindowDimensions(getWindowDimensions());
+		}
+
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
+
+	return windowDimensions;
+}
+/* /// */
 
 const returnWeaponTotals = (statTotals: any) => {
 	let totals = [
@@ -180,7 +214,7 @@ const GameStatCard = (game: any) => {
 const PlayerDetail = () => {
 	const fetchContext = useContext(FetchContext);
 	const apiClient = fetchContext.apiClient;
-
+	const { width } = useWindowDimensions();
 	const { playerGuid } = useParams<IPlayerDetailParams>();
 
 	const playerQuery = useQuery([ 'player', playerGuid ], () => apiClient.getPlayerById(playerGuid), {
@@ -263,29 +297,41 @@ const PlayerDetail = () => {
 								/>
 							</div>
 
-							<RadarChart
-								cx={300}
-								cy={250}
-								outerRadius={150}
-								width={600}
-								height={500}
-								data={
-									returnWeaponTotals(playerQuery.data.statTotals).length ? (
-										returnWeaponTotals(playerQuery.data.statTotals)
-									) : (
-										[ { weapon: 'No Data', val: 1 } ]
-									)
-								}
-								className="text-xs text-white mx-auto"
-							>
-								<Legend verticalAlign="top" iconType="circle" content={weaponLegend} />
-								<PolarGrid stroke="#035659" />
-								<PolarAngleAxis dataKey="weapon" stroke="#A1ECFB" />
-								<PolarRadiusAxis stroke="#DF9527" />
-								<Tooltip content={<WeaponTooltip />} />
-								<Radar name="Kills" dataKey="kills" stroke="#3FD7F6" fill="#3FD7F6" fillOpacity={0.4} />
-								<Radar name="Damage" dataKey="dmg" stroke="#ffeb3b" fill="#ffeb3b" fillOpacity={0.2} />
-							</RadarChart>
+							<div className="flex justify-center">
+								<ResponsiveContainer width={width > 740 ? 600 : 340} height={width > 740 ? 500 : 300}>
+									<RadarChart
+										outerRadius={width > 740 ? 150 : 75}
+										data={
+											returnWeaponTotals(playerQuery.data.statTotals).length ? (
+												returnWeaponTotals(playerQuery.data.statTotals)
+											) : (
+												[ { weapon: 'No Data', val: 1 } ]
+											)
+										}
+										className="text-xs text-white mx-auto"
+									>
+										<Legend verticalAlign="top" iconType="circle" content={weaponLegend} />
+										<PolarGrid stroke="#035659" />
+										<PolarAngleAxis dataKey="weapon" stroke="#A1ECFB" />
+										<PolarRadiusAxis stroke="#DF9527" />
+										<Tooltip content={<WeaponTooltip />} />
+										<Radar
+											name="Kills"
+											dataKey="kills"
+											stroke="#3FD7F6"
+											fill="#3FD7F6"
+											fillOpacity={0.4}
+										/>
+										<Radar
+											name="Damage"
+											dataKey="dmg"
+											stroke="#ffeb3b"
+											fill="#ffeb3b"
+											fillOpacity={0.2}
+										/>
+									</RadarChart>
+								</ResponsiveContainer>
+							</div>
 						</Frame>
 					</div>
 					<div className="mt-10">

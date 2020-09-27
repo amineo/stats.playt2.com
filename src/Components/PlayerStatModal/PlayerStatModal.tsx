@@ -1,7 +1,8 @@
 // @ts-nocheck
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useState, useEffect } from 'react';
 
 import {
+	ResponsiveContainer,
 	Radar,
 	RadarChart,
 	PolarGrid,
@@ -15,6 +16,31 @@ import {
 } from 'recharts';
 
 import { Content, Line, Table } from 'arwes';
+
+/* Refactor this into a util Hook */
+function getWindowDimensions() {
+	const { innerWidth: width, innerHeight: height } = window;
+	return {
+		width,
+		height
+	};
+}
+
+function useWindowDimensions() {
+	const [ windowDimensions, setWindowDimensions ] = useState(getWindowDimensions());
+
+	useEffect(() => {
+		function handleResize() {
+			setWindowDimensions(getWindowDimensions());
+		}
+
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
+
+	return windowDimensions;
+}
+/* /// */
 
 const renderActiveShape = (props) => {
 	const RADIAN = Math.PI / 180;
@@ -77,22 +103,24 @@ export class TwoLevelPieChart extends PureComponent {
 
 	render() {
 		return (
-			<PieChart width={400} height={400}>
-				<Pie
-					activeIndex={this.state.activeIndex}
-					activeShape={renderActiveShape}
-					data={this.state.data}
-					cx={200}
-					cy={200}
-					innerRadius={60}
-					outerRadius={80}
-					fill="#8B5C15"
-					stroke="#DF9527"
-					dataKey="value"
-					onMouseEnter={this.onPieEnter}
-					className="text-xs"
-				/>
-			</PieChart>
+			<ResponsiveContainer width={400} height={400}>
+				<PieChart>
+					<Pie
+						activeIndex={this.state.activeIndex}
+						activeShape={renderActiveShape}
+						data={this.state.data}
+						cx={200}
+						cy={200}
+						innerRadius={60}
+						outerRadius={80}
+						fill="#8B5C15"
+						stroke="#DF9527"
+						dataKey="value"
+						onMouseEnter={this.onPieEnter}
+						className="text-xs"
+					/>
+				</PieChart>
+			</ResponsiveContainer>
 		);
 	}
 }
@@ -219,6 +247,8 @@ const WeaponTooltip = ({ payload, label }: any) => {
 };
 
 const PlayerStatModal = (player: any) => {
+	const { width } = useWindowDimensions();
+
 	if (!player.stats) {
 		return <div />;
 	}
@@ -259,32 +289,30 @@ const PlayerStatModal = (player: any) => {
 			</div>
 
 			<div className="border-b border-teal-500 border-dotted table w-full mb-6">
-				<div className="table-cell w-6/12 align-top">
-					<RadarChart
-						cx={300}
-						cy={250}
-						outerRadius={150}
-						width={600}
-						height={500}
-						data={
-							returnWeaponTotals(player.stats).length ? (
-								returnWeaponTotals(player.stats)
-							) : (
-								[ { weapon: 'No Data', val: 1 } ]
-							)
-						}
-						className="text-xs text-white mx-auto"
-					>
-						<Legend verticalAlign="top" iconType="circle" content={weaponLegend} />
-						<PolarGrid stroke="#035659" />
-						<PolarAngleAxis dataKey="weapon" stroke="#A1ECFB" />
-						<PolarRadiusAxis stroke="#DF9527" />
-						<Tooltip content={<WeaponTooltip />} />
-						<Radar name="Kills" dataKey="kills" stroke="#3FD7F6" fill="#3FD7F6" fillOpacity={0.4} />
-						<Radar name="Damage" dataKey="dmg" stroke="#ffeb3b" fill="#ffeb3b" fillOpacity={0.2} />
-					</RadarChart>
+				<div className="md:table-cell md:w-6/12 md:align-top align-middle text-center">
+					<ResponsiveContainer width={width > 740 ? 600 : 340} height={width > 740 ? 500 : 300}>
+						<RadarChart
+							outerRadius={width > 740 ? 150 : 75}
+							data={
+								returnWeaponTotals(player.stats).length ? (
+									returnWeaponTotals(player.stats)
+								) : (
+									[ { weapon: 'No Data', val: 1 } ]
+								)
+							}
+							className="text-xs text-white mx-auto"
+						>
+							<Legend verticalAlign="top" iconType="circle" content={weaponLegend} />
+							<PolarGrid stroke="#035659" />
+							<PolarAngleAxis dataKey="weapon" stroke="#A1ECFB" />
+							<PolarRadiusAxis stroke="#DF9527" />
+							<Tooltip content={<WeaponTooltip />} />
+							<Radar name="Kills" dataKey="kills" stroke="#3FD7F6" fill="#3FD7F6" fillOpacity={0.4} />
+							<Radar name="Damage" dataKey="dmg" stroke="#ffeb3b" fill="#ffeb3b" fillOpacity={0.2} />
+						</RadarChart>
+					</ResponsiveContainer>
 				</div>
-				<div className="table-cell w-6/12 align-top pt-4">
+				<div className="md:table-cell md:w-6/12 md:align-top pt-4">
 					<TwoLevelPieChart
 						data={{
 							oScore: Number(player.stats.offenseScoreTG),
