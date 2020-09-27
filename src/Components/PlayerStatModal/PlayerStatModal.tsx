@@ -290,35 +290,39 @@ const PlayerStatModal = (player: any) => {
 
 			<div className="border-b border-teal-500 border-dotted table w-full mb-6">
 				<div className="md:table-cell md:w-6/12 md:align-top align-middle text-center">
-					<ResponsiveContainer width={width > 740 ? 600 : 340} height={width > 740 ? 500 : 300}>
-						<RadarChart
-							outerRadius={width > 740 ? 150 : 75}
-							data={
-								returnWeaponTotals(player.stats).length ? (
-									returnWeaponTotals(player.stats)
-								) : (
-									[ { weapon: 'No Data', val: 1 } ]
-								)
-							}
-							className="text-xs text-white mx-auto"
-						>
-							<Legend verticalAlign="top" iconType="circle" content={weaponLegend} />
-							<PolarGrid stroke="#035659" />
-							<PolarAngleAxis dataKey="weapon" stroke="#A1ECFB" />
-							<PolarRadiusAxis stroke="#DF9527" />
-							<Tooltip content={<WeaponTooltip />} />
-							<Radar name="Kills" dataKey="kills" stroke="#3FD7F6" fill="#3FD7F6" fillOpacity={0.4} />
-							<Radar name="Damage" dataKey="dmg" stroke="#ffeb3b" fill="#ffeb3b" fillOpacity={0.2} />
-						</RadarChart>
-					</ResponsiveContainer>
+					<div className="flex justify-center">
+						<ResponsiveContainer width={width > 740 ? 600 : 340} height={width > 740 ? 500 : 300}>
+							<RadarChart
+								outerRadius={width > 740 ? 150 : 75}
+								data={
+									returnWeaponTotals(player.stats).length ? (
+										returnWeaponTotals(player.stats)
+									) : (
+										[ { weapon: 'No Data', val: 1 } ]
+									)
+								}
+								className="text-xs text-white mx-auto"
+							>
+								<Legend verticalAlign="top" iconType="circle" content={weaponLegend} />
+								<PolarGrid stroke="#035659" />
+								<PolarAngleAxis dataKey="weapon" stroke="#A1ECFB" />
+								<PolarRadiusAxis stroke="#DF9527" />
+								<Tooltip content={<WeaponTooltip />} />
+								<Radar name="Kills" dataKey="kills" stroke="#3FD7F6" fill="#3FD7F6" fillOpacity={0.4} />
+								<Radar name="Damage" dataKey="dmg" stroke="#ffeb3b" fill="#ffeb3b" fillOpacity={0.2} />
+							</RadarChart>
+						</ResponsiveContainer>
+					</div>
 				</div>
 				<div className="md:table-cell md:w-6/12 md:align-top pt-4">
-					<TwoLevelPieChart
-						data={{
-							oScore: Number(player.stats.offenseScoreTG),
-							dScore: Number(player.stats.defenseScoreTG)
-						}}
-					/>
+					<div className="flex justify-center">
+						<TwoLevelPieChart
+							data={{
+								oScore: Number(player.stats.offenseScoreTG),
+								dScore: Number(player.stats.defenseScoreTG)
+							}}
+						/>
+					</div>
 				</div>
 			</div>
 			<Table
