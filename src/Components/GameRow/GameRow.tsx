@@ -44,8 +44,8 @@ const RowDefault: React.FC = (game: any) => {
 			<div className="flex items-center px-4 py-4 sm:px-6">
 				<div className="min-w-0 flex-1 flex items-center">
 					<div className="min-w-0 flex-1 md:grid md:grid-cols-2 md:gap-4">
-						<div className=" leading-5 font-medium truncate">{game.map}</div>
-						<div className="hidden md:block">
+						<div className="leading-5 font-medium truncate">{game.map}</div>
+						<div className="md:block">
 							<div className="flex items-center text-sm">{game.datestamp.split(/[T]/)[0]}</div>
 						</div>
 					</div>

@@ -19,7 +19,7 @@ const Home = () => {
 
 	const lakGamesQuery = useQuery(
 		[ 'latest', 'LakRabbitGame' ],
-		() => apiClient.getGamesByGametype('LakRabbitGame', 27),
+		() => apiClient.getGamesByGametype('LakRabbitGame', 18),
 		{
 			refetchOnWindowFocus: false,
 			staleTime: 300000
@@ -31,7 +31,7 @@ const Home = () => {
 		staleTime: 300000
 	});
 
-	const dmGamesQuery = useQuery([ 'latest', 'DMGame' ], () => apiClient.getGamesByGametype('DMGame', 15), {
+	const dmGamesQuery = useQuery([ 'latest', 'DMGame' ], () => apiClient.getGamesByGametype('DMGame', 14), {
 		refetchOnWindowFocus: false,
 		staleTime: 300000
 	});
