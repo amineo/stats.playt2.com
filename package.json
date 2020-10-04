@@ -19,6 +19,7 @@
 		"autoprefixer": "^9.8.0",
 		"axios": "^0.20.0",
 		"babel-plugin-add-react-displayname": "^0.0.5",
+		"dayjs": "^1.9.1",
 		"polished": "^3.6.6",
 		"postcss-cli": "^7.1.1",
 		"react": "^16.13.1",
