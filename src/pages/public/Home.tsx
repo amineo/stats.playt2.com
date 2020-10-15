@@ -40,8 +40,8 @@ const Home = () => {
 	return (
 		<Content>
 			<Helmet>
-				<title>Home</title>
-				<meta name="description" content="home"/>
+				<title>Tribes 2 Stats</title>
+				<meta name="description" content="Tribes 2 Stats Project"/>
 			</Helmet>
 			<Header className="py-4 mb-4 text-center">
 				<h5>Latest Games</h5>
