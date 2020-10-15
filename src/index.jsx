@@ -63,13 +63,35 @@ const sounds = {
 };
 
 // Init App
-ReactDOM.render(
-	<Router>
-		<ThemeProvider theme={createTheme(createAppTheme())}>
-			<SoundsProvider sounds={createSounds(sounds)}>
-				<App {...resources} />
-			</SoundsProvider>
-		</ThemeProvider>
-	</Router>,
-	document.getElementById('root')
-);
+// ReactDOM.render(
+// 	<Router>
+// 		<ThemeProvider theme={createTheme(createAppTheme())}>
+// 			<SoundsProvider sounds={createSounds(sounds)}>
+// 				<App {...resources} />
+// 			</SoundsProvider>
+// 		</ThemeProvider>
+// 	</Router>,
+// 	document.getElementById('root')
+// );
+
+
+const rootElement = document.getElementById('root');
+if (rootElement.hasChildNodes()) {
+  ReactDOM.hydrate(
+		<Router>
+			<ThemeProvider theme={createTheme(createAppTheme())}>
+				<SoundsProvider sounds={createSounds(sounds)}>
+					<App {...resources} />
+				</SoundsProvider>
+			</ThemeProvider>
+		</Router>, rootElement);
+} else {
+  ReactDOM.render(
+		<Router>
+			<ThemeProvider theme={createTheme(createAppTheme())}>
+				<SoundsProvider sounds={createSounds(sounds)}>
+					<App {...resources} />
+				</SoundsProvider>
+			</ThemeProvider>
+		</Router>, rootElement);
+}

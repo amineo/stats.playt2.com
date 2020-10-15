@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import { Helmet } from 'react-helmet';
+
 import { FetchContext } from 'Context/FetchContext';
 
 import CtfGameCard from 'Components/CtfGameCard';
@@ -28,6 +30,11 @@ const GameDetail = () => {
 				'Loading stats...'
 			) : (
 				<>
+					<Helmet>
+						<title>{gameQuery.data.map} - {gameQuery.data.gametype}</title>
+						<meta name="description" content={` ${gameQuery.data.gameId}`}/>
+					</Helmet>
+					
 					{gameQuery.data.gametype === 'CTFGame' || gameQuery.data.gametype === 'SCtFGame' ? (
 						<CtfGameCard {...gameQuery.data} />
 					) : (

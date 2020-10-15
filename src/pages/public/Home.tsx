@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useQuery, queryCache } from 'react-query';
+import { Helmet } from 'react-helmet';
 
 import { FetchContext } from 'Context/FetchContext';
 import CardDisplay from 'Components/CardDisplay';
@@ -38,6 +39,10 @@ const Home = () => {
 
 	return (
 		<Content>
+			<Helmet>
+				<title>Home</title>
+				<meta name="description" content="home"/>
+			</Helmet>
 			<Header className="py-4 mb-4 text-center">
 				<h5>Latest Games</h5>
 			</Header>
