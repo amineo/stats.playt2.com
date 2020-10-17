@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { FetchContext } from 'Context/FetchContext';
@@ -39,6 +40,18 @@ const Players = () => {
 
 	return (
 		<Content>
+			<Helmet>
+				<title>Recent Players | Tribes 2 Stats Project</title>
+				<link rel="canonical" href={`https://stats.playt2.com/players`}></link>
+				<meta name="description" content={`Recent player list`}/>
+
+				<meta property="og:site_name" content="Tribes 2 Stats Project" />
+				<meta property="og:url" content={`https://stats.playt2.com/players`} />
+				<meta property="og:type" content="article" />
+				<meta property="og:title" content={`Recent Players | Tribes 2 Stats Project`} />
+				<meta property="og:description" content={`Recent player list`} />
+				<meta property="og:image" content={`https://stats.playt2.com/logo512.png`} /> 
+			</Helmet>
 			<Header className="px-1 py-4 mb-4 text-center md:px-4">
 				<h5>Recent Players</h5>
 			</Header>

@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 import { useQuery } from 'react-query';
 import { FetchContext } from 'Context/FetchContext';
@@ -238,6 +239,18 @@ const PlayerDetail = () => {
 				</div>
 			) : (
 				<div>
+					<Helmet>
+						<title>{playerQuery.data.playerName} | Tribes 2 Stats Project</title>
+						<link rel="canonical" href={`https://stats.playt2.com/player/${playerQuery.data.playerGuid}`}></link>
+						<meta name="description" content={`Total Score: ${playerQuery.data.statTotals.scoreTG}; Total Games: ${playerQuery.data.gameDetails.length}; Kills: ${playerQuery.data.statTotals.killsTG}; Assists: ${playerQuery.data.statTotals.assistTG}; MAs: ${playerQuery.data.statTotals.totalMATG}`}/>
+
+						<meta property="og:site_name" content="Tribes 2 Stats Project" />
+						<meta property="og:url" content={`https://stats.playt2.com/player/${playerQuery.data.playerGuid}`} />
+						<meta property="og:type" content="article" />
+						<meta property="og:title" content={`${playerQuery.data.playerName} | Tribes 2 Stats Project`} />
+						<meta property="og:description" content={`Total Score: ${playerQuery.data.statTotals.scoreTG}; Total Games: ${playerQuery.data.gameDetails.length}; Kills: ${playerQuery.data.statTotals.killsTG}; Assists: ${playerQuery.data.statTotals.assistTG}; MAs: ${playerQuery.data.statTotals.totalMATG}`} />
+						<meta property="og:image" content={`https://stats.playt2.com/logo512.png`} /> 
+					</Helmet>
 					<div className="py-4 mb-4">
 						<Header>
 							<div className=" table w-full">

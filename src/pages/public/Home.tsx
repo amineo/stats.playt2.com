@@ -40,8 +40,16 @@ const Home = () => {
 	return (
 		<Content>
 			<Helmet>
-				<title>Tribes 2 Stats</title>
-				<meta name="description" content="Tribes 2 Stats Project"/>
+				<title>Tribes 2 Stats Project</title>
+				<link rel="canonical" href={`https://stats.playt2.com/`}></link>
+				<meta name="description" content={`Tribes 2 player stats compiled and updated daily`}/>
+
+				<meta property="og:site_name" content="Tribes 2 Stats Project" />
+				<meta property="og:url" content={`https://stats.playt2.com/`} />
+				<meta property="og:type" content="article" />
+				<meta property="og:title" content={`Tribes 2 Stats Project`} />
+				<meta property="og:description" content={`Tribes 2 player stats compiled and updated daily`} />
+				<meta property="og:image" content={`https://stats.playt2.com/logo512.png`} /> 
 			</Helmet>
 			<Header className="py-4 mb-4 text-center">
 				<h5>Latest Games</h5>
