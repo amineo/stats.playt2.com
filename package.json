@@ -46,6 +46,12 @@
 		"watch:css": "postcss src/assets/main.css -o src/assets/app.gen.css",
 		"postbuild": "react-snap"
 	},
+	"reactSnap": {
+		"puppeteerArgs": [
+			"--no-sandbox",
+			"--disable-setuid-sandbox"
+		]
+	},
 	"eslintConfig": {
 		"extends": "react-app"
 	},
