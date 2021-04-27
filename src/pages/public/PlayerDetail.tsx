@@ -18,6 +18,7 @@ import {
 	Legend,
 	ResponsiveContainer
 } from 'recharts';
+import AccuracyChart from 'Components/AccuracyChart';
 
 interface IPlayerDetailParams {
 	playerGuid: string;
@@ -310,40 +311,48 @@ const PlayerDetail = () => {
 								/>
 							</div>
 
-							<div className="flex justify-center">
-								<ResponsiveContainer width={width > 740 ? 600 : 340} height={width > 740 ? 500 : 300}>
-									<RadarChart
-										outerRadius={width > 740 ? 150 : 75}
-										data={
-											returnWeaponTotals(playerQuery.data.statTotals).length ? (
-												returnWeaponTotals(playerQuery.data.statTotals)
-											) : (
-												[ { weapon: 'No Data', val: 1 } ]
-											)
-										}
-										className="text-xs text-white mx-auto"
-									>
-										<Legend verticalAlign="top" iconType="circle" content={weaponLegend} />
-										<PolarGrid stroke="#035659" />
-										<PolarAngleAxis dataKey="weapon" stroke="#A1ECFB" />
-										<PolarRadiusAxis stroke="#DF9527" />
-										<Tooltip content={<WeaponTooltip />} />
-										<Radar
-											name="Kills"
-											dataKey="kills"
-											stroke="#3FD7F6"
-											fill="#3FD7F6"
-											fillOpacity={0.4}
-										/>
-										<Radar
-											name="Damage"
-											dataKey="dmg"
-											stroke="#ffeb3b"
-											fill="#ffeb3b"
-											fillOpacity={0.2}
-										/>
-									</RadarChart>
-								</ResponsiveContainer>
+							<div className="flex justify-around flex-col xl:flex-row">
+								<div className="xl:w-5/12">
+									<ResponsiveContainer width="100%" height={width > 740 ? 500 : 300}>
+										<RadarChart
+											outerRadius={width > 740 ? 150 : 75}
+											margin={{
+												// Account for label lengths
+												left: 80,
+												right: 80
+											}}
+											data={
+												returnWeaponTotals(playerQuery.data.statTotals).length ? (
+													returnWeaponTotals(playerQuery.data.statTotals)
+												) : (
+													[ { weapon: 'No Data', val: 1 } ]
+												)
+											}
+											className="text-xs text-white mx-auto"
+										>
+											<Legend verticalAlign="top" iconType="circle" content={weaponLegend} />
+											<PolarGrid stroke="#035659" />
+											<PolarAngleAxis dataKey="weapon" stroke="#A1ECFB" />
+											<PolarRadiusAxis stroke="#DF9527" />
+											<Tooltip content={<WeaponTooltip />} />
+											<Radar
+												name="Kills"
+												dataKey="kills"
+												stroke="#3FD7F6"
+												fill="#3FD7F6"
+												fillOpacity={0.4}
+											/>
+											<Radar
+												name="Damage"
+												dataKey="dmg"
+												stroke="#ffeb3b"
+												fill="#ffeb3b"
+												fillOpacity={0.2}
+											/>
+										</RadarChart>
+									</ResponsiveContainer>
+								</div>
+								<AccuracyChart player={playerQuery.data} height={width > 740 ? 450 : 350} />
 							</div>
 						</Frame>
 					</div>
