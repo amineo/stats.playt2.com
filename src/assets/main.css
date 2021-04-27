@@ -5,3 +5,11 @@
 .site-bg-color {
 	background-color: #010b0d;
 }
+
+select {
+	border: 1px solid #a1ecfb;
+	margin: 0 5px;
+	padding: 3px 5px;
+	background: #15312f;
+	color: white;
+}
