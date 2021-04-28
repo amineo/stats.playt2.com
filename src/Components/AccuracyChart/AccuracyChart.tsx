@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import orderBy from 'lodash.orderby';
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
 
 import {
 	Tooltip,
@@ -39,6 +39,8 @@ function useAccuracyData({
 			discDmgHitsTG: 'discShotsFiredTG',
 			laserMATG: 'laserShotsFiredTG',
 			laserHitsTG: 'laserShotsFiredTG',
+			cgHitsTG: 'cgShotsFiredTG',
+			shockHitsTG: 'shockShotsFiredTG'
 		}[stat];
 
 		const gamesByDate = new Map();
@@ -69,7 +71,11 @@ function useAccuracyData({
 			}, 0);
 
 			const discJumps = games.reduce((total: number, game: any) => {
-				return total + game.stats.discJumpTG;
+				// `discJumpTG` is not inclusive of `killerDiscJumpTG`, they are
+				// mutually exclusive. So to get the total number of disc jumps, add
+				// them up.
+				// See: https://github.com/ChocoTaco1/TacoServer/blob/315a54ffb83534fb8cceb443aa2905152555c175/Classic/scripts/autoexec/zDarkTigerStats.cs#L5335-L5340
+				return total + game.stats.discJumpTG + game.stats.killerDiscJumpTG;
 			}, 0);
 
 			const shots = games.reduce((total: number, game: any) => {
@@ -91,6 +97,7 @@ function useAccuracyData({
 					date: new Date(dateString),
 					hits,
 					shots,
+					countedShots,
 					accuracy: countedShots ? hits / countedShots : 0,
 				});
 			}
@@ -109,11 +116,11 @@ const AccuracyTooltip = ({ payload }: any) => {
 		return <div />;
 	}
 	return (
-		<div className="bg-opacity-50 bg-black px-6 shadow text-base">
-			<h5>
-				{dayjs(payload[0].payload.date).format('MMMM D, YYYY')}
+		<div className="bg-opacity-50 bg-black px-6 shadow text-base text-sm text-white">
+			<h5 className="mb-2">
+				{dayjs(payload[0].payload.date).format('YYYY-MM-DD')}
 			</h5>
-			shots: {payload[0].payload.shots}
+			shots: {payload[0].payload.countedShots}
 			<br />
 			hits: {payload[0].payload.hits}
 			<br />
@@ -132,8 +139,9 @@ export default function AccuracyChart({
 	height: number
 }) {
 	const [stat, setStat] = useState('discDmgHitsTG');
-	const [timeData, careerData] = useAccuracyData({ player, stat });
-	const [vsTimeData, vsCareerData] = useAccuracyData({ player: vsPlayer, stat });
+	const [gameType, setGameType] = useState<string | undefined>();
+	const [timeData, careerData] = useAccuracyData({ player, stat, gameType });
+	const [vsTimeData, vsCareerData] = useAccuracyData({ player: vsPlayer, stat, gameType });
 
 	const mergedTimeData = useMemo(() => {
 		if (timeData && vsTimeData && timeData.length && vsTimeData.length) {
@@ -167,9 +175,9 @@ export default function AccuracyChart({
 	}, [timeData, vsTimeData]);
 
 	return (
-		<section className="xl:w-7/12">
-			<header className="flex flex-wrap items-center mx-4 md:mx-20">
-				<h5>
+		<section className="w-full xl:w-7/12 self-start">
+			<header className="mx-4 text-center">
+				<h5 className="normal-case text-shadow-none">
 					Accuracy of{' '}
 					<select value={stat} onChange={event => {
 						setStat(event.target.value);
@@ -179,12 +187,24 @@ export default function AccuracyChart({
 						<option value="discDmgHitsTG">disc hits (incl. splash)</option>
 						<option value="laserMATG">laser MAs</option>
 						<option value="laserHitsTG">laser hits</option>
+						<option value="cgHitsTG">chaingun hits</option>
+						<option value="shockHitsTG">shocklance hits</option>
 					</select>
-					{' '}over time
+					{' '}in{' '}
+					<select value={gameType || ''} onChange={event => {
+						setGameType(event.target.value || undefined);
+					}}>
+						<option value="">all</option>
+						<option value="CTFGame">CTF</option>
+						<option value="LakRabbitGame">LakRabbit</option>
+					</select>
+					{' '}games
 				</h5>
-				<div className="text-sm ml-2 mb-5 ml-auto">
-					<span className="text-white">&mdash;</span>{' '}
-					<span className="opacity-80">career average</span>
+				<div className="flex items-center justify-center">
+					<svg width="16" height="10" className="mr-2">
+						<line x1="0" y1="5" x2="16" y2="5" stroke="white" />
+					</svg>
+					<span className="text-xs" style={{ color: '#A1ECFB' }}>Career Average</span>
 				</div>
 			</header>
 			{mergedTimeData.length ? (
@@ -193,9 +213,9 @@ export default function AccuracyChart({
 						data={mergedTimeData}
 						margin={{
 							top: 20,
-							left: 40,
+							left: 20,
 							right: 50,
-							bottom: 50,
+							bottom: 60,
 						}}
 					>
 						<XAxis
@@ -263,7 +283,7 @@ export default function AccuracyChart({
 						/>
 					</ComposedChart>
 				</ResponsiveContainer>
-			) : <p className="text-center text-red-500">Not Enough Data</p>}
+			) : <p className="text-center text-red-500 p-8">Not Enough Data</p>}
 		</section>
 	);
 }

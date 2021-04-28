@@ -10,5 +10,6 @@ module.exports = {
 		}
 	},
 	variants: {},
+	important: '#root',
 	plugins: [ require('@tailwindcss/ui') ]
 };
