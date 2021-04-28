@@ -50,20 +50,20 @@ function useAccuracyData({
 			laserHitsTG: 'laserShotsFiredTG',
 			cgHitsTG: 'cgShotsFiredTG',
 			shockHitsTG: 'shockShotsFiredTG'
-		}[stat];
+		}[stat] as string;
 
 		const gamesByDate = new Map();
 
 		player.gameDetails.forEach((game: any) => {
 			if (gameType == null || game.gametype === gameType) {
-				const dateString = dayjs(game.datestamp)
+				const aggregationKey = dayjs(game.datestamp)
 					.startOf(aggregationPeriod)
 					.toISOString();
 
-				if (gamesByDate.has(dateString)) {
-					gamesByDate.get(dateString).push(game);
+				if (gamesByDate.has(aggregationKey)) {
+					gamesByDate.get(aggregationKey).push(game);
 				} else {
-					gamesByDate.set(dateString, [game]);
+					gamesByDate.set(aggregationKey, [game]);
 				}
 			}
 		});
@@ -77,12 +77,19 @@ function useAccuracyData({
 			accuracy: 0,
 		};
 
-		gamesByDate.forEach((games, dateString) => {
-			const hits = games.reduce((total: number, game: any) => {
+		gamesByDate.forEach((games, aggregationKey) => {
+			// There's a period in September and October 2020 where stats were not
+			// tracked correctly, particularly for shocklance. There would be hits but
+			// no shots fired, leading to >100% accuracy. Don't count those games.
+			// And even for games with valid data, they won't contribute anything if
+			// they (legitimately) have 0 shots fired anyway.
+			const validGames = games.filter((game: any) => game.stats[totalStat] > 0);
+
+			const hits = validGames.reduce((total: number, game: any) => {
 				return total + game.stats[stat];
 			}, 0);
 
-			const discJumps = games.reduce((total: number, game: any) => {
+			const discJumps = validGames.reduce((total: number, game: any) => {
 				// `discJumpTG` is not inclusive of `killerDiscJumpTG`, they are
 				// mutually exclusive. So to get the total number of disc jumps, add
 				// them up.
@@ -90,8 +97,8 @@ function useAccuracyData({
 				return total + game.stats.discJumpTG + game.stats.killerDiscJumpTG;
 			}, 0);
 
-			const shots = games.reduce((total: number, game: any) => {
-				return total + game.stats[totalStat as string];
+			const shots = validGames.reduce((total: number, game: any) => {
+				return total + game.stats[totalStat];
 			}, 0);
 
 			const countedShots =
@@ -106,7 +113,8 @@ function useAccuracyData({
 
 			if (shots >= minShots) {
 				timeData.push({
-					date: new Date(dateString),
+					aggregationKey,
+					date: new Date(aggregationKey),
 					hits,
 					shots,
 					countedShots,
@@ -167,23 +175,24 @@ export default function AccuracyChart({
 	const [vsTimeData, vsCareerData] = useAccuracyData({ player: vsPlayer, stat, gameType, aggregationPeriod });
 
 	const mergedTimeData = useMemo(() => {
-		if (timeData && vsTimeData && timeData.length && vsTimeData.length) {
+		if (timeData.length && vsTimeData.length) {
 			const statsByDate = new Map();
 
 			timeData.forEach((point: any) => {
-				const dateString = point.date.toISOString().slice(0, 10);
-				statsByDate.set(dateString, point);
+				const { aggregationKey } = point;
+				statsByDate.set(aggregationKey, point);
 			});
 
 			vsTimeData.forEach((point: any) => {
-				const dateString = point.date.toISOString().slice(0, 10);
-				if (statsByDate.has(dateString)) {
-					statsByDate.set(dateString, {
-						...statsByDate.get(dateString),
+				const { aggregationKey } = point;
+				if (statsByDate.has(aggregationKey)) {
+					statsByDate.set(aggregationKey, {
+						...statsByDate.get(aggregationKey),
 						vsAccuracy: point.accuracy,
 					});
 				} else {
-					statsByDate.set(dateString, {
+					statsByDate.set(aggregationKey, {
+						aggregationKey,
 						date: point.date,
 						vsAccuracy: point.accuracy,
 					});
