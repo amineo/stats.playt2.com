@@ -3,17 +3,17 @@
 @tailwind utilities;
 
 .site-bg-color {
-  background-color: #010b0d;
+	background-color: #010b0d;
 }
 
 #root .text-shadow-none {
-  text-shadow: none;
+	text-shadow: none;
 }
 
 select {
-  border: 1px solid #a1ecfb;
-  margin: 2px 5px;
-  padding: 3px 5px;
-  background: #15312f;
-  color: white;
+	border: 1px solid #a1ecfb;
+	margin: 2px 5px;
+	padding: 3px 5px;
+	background: #15312f;
+	color: white;
 }
