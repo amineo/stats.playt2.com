@@ -123,7 +123,7 @@ function useAccuracyData({
 	}, [player, stat, gameType, aggregationPeriod, minShots]);
 }
 
-const AccuracyTooltip = ({ payload, aggregationPeriod }: any) => {
+const AccuracyTooltip = ({ payload, careerData, aggregationPeriod }: any) => {
 	if (!payload || !payload.length) {
 		return <div />;
 	}
@@ -144,7 +144,9 @@ const AccuracyTooltip = ({ payload, aggregationPeriod }: any) => {
 			<br />
 			hits: {payload[0].payload.hits}
 			<br />
-			accuracy: {(100 * payload[0].payload.accuracy).toFixed(0)}%
+			accuracy: {(100 * payload[0].payload.accuracy).toFixed(1)}%
+			<br />
+			career average: {(100 * careerData.accuracy).toFixed(1)}%
 		</div>
 	);
 };
@@ -279,7 +281,12 @@ export default function AccuracyChart({
 							tickMargin={10}
 							tickFormatter={(value: number) => `${(100 * value).toFixed(0)}%`}
 						/>
-						<Tooltip content={<AccuracyTooltip aggregationPeriod={aggregationPeriod} />} />
+						<Tooltip content={
+							<AccuracyTooltip
+								careerData={careerData}
+								aggregationPeriod={aggregationPeriod}
+							/>
+						} />
 						<CartesianGrid
 							stroke="#8ec8c8"
 							opacity={0.1}
