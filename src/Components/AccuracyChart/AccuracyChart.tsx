@@ -162,7 +162,7 @@ export default function AccuracyChart({
 }) {
 	const [stat, setStat] = useState('discDmgHitsTG');
 	const [gameType, setGameType] = useState<string | undefined>();
-	const [aggregationPeriod, setAggregationPeriod] = useState<AggregationPeriod>('day');
+	const [aggregationPeriod, setAggregationPeriod] = useState<AggregationPeriod>('week');
 	const [timeData, careerData] = useAccuracyData({ player, stat, gameType, aggregationPeriod });
 	const [vsTimeData, vsCareerData] = useAccuracyData({ player: vsPlayer, stat, gameType, aggregationPeriod });
 
