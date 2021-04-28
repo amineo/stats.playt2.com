@@ -44,7 +44,7 @@
 		"storybook": "start-storybook -p 9009 -s public",
 		"build-storybook": "build-storybook -s public",
 		"build:css": "postcss src/assets/main.css -o src/assets/app.gen.css",
-		"watch:css": "npm run build:css --watch"
+		"watch:css": "npm run build:css -- --watch"
 	},
 	"reactSnap": {
 		"puppeteerArgs": [

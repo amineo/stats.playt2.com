@@ -311,8 +311,8 @@ const PlayerDetail = () => {
 								/>
 							</div>
 
-							<div className="flex justify-around flex-col xl:flex-row">
-								<div className="xl:w-5/12">
+							<div className="flex justify-around items-center flex-col xl:flex-row">
+								<div className="w-full xl:w-5/12">
 									<ResponsiveContainer width="100%" height={width > 740 ? 500 : 300}>
 										<RadarChart
 											outerRadius={width > 740 ? 150 : 75}
