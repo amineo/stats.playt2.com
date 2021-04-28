@@ -1,6 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import orderBy from 'lodash.orderby';
 import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
 
 import {
 	Tooltip,
@@ -13,16 +15,23 @@ import {
 	Line
 } from 'recharts';
 
+dayjs.extend(advancedFormat);
+dayjs.extend(weekOfYear);
+
+type AggregationPeriod = 'day' | 'week';
+
 function useAccuracyData({
 	player,
 	stat,
 	minShots = 50,
+	aggregationPeriod = 'day',
 	// TODO: Make game type selectable. Always all games for now.
 	gameType
 }: {
 	player: any,
 	stat: string,
 	minShots?: number,
+	aggregationPeriod?: AggregationPeriod,
 	gameType?: string
 }): Array<any> {
 	return useMemo(() => {
@@ -47,7 +56,10 @@ function useAccuracyData({
 
 		player.gameDetails.forEach((game: any) => {
 			if (gameType == null || game.gametype === gameType) {
-				const dateString = game.datestamp.slice(0, 10);
+				const dateString = dayjs(game.datestamp)
+					.startOf(aggregationPeriod)
+					.toISOString();
+
 				if (gamesByDate.has(dateString)) {
 					gamesByDate.get(dateString).push(game);
 				} else {
@@ -108,17 +120,25 @@ function useAccuracyData({
 		}
 
 		return [orderBy(timeData, [(stats) => stats.date], ['asc']), careerData];
-	}, [player, stat, minShots, gameType]);
+	}, [player, stat, gameType, aggregationPeriod, minShots]);
 }
 
-const AccuracyTooltip = ({ payload }: any) => {
+const AccuracyTooltip = ({ payload, aggregationPeriod }: any) => {
 	if (!payload || !payload.length) {
 		return <div />;
 	}
+
+	const date = dayjs(payload[0].payload.date);
+
 	return (
 		<div className="bg-opacity-50 bg-black px-6 shadow text-base text-sm text-white">
 			<h5 className="mb-2">
-				{dayjs(payload[0].payload.date).format('YYYY-MM-DD')}
+				{date.format('YYYY-MM-DD')}
+				{
+					aggregationPeriod === 'week'
+						? <> &ndash; {date.add(6, 'day').format('YYYY-MM-DD')}</>
+						: null
+				}
 			</h5>
 			shots: {payload[0].payload.countedShots}
 			<br />
@@ -140,8 +160,9 @@ export default function AccuracyChart({
 }) {
 	const [stat, setStat] = useState('discDmgHitsTG');
 	const [gameType, setGameType] = useState<string | undefined>();
-	const [timeData, careerData] = useAccuracyData({ player, stat, gameType });
-	const [vsTimeData, vsCareerData] = useAccuracyData({ player: vsPlayer, stat, gameType });
+	const [aggregationPeriod, setAggregationPeriod] = useState<AggregationPeriod>('day');
+	const [timeData, careerData] = useAccuracyData({ player, stat, gameType, aggregationPeriod });
+	const [vsTimeData, vsCareerData] = useAccuracyData({ player: vsPlayer, stat, gameType, aggregationPeriod });
 
 	const mergedTimeData = useMemo(() => {
 		if (timeData && vsTimeData && timeData.length && vsTimeData.length) {
@@ -198,7 +219,13 @@ export default function AccuracyChart({
 						<option value="CTFGame">CTF</option>
 						<option value="LakRabbitGame">LakRabbit</option>
 					</select>
-					{' '}games
+					{' '}games by{' '}
+					<select value={aggregationPeriod} onChange={event => {
+						setAggregationPeriod(event.target.value as AggregationPeriod);
+					}}>
+						<option value="day">day</option>
+						<option value="week">week</option>
+					</select>
 				</h5>
 				<div className="flex items-center justify-center">
 					<svg width="16" height="10" className="mr-2">
@@ -237,7 +264,9 @@ export default function AccuracyChart({
 								mergedTimeData[mergedTimeData.length - 1].date.getTime(),
 							]}
 							tickFormatter={(value) => {
-								return dayjs(value).format('MMM D ’YY')
+								return dayjs(value).format(
+									aggregationPeriod === 'week' ? 'YYYY [W]w' : 'MMM D ’YY'
+								);
 							}}
 						/>
 						<YAxis
@@ -250,7 +279,7 @@ export default function AccuracyChart({
 							tickMargin={10}
 							tickFormatter={(value: number) => `${(100 * value).toFixed(0)}%`}
 						/>
-						<Tooltip content={<AccuracyTooltip />} />
+						<Tooltip content={<AccuracyTooltip aggregationPeriod={aggregationPeriod} />} />
 						<CartesianGrid
 							stroke="#8ec8c8"
 							opacity={0.1}
