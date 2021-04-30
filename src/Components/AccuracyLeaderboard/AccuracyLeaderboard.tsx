@@ -1,13 +1,12 @@
-import React, { useCallback, useContext, useEffect, useMemo } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { mix } from 'polished';
 
 // @ts-ignore
-import { Header, Content, Loading, Frame, Line, Table } from 'arwes';
+import { Loading } from 'arwes';
 
 import {
-	BarChart,
 	Cell,
 	Tooltip,
 	ResponsiveContainer,
@@ -15,7 +14,7 @@ import {
 	XAxis,
 	YAxis,
 	CartesianGrid,
-	Bar,
+	Bar
 } from 'recharts';
 
 import { FetchContext } from 'Context/FetchContext';
