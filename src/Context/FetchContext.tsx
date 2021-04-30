@@ -8,11 +8,14 @@ import { PlayersApi } from 'api/players';
 
 import appConfig from 'config';
 
+type AxiosClient = ApiClient & typeof GamesApi & typeof PlayersApi
+
 interface IAxios {
-	apiClient: any;
+	apiClient: AxiosClient
 }
 
-const FetchContext = createContext<IAxios>({ apiClient: null });
+
+const FetchContext = createContext<IAxios>({ apiClient: null! });
 const { Provider } = FetchContext;
 
 const FetchProvider: React.FC = ({ children }) => {
@@ -28,7 +31,7 @@ const FetchProvider: React.FC = ({ children }) => {
 	};
 
 	// Setup an axios instance
-	const apiClient = new ApiClient(apiConfig);
+	const apiClient = new ApiClient(apiConfig) as AxiosClient;
 
 	// Error response interceptor  -- used for getting a new token
 	apiClient.api.interceptors.response.use(

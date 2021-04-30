@@ -29,9 +29,15 @@ const AppShell: React.FC = ({ children }) => {
 											</Link>
 											<Link
 												to="/players"
-												className="ml-3 px-0 py-2 rounded-md text-sm md:ml-4 sm:px-3"
+												className="ml-0 px-3 py-2 rounded-md text-sm md:ml-4"
 											>
 												Players
+											</Link>
+											<Link
+												to="/players/top/accuracy"
+												className="ml-0 px-3 py-2 rounded-md text-sm md:ml-4"
+											>
+												Leaderboards
 											</Link>
 										</Content>
 									</div>
@@ -39,7 +45,7 @@ const AppShell: React.FC = ({ children }) => {
 							</div>
 							<div className="md:block">
 								<div className="mr-0 flex items-center md:ml-4">
-									<div className="mr-0 invisible md:visible md:mr-1 lg:mr-4">
+									<div className="mr-0 invisible lg:visible lg:mr-4">
 										<Frame border={false} corners={1} layer={'secondary'}>
 											<Content>
 												<small className="px-0 text-sm block text-orange-200 sm:px-3 md:px-6">
