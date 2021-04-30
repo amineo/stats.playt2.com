@@ -22,7 +22,9 @@ const TopPlayersAccuracy = () => {
 			</Header>
 			<div className="relative max-w-3xl mx-auto px-2">
 				<Frame border={false} corners={2} layer={'header'}>
-					<AccuracyLeaderboard />
+					<div className="md:p-5">
+						<AccuracyLeaderboard />
+					</div>
 				</Frame>
 			</div>
 		</Content>

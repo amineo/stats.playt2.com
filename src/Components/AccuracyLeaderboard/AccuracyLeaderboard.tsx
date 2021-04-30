@@ -152,7 +152,7 @@ export default function AccuracyLeaderboard() {
 
 	return (
 		<section>
-			<header className="py-8 px-5 text-center">
+			<header className="py-3 text-center">
 				<h5 className="normal-case text-shadow-none">
 					Accuracy of{' '}
 					<select value={stat} onChange={event => {
@@ -172,17 +172,20 @@ export default function AccuracyLeaderboard() {
 					{' '}games
 				</h5>
 			</header>
-			{data.isFetching ? <Loading animate full /> : null}
+			{accuracyQuery.isFetching ? (
+				<div className={`mx-auto w-32 h-32 my-8 ${data.length ? 'absolute inset-x-0' : 'relative'}`}>
+					<Loading animate full /></div>
+			) : null}
 			{data.length ? (
 				<ResponsiveContainer width="100%" height={data.length * 30}>
 					<ComposedChart
 						data={data}
 						layout="vertical"
 						margin={{
-							top: 0,
-							left: 120,
-							right: 80,
-							bottom: 50
+							top: 20,
+							left: 90,
+							right: 50,
+							bottom: 30
 						}}
 					>
 						<Tooltip content={<AccuracyTooltip />} />
@@ -228,7 +231,7 @@ export default function AccuracyLeaderboard() {
 				</ResponsiveContainer>
 			) : null}
 			{accuracyQuery.isFetched && !data.length
-				? <p className="text-center text-red-500 p-8 pb-20">Not Enough Data</p>
+				? <p className="text-center text-red-500 p-8">Not Enough Data</p>
 				: null}
 		</section>
 	);
