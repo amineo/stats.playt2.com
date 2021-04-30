@@ -222,7 +222,10 @@ export default function AccuracyLeaderboard() {
 						</Bar>
 					</ComposedChart>
 				</ResponsiveContainer>
-			) : <p className="text-center text-red-500 p-8 pb-20">Not Enough Data</p>}
+			) : null}
+			{accuracyQuery.isFetched && !data.length
+				? <p className="text-center text-red-500 p-8 pb-20">Not Enough Data</p>
+				: null}
 		</section>
 	);
 }
