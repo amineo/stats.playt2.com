@@ -102,7 +102,9 @@ const PlayerLabel = ({
 				fill={payload.index === 0 ? 'white' : '#a1ecfb'}
 				opacity={isLoading ? 0.5 : 1}
 			>
-				<tspan x={rest.x} dy="0.355em">{payload.value}</tspan>
+				<tspan x={rest.x} dy={payload.index === 0 ? '0.315em' : '0.355em'}>
+					{payload.value}
+				</tspan>
 			</text>
 		</Link>
 	);
