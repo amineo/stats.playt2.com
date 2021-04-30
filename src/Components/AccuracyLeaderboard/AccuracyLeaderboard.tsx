@@ -74,7 +74,7 @@ const AccuracyTooltip = ({ payload, label }: any) => {
 	return (
 		<div className="bg-opacity-50 bg-black px-6 shadow text-base text-sm text-white">
 			<h5 className="mb-2">
-				{label}
+				#{payload[0].payload.index + 1} &ndash; {label}
 			</h5>
 			hits: {payload[0].payload.hits}
 			<br />
@@ -90,6 +90,7 @@ const PlayerLabel = ({
 	payload,
 	isLoading,
 	tickFormatter,
+	verticalAnchor,
 	visibleTicksCount,
 	...rest
 }: any) => {
@@ -135,9 +136,10 @@ export default function AccuracyLeaderboard() {
 	const data = useMemo(() => {
 		if (accuracyQuery.data && accuracyQuery.data.players.length) {
 			const topPlayer = accuracyQuery.data.players[0];
-			return accuracyQuery.data.players.map((player: any) => {
+			return accuracyQuery.data.players.map((player: any, index: number) => {
 				return {
 					...player,
+					index,
 					vsTopPlayer: topPlayer.accuracy
 						? player.accuracy / topPlayer.accuracy
 						: 1
