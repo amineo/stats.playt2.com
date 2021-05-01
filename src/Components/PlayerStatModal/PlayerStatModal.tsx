@@ -282,7 +282,7 @@ const PlayerStatModal = (player: any) => {
 
 				<div className="text-sm px-1 table-cell w-3/12 sm:text-base md:text-lg">
 					<ModalStatLine name="Assists" statValue={player.stats.assistTG} />
-					<ModalStatLine name="Shot Rating" statValue={player.stats.weaponScoreTG} />
+					<ModalStatLine name="Avg. Air Time (s)" statValue={player.stats.airTimeAvg} />
 					<ModalStatLine name="Dist Moved (km)" statValue={player.stats.distMovTG} />
 					<ModalStatLine name="Survival (mins)" statValue={player.stats.timeTLAvg / 60} />
 				</div>
