@@ -58,9 +58,11 @@ function useQueryParams() {
 				}
 			});
 			const newParamsString = newParams.toString();
-			history.push(newParamsString ? `?${newParamsString}` : '');
+			const newLocation = location.pathname +
+				(newParamsString ? `?${newParamsString}` : '');
+			history.push(newLocation);
 		},
-		[history, location.search]
+		[history, location.pathname, location.search]
 	);
 
 	return [queryParams, setQueryParams];
