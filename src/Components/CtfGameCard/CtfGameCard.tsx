@@ -4,7 +4,7 @@ import { Transition } from '@tailwindui/react';
 // @ts-ignore
 import { Content, Frame, Table, Words, Header, Line, Button } from 'arwes';
 import CardDisplay from 'Components/CardDisplay';
-import PlayerStatModal from 'Components/PlayerStatModal';
+import CtfPlayerStatModal from 'Components/CtfPlayerStatModal';
 
 const CtfGameCard: React.FC = (gameStats: any) => {
 	const [ isOpen, setIsOpen ] = useState(false);
@@ -227,8 +227,7 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 											</svg>
 										</Button>
 									</div>
-									<PlayerStatModal {...modalPlayerData} />
-
+									<CtfPlayerStatModal {...modalPlayerData} />
 									<div className="mt-5 sm:mt-6">
 										<span className="flex w-full rounded-md shadow-sm">
 											<Button

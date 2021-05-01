@@ -246,7 +246,7 @@ const WeaponTooltip = ({ payload, label }: any) => {
 	);
 };
 
-const PlayerStatModal = (player: any) => {
+const LakPlayerStatModal = (player: any) => {
 	const { width } = useWindowDimensions();
 
 	if (!player.stats) {
@@ -444,4 +444,4 @@ const PlayerStatModal = (player: any) => {
 		</Content>
 	);
 };
-export default PlayerStatModal;
+export default LakPlayerStatModal;

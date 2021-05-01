@@ -6,12 +6,30 @@ import { Helmet } from 'react-helmet';
 import { FetchContext } from 'Context/FetchContext';
 
 import CtfGameCard from 'Components/CtfGameCard';
+import LakGameCard from 'Components/LakGameCard';
 import DefaultGameCard from 'Components/DefaultGameCard';
 
 
 interface IGameDetailParams {
 	gameId: string;
 }
+
+
+
+// GameType specific cards
+const renderGameTypeCard = (gameQuery: any) => {
+	switch(gameQuery.gametype) {
+		case 'CTFGame':
+		case 'SCtFGame':
+			return <CtfGameCard {...gameQuery} />;
+		case 'LakRabbitGame':
+			return <LakGameCard {...gameQuery} />;		  
+		default:
+		  	return <DefaultGameCard {...gameQuery} />;
+	}
+}
+
+
 
 const GameDetail = () => {
 	const fetchContext = useContext(FetchContext);
@@ -51,12 +69,13 @@ const GameDetail = () => {
 							<meta property="og:description" content={`${gameQuery.data.players.length} players`} />
 						</Helmet>
 					)}
+
 					
-					{gameQuery.data.gametype === 'CTFGame' || gameQuery.data.gametype === 'SCtFGame' ? (
-						<CtfGameCard {...gameQuery.data} />
-					) : (
-						<DefaultGameCard {...gameQuery.data} />
-					)}
+					{
+						// specific to GameType
+						renderGameTypeCard(gameQuery.data) 
+					}  
+					
 
 				</>
 			)}
