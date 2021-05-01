@@ -42,8 +42,8 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 			<div className="flex justify-center max-w-2xl mx-auto">
 				<div className="px-1 text-center md:px-2 lg:px-6 flex w-full justify-center">
 					<Content>
-						<h1 className="text-6xl font-bold text-white">{gameStats.teams.storm.score}</h1>
-						<h4 className="text-4xl">Storm</h4>
+						<h1 className="text-4xl mb-1 font-bold text-white">{gameStats.teams.storm.score}</h1>
+						<h4 className="text-2xl">Storm</h4>
 					</Content>
 				</div>
 				<div className="px-1 text-center md:px-2 lg:px-6 flex w-full justify-center">
@@ -60,8 +60,8 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 				</div>
 				<div className="px-1 text-center md:px-2 lg:px-6 flex w-full justify-center">
 					<Content>
-						<h1 className="text-6xl font-bold text-white ">{gameStats.teams.inferno.score}</h1>
-						<h4 className="text-4xl">Inferno</h4>
+						<h1 className="text-4xl mb-1 font-bold text-white ">{gameStats.teams.inferno.score}</h1>
+						<h4 className="text-2xl">Inferno</h4>
 					</Content>
 				</div>
 			</div>
