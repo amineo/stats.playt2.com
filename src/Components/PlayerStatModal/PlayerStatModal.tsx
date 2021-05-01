@@ -198,7 +198,7 @@ const returnWeaponTotals = (statTotals: any) => {
 function ModalStatLine(props: any) {
 	return (
 		<div key={`w_${props.name}`}>
-			<div className="text-sm inline-block sm:text-base md:text-lg">{props.name} : </div> {' '}
+			<h5 className="inline-block">{props.name} :</h5> {' '}
 			<p className="text-sm inline-block py-0 sm:text-base md:text-lg">
 				{props.statValue ? <small>{parseFloat(props.statValue.toFixed(2))}</small> : <small>0</small>}
 			</p>
