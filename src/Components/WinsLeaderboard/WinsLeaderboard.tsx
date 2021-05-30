@@ -20,22 +20,11 @@ import {
 import { FetchContext } from 'Context/FetchContext';
 import useQueryParams from 'utils/useQueryParams';
 
-const statOptions = {
-	discMATG: { label: 'disc MAs' },
-	discHitsTG: { label: 'disc hits (direct)' },
-	discDmgHitsTG: { label: 'disc hits (incl. splash)' },
-	laserMATG: { label: 'laser MAs' },
-	laserHitsTG: { label: 'laser hits' },
-	cgHitsTG: { label: 'chaingun hits' },
-	shockHitsTG: { label: 'shocklance hits' },
-} as const;
-
 const gameTypeOptions = {
 	CTFGame: { label: 'CTF' },
-	LakRabbitGame: { label: 'LakRabbit' },
 } as const;
 
-const AccuracyTooltip = ({ payload, label }: any) => {
+const WinsTooltip = ({ payload, label }: any) => {
 	if (!payload || !payload.length) {
 		return <div />;
 	}
@@ -45,11 +34,13 @@ const AccuracyTooltip = ({ payload, label }: any) => {
 			<h5 className="mb-2">
 				#{payload[0].payload.index + 1} &ndash; {label}
 			</h5>
-			hits: {payload[0].payload.hits}
+			wins: {payload[0].payload.winCount}
 			<br />
-			shots: {payload[0].payload.shots}
+			losses: {payload[0].payload.lossCount}
 			<br />
-			accuracy: {(100 * payload[0].payload.accuracy).toFixed(1)}%
+			draws: {payload[0].payload.drawCount}
+			<br />
+			winning percentage: {(100 * payload[0].payload.winPercent).toFixed(1)}%
 		</div>
 	);
 };
@@ -82,19 +73,19 @@ const PlayerLabel = ({
 
 const limit = 50;
 
-export default function AccuracyLeaderboard() {
+export default function WinsLeaderboard() {
 	const fetchContext = useContext(FetchContext);
 	const apiClient = fetchContext.apiClient;
 
 	const [params, setQueryParams] = useQueryParams();
 	const {
-		stat = 'discMATG',
-		gameType = null,
+		minGames = null,
+		gameType = 'CTFGame',
 	} = params;
 
-	const accuracyQuery = useQuery(
-		['accuracy', stat, gameType],
-		() => apiClient.getTopPlayersByAccuracy({ stat, gameType, limit }),
+	const winsQuery = useQuery(
+		['wins', gameType, minGames],
+		() => apiClient.getTopPlayersByWins({ minGames, limit }),
 		{
 			refetchOnWindowFocus: false,
 			staleTime: Infinity,
@@ -103,45 +94,47 @@ export default function AccuracyLeaderboard() {
 	);
 
 	const data = useMemo(() => {
-		if (accuracyQuery.data && accuracyQuery.data.players.length) {
-			const topPlayer = accuracyQuery.data.players[0];
-			return accuracyQuery.data.players.map((player: any, index: number) => {
+		if (winsQuery.data && winsQuery.data.players.length) {
+			const topPlayer = winsQuery.data.players[0];
+			return winsQuery.data.players.map((player: any, index: number) => {
 				return {
 					...player,
 					index,
-					vsTopPlayer: topPlayer.accuracy
-						? player.accuracy / topPlayer.accuracy
+					vsTopPlayer: topPlayer.winPercent
+						? player.winPercent / topPlayer.winPercent
 						: 1
 				};
 			})
 		} else {
 			return [];
 		}
-	}, [accuracyQuery.data]);
+	}, [winsQuery.data]);
 
 	return (
 		<section>
 			<header className="py-3 text-center">
 				<h5 className="normal-case text-shadow-none">
-					Accuracy of{' '}
-					<select value={stat} onChange={event => {
-						setQueryParams({ stat: event.target.value });
-					}}>
-						{Object.entries(statOptions).map(([value, option]) =>
-							<option key={value} value={value}>{option.label}</option>)}
-					</select>
-					{' '}in{' '}
+					Winning percentage in{' '}
 					<select value={gameType || ''} onChange={event => {
 						setQueryParams({ gameType: event.target.value || null });
 					}}>
-						<option value="">all</option>
 						{Object.entries(gameTypeOptions).map(([value, option]) =>
 							<option key={value} value={value}>{option.label}</option>)}
 					</select>
-					{' '}games
+          <br />with minimum{' '}
+					<select value={minGames || ''} onChange={event => {
+						setQueryParams({ minGames: event.target.value || null });
+					}}>
+            {process.env.NODE_ENV !== 'production' ? <option value="10">10</option> : null}
+            <option value="50">50</option>
+            <option value="">100</option>
+            <option value="500">500</option>
+            <option value="1000">1,000</option>
+					</select>
+					{' '}games played
 				</h5>
 			</header>
-			{accuracyQuery.isFetching ? (
+			{winsQuery.isFetching ? (
 				<div className={`mx-auto w-32 h-32 my-8 ${data.length ? 'absolute inset-x-0' : 'relative'}`}>
 					<Loading animate full /></div>
 			) : null}
@@ -157,7 +150,7 @@ export default function AccuracyLeaderboard() {
 							bottom: 30
 						}}
 					>
-						<Tooltip content={<AccuracyTooltip />} />
+						<Tooltip content={<WinsTooltip />} />
 						<CartesianGrid
 							horizontal={false}
 							stroke="#8ec8c8"
@@ -185,21 +178,21 @@ export default function AccuracyLeaderboard() {
 							tickSize={0}
 							tickMargin={10}
 							minTickGap={0}
-							tick={<PlayerLabel data={data} isLoading={accuracyQuery.isFetching} />}
+							tick={<PlayerLabel data={data} isLoading={winsQuery.isFetching} />}
 						/>
-						<Bar dataKey="accuracy" barSize={12}>
+						<Bar dataKey="winPercent" barSize={12}>
 							{data.map((player: any, index: number) => (
 								<Cell
 									key={index}
 									fill={mix(player.vsTopPlayer, 'rgba(157, 255, 233, 1)', 'rgba(80, 177, 170, 0.7)')}
-									opacity={accuracyQuery.isFetching ? 0.2 : 1}
+									opacity={winsQuery.isFetching ? 0.2 : 1}
 								/>
 							))}
 						</Bar>
 					</ComposedChart>
 				</ResponsiveContainer>
 			) : null}
-			{accuracyQuery.isFetched && !data.length
+			{winsQuery.isFetched && !data.length
 				? <p className="text-center text-red-500 p-8">Not Enough Data</p>
 				: null}
 		</section>

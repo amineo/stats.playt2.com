@@ -16,6 +16,7 @@ import GameDetail from 'pages/public/GameDetail';
 import Players from 'pages/public/Players';
 import PlayerDetail from 'pages/public/PlayerDetail';
 import TopPlayersAccuracy from 'pages/public/TopPlayersAccuracy';
+import TopPlayersWins from 'pages/public/TopPlayersWins';
 
 import FourOFour from 'pages/error/404';
 
@@ -41,6 +42,9 @@ const AppRoutes: React.FC = () => {
 						</Route>
 						<Route exact path="/players/top/accuracy">
 							<TopPlayersAccuracy />
+						</Route>
+						<Route exact path="/players/top/wins">
+							<TopPlayersWins />
 						</Route>
 						<Route exact path="/player/:playerGuid">
 							<PlayerDetail />
