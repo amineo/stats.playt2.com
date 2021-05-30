@@ -8,6 +8,7 @@ export interface IApiClientMethods {
 	getAllPlayers: any;
 	getPlayerById: any;
 	getTopPlayersByAccuracy: any;
+	getTopPlayersByWins: any;
 
 	error: any;
 	success: any;
@@ -53,6 +54,26 @@ export const PlayersApi = {
 		try {
 			// @ts-ignore
 			const response: AxiosResponse<any> = await this.get<IGame, AxiosResponse<any>>('/players/top/accuracy', {
+				params
+			});
+
+			return this.success(response);
+		} catch (error) {
+			let err: AxiosError = error;
+
+			this.error(err);
+			throw err;
+		}
+	},
+
+	async getTopPlayersByWins(params: {
+		gameType?: string,
+		minGames?: number,
+		limit?: number
+	}): Promise<any> {
+		try {
+			// @ts-ignore
+			const response: AxiosResponse<any> = await this.get<IGame, AxiosResponse<any>>('/players/top/wins', {
 				params
 			});
 
