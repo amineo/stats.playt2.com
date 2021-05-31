@@ -24,6 +24,14 @@ const gameTypeOptions = {
 	CTFGame: { label: 'CTF' },
 } as const;
 
+const minGamesOptions = {
+	25: { label: '25' },
+	50: { label: '50' },
+	100: { label: '100' },
+	500: { label: '500' },
+	1000: { label: '1,000' },
+} as const;
+
 const WinsTooltip = ({ payload, label }: any) => {
 	if (!payload || !payload.length) {
 		return <div />;
@@ -79,7 +87,7 @@ export default function WinsLeaderboard() {
 
 	const [params, setQueryParams] = useQueryParams();
 	const {
-		minGames = null,
+		minGames = '50',
 		gameType = 'CTFGame',
 	} = params;
 
@@ -121,15 +129,14 @@ export default function WinsLeaderboard() {
 						{Object.entries(gameTypeOptions).map(([value, option]) =>
 							<option key={value} value={value}>{option.label}</option>)}
 					</select>
-          <br />with minimum{' '}
+					<br />with min.{' '}
 					<select value={minGames || ''} onChange={event => {
 						setQueryParams({ minGames: event.target.value || null });
 					}}>
-            {process.env.NODE_ENV !== 'production' ? <option value="10">10</option> : null}
-            <option value="50">50</option>
-            <option value="">100</option>
-            <option value="500">500</option>
-            <option value="1000">1,000</option>
+						{Object.entries(minGamesOptions).map(([value, option]) =>
+							<option key={value} value={value}>{option.label}</option>)}
+						{(minGames in minGamesOptions) ? null :
+						<option key={minGames} value={minGames}>{minGames} (custom)</option>}
 					</select>
 					{' '}games played
 				</h5>
