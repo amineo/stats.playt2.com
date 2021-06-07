@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from 'react';
-import { Link, } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { mix } from 'polished';
 
@@ -14,7 +14,7 @@ import {
 	XAxis,
 	YAxis,
 	CartesianGrid,
-	Bar
+	Bar,
 } from 'recharts';
 
 import { FetchContext } from 'Context/FetchContext';
@@ -86,10 +86,7 @@ export default function WinsLeaderboard() {
 	const apiClient = fetchContext.apiClient;
 
 	const [params, setQueryParams] = useQueryParams();
-	const {
-		minGames = '50',
-		gameType = 'CTFGame',
-	} = params;
+	const { minGames = '50', gameType = 'CTFGame' } = params;
 
 	const winsQuery = useQuery(
 		['wins', gameType, minGames],
@@ -97,8 +94,8 @@ export default function WinsLeaderboard() {
 		{
 			refetchOnWindowFocus: false,
 			staleTime: Infinity,
-			keepPreviousData: true
-		}
+			keepPreviousData: true,
+		},
 	);
 
 	const data = useMemo(() => {
@@ -110,9 +107,9 @@ export default function WinsLeaderboard() {
 					index,
 					vsTopPlayer: topPlayer.winPercent
 						? player.winPercent / topPlayer.winPercent
-						: 1
+						: 1,
 				};
-			})
+			});
 		} else {
 			return [];
 		}
@@ -123,27 +120,48 @@ export default function WinsLeaderboard() {
 			<header className="py-3 text-center">
 				<h5 className="normal-case text-shadow-none">
 					Winning percentage in{' '}
-					<select value={gameType || ''} onChange={event => {
-						setQueryParams({ gameType: event.target.value || null });
-					}}>
-						{Object.entries(gameTypeOptions).map(([value, option]) =>
-							<option key={value} value={value}>{option.label}</option>)}
+					<select
+						value={gameType || ''}
+						onChange={(event) => {
+							setQueryParams({ gameType: event.target.value || null });
+						}}
+					>
+						{Object.entries(gameTypeOptions).map(([value, option]) => (
+							<option key={value} value={value}>
+								{option.label}
+							</option>
+						))}
 					</select>
-					<br />with min.{' '}
-					<select value={minGames || ''} onChange={event => {
-						setQueryParams({ minGames: event.target.value || null });
-					}}>
-						{Object.entries(minGamesOptions).map(([value, option]) =>
-							<option key={value} value={value}>{option.label}</option>)}
-						{(minGames in minGamesOptions) ? null :
-						<option key={minGames} value={minGames}>{minGames} (custom)</option>}
-					</select>
-					{' '}games played
+					<br />
+					with min.{' '}
+					<select
+						value={minGames || ''}
+						onChange={(event) => {
+							setQueryParams({ minGames: event.target.value || null });
+						}}
+					>
+						{Object.entries(minGamesOptions).map(([value, option]) => (
+							<option key={value} value={value}>
+								{option.label}
+							</option>
+						))}
+						{minGames in minGamesOptions ? null : (
+							<option key={minGames} value={minGames}>
+								{minGames} (custom)
+							</option>
+						)}
+					</select>{' '}
+					games played
 				</h5>
 			</header>
 			{winsQuery.isFetching ? (
-				<div className={`mx-auto w-32 h-32 my-8 ${data.length ? 'absolute inset-x-0' : 'relative'}`}>
-					<Loading animate full /></div>
+				<div
+					className={`mx-auto w-32 h-32 my-8 ${
+						data.length ? 'absolute inset-x-0' : 'relative'
+					}`}
+				>
+					<Loading animate full />
+				</div>
 			) : null}
 			{data.length ? (
 				<ResponsiveContainer width="100%" height={90 + data.length * 28}>
@@ -154,15 +172,11 @@ export default function WinsLeaderboard() {
 							top: 20,
 							left: 90,
 							right: 50,
-							bottom: 30
+							bottom: 30,
 						}}
 					>
 						<Tooltip content={<WinsTooltip />} />
-						<CartesianGrid
-							horizontal={false}
-							stroke="#8ec8c8"
-							opacity={0.3}
-						/>
+						<CartesianGrid horizontal={false} stroke="#8ec8c8" opacity={0.3} />
 						<XAxis
 							type="number"
 							orientation="top"
@@ -173,9 +187,9 @@ export default function WinsLeaderboard() {
 							tick={{
 								fontSize: 15,
 								fill: 'white',
-								opacity: 0.8
+								opacity: 0.8,
 							}}
-							tickFormatter={value => `${(100 * value).toFixed(0)}%`}
+							tickFormatter={(value) => `${(100 * value).toFixed(0)}%`}
 						/>
 						<YAxis
 							type="category"
@@ -185,13 +199,19 @@ export default function WinsLeaderboard() {
 							tickSize={0}
 							tickMargin={10}
 							minTickGap={0}
-							tick={<PlayerLabel data={data} isLoading={winsQuery.isFetching} />}
+							tick={
+								<PlayerLabel data={data} isLoading={winsQuery.isFetching} />
+							}
 						/>
 						<Bar dataKey="winPercent" barSize={12}>
 							{data.map((player: any, index: number) => (
 								<Cell
 									key={index}
-									fill={mix(player.vsTopPlayer, 'rgba(157, 255, 233, 1)', 'rgba(80, 177, 170, 0.7)')}
+									fill={mix(
+										player.vsTopPlayer,
+										'rgba(157, 255, 233, 1)',
+										'rgba(80, 177, 170, 0.7)',
+									)}
 									opacity={winsQuery.isFetching ? 0.2 : 1}
 								/>
 							))}
@@ -199,9 +219,9 @@ export default function WinsLeaderboard() {
 					</ComposedChart>
 				</ResponsiveContainer>
 			) : null}
-			{winsQuery.isFetched && !data.length
-				? <p className="text-center text-red-500 p-8">Not Enough Data</p>
-				: null}
+			{winsQuery.isFetched && !data.length ? (
+				<p className="text-center text-red-500 p-8">Not Enough Data</p>
+			) : null}
 		</section>
 	);
 }

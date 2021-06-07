@@ -11,11 +11,16 @@ const PlayerRow: React.FC = (player: any) => {
 	return (
 		<tr>
 			<td className="py-1">
-				<Link to={`/player/${player.playerGuid}`} className="block transition duration-150 ease-in-out">
+				<Link
+					to={`/player/${player.playerGuid}`}
+					className="block transition duration-150 ease-in-out"
+				>
 					{player.playerName}
 				</Link>
 			</td>
-			<td className="text-center text-xs border-l border-teal-500 border-dotted">{player.totalGamesCtfgame}</td>
+			<td className="text-center text-xs border-l border-teal-500 border-dotted">
+				{player.totalGamesCtfgame}
+			</td>
 			<td className="text-center text-xs">{player.totalGamesLakrabbitgame}</td>
 			<td className="text-center text-xs">{player.totalGamesSctfgame}</td>
 			<td className="text-center text-xs">{player.totalGamesDmgame}</td>
@@ -24,7 +29,9 @@ const PlayerRow: React.FC = (player: any) => {
 					Number(player.totalGamesLakrabbitgame) +
 					(Number(player.totalGamesSctfgame) + Number(player.totalGamesDmgame))}
 			</td>
-			<td className="text-center text-xs">{player.updatedAt.split(/[T]/)[0]}</td>
+			<td className="text-center text-xs">
+				{player.updatedAt.split(/[T]/)[0]}
+			</td>
 		</tr>
 	);
 };
@@ -33,9 +40,9 @@ const Players = () => {
 	const fetchContext = useContext(FetchContext);
 	const apiClient = fetchContext.apiClient;
 
-	const playersQuery = useQuery([ 'players' ], () => apiClient.getAllPlayers(), {
+	const playersQuery = useQuery(['players'], () => apiClient.getAllPlayers(), {
 		refetchOnWindowFocus: false,
-		staleTime: 300000
+		staleTime: 300000,
 	});
 
 	return (
@@ -43,14 +50,20 @@ const Players = () => {
 			<Helmet>
 				<title>Recent Players | Tribes 2 Stats Project</title>
 				<link rel="canonical" href={`https://stats.playt2.com/players`}></link>
-				<meta name="description" content={`Recent player list`}/>
+				<meta name="description" content={`Recent player list`} />
 
 				<meta property="og:site_name" content="Tribes 2 Stats Project" />
 				<meta property="og:url" content={`https://stats.playt2.com/players`} />
 				<meta property="og:type" content="article" />
-				<meta property="og:title" content={`Recent Players | Tribes 2 Stats Project`} />
+				<meta
+					property="og:title"
+					content={`Recent Players | Tribes 2 Stats Project`}
+				/>
 				<meta property="og:description" content={`Recent player list`} />
-				<meta property="og:image" content={`https://stats.playt2.com/logo512.png`} /> 
+				<meta
+					property="og:image"
+					content={`https://stats.playt2.com/logo512.png`}
+				/>
 			</Helmet>
 			<Header className="px-1 py-4 mb-4 text-center md:px-4">
 				<h5>Recent Players</h5>
@@ -86,7 +99,9 @@ const Players = () => {
 										</th>
 									</tr>
 								</thead>
-								{playersQuery.data.map((player: any, index: number) => PlayerRow(player, index))}
+								{playersQuery.data.map((player: any, index: number) =>
+									PlayerRow(player, index),
+								)}
 							</table>
 						)}
 					</div>

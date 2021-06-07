@@ -8,12 +8,11 @@ import { PlayersApi } from 'api/players';
 
 import appConfig from 'config';
 
-type AxiosClient = ApiClient & typeof GamesApi & typeof PlayersApi
+type AxiosClient = ApiClient & typeof GamesApi & typeof PlayersApi;
 
 interface IAxios {
-	apiClient: AxiosClient
+	apiClient: AxiosClient;
 }
-
 
 const FetchContext = createContext<IAxios>({ apiClient: null! });
 const { Provider } = FetchContext;
@@ -25,9 +24,9 @@ const FetchProvider: React.FC = ({ children }) => {
 		headers: {
 			common: {
 				'Content-Type': 'application/json',
-				Accept: 'application/json'
-			}
-		}
+				Accept: 'application/json',
+			},
+		},
 	};
 
 	// Setup an axios instance
@@ -44,7 +43,7 @@ const FetchProvider: React.FC = ({ children }) => {
 			// Hook into a global error handler like sentry or rollbar/etc
 
 			return Promise.reject(error);
-		}
+		},
 	);
 
 	// Augment the ApiClient with mixins
@@ -54,7 +53,7 @@ const FetchProvider: React.FC = ({ children }) => {
 	return (
 		<Provider
 			value={{
-				apiClient
+				apiClient,
 			}}
 		>
 			{children}

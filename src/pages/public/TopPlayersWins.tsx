@@ -11,12 +11,24 @@ const TopPlayersWins = () => {
 		<Content>
 			<Helmet>
 				<title>Top players by win-loss record | Tribes 2 Stats Project</title>
-				<link rel="canonical" href="https://stats.playt2.com/players/top/wins"></link>
+				<link
+					rel="canonical"
+					href="https://stats.playt2.com/players/top/wins"
+				></link>
 				<meta property="og:site_name" content="Tribes 2 Stats Project" />
-				<meta property="og:url" content="https://stats.playt2.com/players/top/wins" />
+				<meta
+					property="og:url"
+					content="https://stats.playt2.com/players/top/wins"
+				/>
 				<meta property="og:type" content="article" />
-				<meta property="og:title" content="Top players by win-loss record | Tribes 2 Stats Project" />
-				<meta property="og:image" content={`https://stats.playt2.com/logo512.png`} />
+				<meta
+					property="og:title"
+					content="Top players by win-loss record | Tribes 2 Stats Project"
+				/>
+				<meta
+					property="og:image"
+					content={`https://stats.playt2.com/logo512.png`}
+				/>
 			</Helmet>
 			<Header className="px-1 py-4 mb-4 text-center md:px-4">
 				<div className="flex items-center justify-center mb-5">
@@ -27,9 +39,11 @@ const TopPlayersWins = () => {
 						title="Previous leaderboard: Most Accurate Players"
 						style={{
 							color: '#30fffe',
-							textShadow: '0 0 8px rgba(116, 255, 241, 0.7)'
+							textShadow: '0 0 8px rgba(116, 255, 241, 0.7)',
 						}}
-					>◀</Link>
+					>
+						◀
+					</Link>
 					<h5 className="m-0">Top Win-Loss Records</h5>
 				</div>
 			</Header>
@@ -45,4 +59,3 @@ const TopPlayersWins = () => {
 };
 
 export default TopPlayersWins;
-

@@ -12,7 +12,7 @@ import {
 	YAxis,
 	CartesianGrid,
 	ReferenceLine,
-	Line
+	Line,
 } from 'recharts';
 
 dayjs.extend(advancedFormat);
@@ -26,13 +26,13 @@ function useAccuracyData({
 	minShots = 50,
 	aggregationPeriod = 'day',
 	// TODO: Make game type selectable. Always all games for now.
-	gameType
+	gameType,
 }: {
-	player: any,
-	stat: string,
-	minShots?: number,
-	aggregationPeriod?: AggregationPeriod,
-	gameType?: string
+	player: any;
+	stat: string;
+	minShots?: number;
+	aggregationPeriod?: AggregationPeriod;
+	gameType?: string;
 }): Array<any> {
 	return useMemo(() => {
 		// Player data not loaded yet.
@@ -49,7 +49,7 @@ function useAccuracyData({
 			laserMATG: 'laserShotsFiredTG',
 			laserHitsTG: 'laserShotsFiredTG',
 			cgHitsTG: 'cgShotsFiredTG',
-			shockHitsTG: 'shockShotsFiredTG'
+			shockHitsTG: 'shockShotsFiredTG',
 		}[stat] as string;
 
 		const gamesByDate = new Map();
@@ -142,11 +142,9 @@ const AccuracyTooltip = ({ payload, careerData, aggregationPeriod }: any) => {
 		<div className="bg-opacity-50 bg-black px-6 shadow text-base text-sm text-white">
 			<h5 className="mb-2">
 				{date.format('YYYY-MM-DD')}
-				{
-					aggregationPeriod === 'week'
-						? <> &ndash; {date.add(6, 'day').format('YYYY-MM-DD')}</>
-						: null
-				}
+				{aggregationPeriod === 'week' ? (
+					<> &ndash; {date.add(6, 'day').format('YYYY-MM-DD')}</>
+				) : null}
 			</h5>
 			shots: {payload[0].payload.countedShots}
 			<br />
@@ -162,17 +160,28 @@ const AccuracyTooltip = ({ payload, careerData, aggregationPeriod }: any) => {
 export default function AccuracyChart({
 	player,
 	vsPlayer,
-	height
+	height,
 }: {
-	player: any,
-	vsPlayer?: any,
-	height: number
+	player: any;
+	vsPlayer?: any;
+	height: number;
 }) {
 	const [stat, setStat] = useState('discDmgHitsTG');
 	const [gameType, setGameType] = useState<string | undefined>();
-	const [aggregationPeriod, setAggregationPeriod] = useState<AggregationPeriod>('week');
-	const [timeData, careerData] = useAccuracyData({ player, stat, gameType, aggregationPeriod });
-	const [vsTimeData, vsCareerData] = useAccuracyData({ player: vsPlayer, stat, gameType, aggregationPeriod });
+	const [aggregationPeriod, setAggregationPeriod] =
+		useState<AggregationPeriod>('week');
+	const [timeData, careerData] = useAccuracyData({
+		player,
+		stat,
+		gameType,
+		aggregationPeriod,
+	});
+	const [vsTimeData, vsCareerData] = useAccuracyData({
+		player: vsPlayer,
+		stat,
+		gameType,
+		aggregationPeriod,
+	});
 
 	const mergedTimeData = useMemo(() => {
 		if (timeData.length && vsTimeData.length) {
@@ -211,9 +220,12 @@ export default function AccuracyChart({
 			<header className="mx-4 text-center">
 				<h5 className="normal-case text-shadow-none">
 					Accuracy of{' '}
-					<select value={stat} onChange={event => {
-						setStat(event.target.value);
-					}}>
+					<select
+						value={stat}
+						onChange={(event) => {
+							setStat(event.target.value);
+						}}
+					>
 						<option value="discMATG">disc MAs</option>
 						<option value="discHitsTG">disc hits (direct)</option>
 						<option value="discDmgHitsTG">disc hits (incl. splash)</option>
@@ -221,19 +233,25 @@ export default function AccuracyChart({
 						<option value="laserHitsTG">laser hits</option>
 						<option value="cgHitsTG">chaingun hits</option>
 						<option value="shockHitsTG">shocklance hits</option>
-					</select>
-					{' '}in{' '}
-					<select value={gameType || ''} onChange={event => {
-						setGameType(event.target.value || undefined);
-					}}>
+					</select>{' '}
+					in{' '}
+					<select
+						value={gameType || ''}
+						onChange={(event) => {
+							setGameType(event.target.value || undefined);
+						}}
+					>
 						<option value="">all</option>
 						<option value="CTFGame">CTF</option>
 						<option value="LakRabbitGame">LakRabbit</option>
-					</select>
-					{' '}games by{' '}
-					<select value={aggregationPeriod} onChange={event => {
-						setAggregationPeriod(event.target.value as AggregationPeriod);
-					}}>
+					</select>{' '}
+					games by{' '}
+					<select
+						value={aggregationPeriod}
+						onChange={(event) => {
+							setAggregationPeriod(event.target.value as AggregationPeriod);
+						}}
+					>
 						<option value="day">day</option>
 						<option value="week">week</option>
 					</select>
@@ -242,7 +260,9 @@ export default function AccuracyChart({
 					<svg width="16" height="10" className="mr-2">
 						<line x1="0" y1="5" x2="16" y2="5" stroke="white" />
 					</svg>
-					<span className="text-xs" style={{ color: '#A1ECFB' }}>Career Average</span>
+					<span className="text-xs" style={{ color: '#A1ECFB' }}>
+						Career Average
+					</span>
 				</div>
 			</header>
 			{mergedTimeData.length ? (
@@ -266,7 +286,7 @@ export default function AccuracyChart({
 							tickSize={10}
 							tick={{
 								fontSize: '14px',
-								fill: '#A1ECFB'
+								fill: '#A1ECFB',
 							}}
 							type="number"
 							scale="time"
@@ -276,7 +296,7 @@ export default function AccuracyChart({
 							]}
 							tickFormatter={(value) => {
 								return dayjs(value).format(
-									aggregationPeriod === 'week' ? 'YYYY [W]w' : 'MMM D ’YY'
+									aggregationPeriod === 'week' ? 'YYYY [W]w' : 'MMM D ’YY',
 								);
 							}}
 						/>
@@ -285,21 +305,20 @@ export default function AccuracyChart({
 							stroke="#A1ECFB"
 							tick={{
 								fill: '#8ec8c8',
-								fontSize: '15px'
+								fontSize: '15px',
 							}}
 							tickMargin={10}
 							tickFormatter={(value: number) => `${(100 * value).toFixed(0)}%`}
 						/>
-						<Tooltip content={
-							<AccuracyTooltip
-								careerData={careerData}
-								aggregationPeriod={aggregationPeriod}
-							/>
-						} />
-						<CartesianGrid
-							stroke="#8ec8c8"
-							opacity={0.1}
+						<Tooltip
+							content={
+								<AccuracyTooltip
+									careerData={careerData}
+									aggregationPeriod={aggregationPeriod}
+								/>
+							}
 						/>
+						<CartesianGrid stroke="#8ec8c8" opacity={0.1} />
 						{vsCareerData.accuracy != null ? (
 							<ReferenceLine
 								y={vsCareerData.accuracy}
@@ -308,7 +327,9 @@ export default function AccuracyChart({
 								opacity={0.7}
 							/>
 						) : null}
-						{careerData.accuracy != null ? <ReferenceLine y={careerData.accuracy} stroke="white" /> : null}
+						{careerData.accuracy != null ? (
+							<ReferenceLine y={careerData.accuracy} stroke="white" />
+						) : null}
 						<Line
 							dataKey="vsAccuracy"
 							connectNulls
@@ -328,7 +349,9 @@ export default function AccuracyChart({
 						/>
 					</ComposedChart>
 				</ResponsiveContainer>
-			) : <p className="text-center text-red-500 p-8">Not Enough Data</p>}
+			) : (
+				<p className="text-center text-red-500 p-8">Not Enough Data</p>
+			)}
 		</section>
 	);
 }

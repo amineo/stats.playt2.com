@@ -25,11 +25,11 @@ export default function useQueryParams() {
 				}
 			});
 			const newParamsString = newParams.toString();
-			const newLocation = location.pathname +
-				(newParamsString ? `?${newParamsString}` : '');
+			const newLocation =
+				location.pathname + (newParamsString ? `?${newParamsString}` : '');
 			history.push(newLocation);
 		},
-		[history, location.pathname, location.search]
+		[history, location.pathname, location.search],
 	);
 
 	return [queryParams, setQueryParams];

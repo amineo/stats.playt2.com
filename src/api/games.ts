@@ -19,7 +19,10 @@ export const GamesApi = {
 	async getLatestGames(): Promise<any> {
 		try {
 			// @ts-ignore
-			const response: AxiosResponse<any> = await this.get<IGame, AxiosResponse<any>>('/games');
+			const response: AxiosResponse<any> = await this.get<
+				IGame,
+				AxiosResponse<any>
+			>('/games');
 
 			return this.success(response);
 		} catch (error) {
@@ -33,7 +36,10 @@ export const GamesApi = {
 	async getLatestGamesWithSummary(): Promise<any> {
 		try {
 			// @ts-ignore
-			const response: AxiosResponse<any> = await this.get<IGame, AxiosResponse<any>>('/games/summary');
+			const response: AxiosResponse<any> = await this.get<
+				IGame,
+				AxiosResponse<any>
+			>('/games/summary');
 
 			return this.success(response);
 		} catch (error) {
@@ -48,9 +54,10 @@ export const GamesApi = {
 		const displayLimit = limit ? `?limit=${limit}` : '';
 		try {
 			// @ts-ignore
-			const response: AxiosResponse<any> = await this.get<IGame, AxiosResponse<any>>(
-				`/games/gametype/${gametype}${displayLimit}`
-			);
+			const response: AxiosResponse<any> = await this.get<
+				IGame,
+				AxiosResponse<any>
+			>(`/games/gametype/${gametype}${displayLimit}`);
 
 			return this.success(response);
 		} catch (error) {
@@ -64,7 +71,10 @@ export const GamesApi = {
 	async getGameStatsById(gameId: string): Promise<any> {
 		try {
 			// @ts-ignore
-			const response: AxiosResponse<any> = await this.get<IGame, AxiosResponse<any>>(`/game/${gameId}`);
+			const response: AxiosResponse<any> = await this.get<
+				IGame,
+				AxiosResponse<any>
+			>(`/game/${gameId}`);
 
 			return this.success(response);
 		} catch (error) {
@@ -73,5 +83,5 @@ export const GamesApi = {
 			this.error(err);
 			throw err;
 		}
-	}
+	},
 } as IApiClientMethods;

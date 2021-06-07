@@ -59,8 +59,8 @@ const AppRoutes: React.FC = () => {
 };
 
 const App: React.FC = (resources: any) => {
-	const [ show, setShow ] = useState(false);
-	const [ loaded, setLoaded ] = useState(false);
+	const [show, setShow] = useState(false);
+	const [loaded, setLoaded] = useState(false);
 
 	const loader = createLoader();
 
@@ -74,7 +74,7 @@ const App: React.FC = (resources: any) => {
 		},
 		() => {
 			console.error('Error when loading.');
-		}
+		},
 	);
 
 	return (
@@ -84,7 +84,7 @@ const App: React.FC = (resources: any) => {
 				animate
 				show={!show && !loaded}
 				animation={{
-					unmountOnExit: true
+					unmountOnExit: true,
 				}}
 			/>
 

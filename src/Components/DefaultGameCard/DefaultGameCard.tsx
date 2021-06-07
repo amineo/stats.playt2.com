@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Content, Frame, Table, Header, Line } from 'arwes';
 
 const DefaultGameCard: React.FC = (gameStats: any) => {
-	const fullPlayerListByScore = [ ...gameStats.players ];
+	const fullPlayerListByScore = [...gameStats.players];
 	// sort by high score
 	fullPlayerListByScore.sort((a, b) => b.stats.scoreTG - a.stats.scoreTG);
 
@@ -26,7 +26,9 @@ const DefaultGameCard: React.FC = (gameStats: any) => {
 				<div className="px-6 text-center">
 					<Content>
 						<div className="pb-2">
-							<small className="text-xs">{gameStats.datestamp.split(/[T]/)[0]}</small>
+							<small className="text-xs">
+								{gameStats.datestamp.split(/[T]/)[0]}
+							</small>
 						</div>
 						<h4 className="text-4xl text-right">{gameStats.gametype}</h4>
 					</Content>
@@ -41,14 +43,23 @@ const DefaultGameCard: React.FC = (gameStats: any) => {
 							<Line />
 							<Table
 								animate
-								headers={[ 'Player', 'Score', 'Kills', 'Assists', 'MAs', 'Kill Streak' ]}
+								headers={[
+									'Player',
+									'Score',
+									'Kills',
+									'Assists',
+									'MAs',
+									'Kill Streak',
+								]}
 								dataset={fullPlayerListByScore.map((player) => [
-									<Link to={`/player/${player.playerGuid}`}>{player.playerName}</Link>,
+									<Link to={`/player/${player.playerGuid}`}>
+										{player.playerName}
+									</Link>,
 									player.stats.scoreTG,
 									player.stats.killsTG,
 									player.stats.assistTG,
 									player.stats.totalMATG,
-									player.stats.killStreakTG
+									player.stats.killStreakTG,
 								])}
 							/>
 						</div>

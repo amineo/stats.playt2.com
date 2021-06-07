@@ -7,13 +7,13 @@ import CardDisplay from 'Components/CardDisplay';
 import PlayerStatModal from 'Components/PlayerStatModal';
 
 const CtfGameCard: React.FC = (gameStats: any) => {
-	const [ isOpen, setIsOpen ] = useState(false);
-	const [ modalPlayerData, setModalPlayerData ] = useState();
+	const [isOpen, setIsOpen] = useState(false);
+	const [modalPlayerData, setModalPlayerData] = useState();
 
 	const fullPlayerListByScore = [
 		...gameStats.teams.storm.players,
 		...gameStats.teams.inferno.players,
-		...gameStats.teams.obs.players
+		...gameStats.teams.obs.players,
 	];
 	// sort by high score
 	fullPlayerListByScore.sort((a, b) => b.stats.scoreTG - a.stats.scoreTG);
@@ -38,11 +38,15 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 				</Content>
 			</Header>
 
-			<div className="text-center text-sm text-teal-400">{gameStats.gametype}</div>
+			<div className="text-center text-sm text-teal-400">
+				{gameStats.gametype}
+			</div>
 			<div className="flex justify-center max-w-2xl mx-auto">
 				<div className="px-1 text-center md:px-2 lg:px-6 flex w-full justify-center">
 					<Content>
-						<h1 className="text-4xl mb-1 font-bold text-white">{gameStats.teams.storm.score}</h1>
+						<h1 className="text-4xl mb-1 font-bold text-white">
+							{gameStats.teams.storm.score}
+						</h1>
 						<h4 className="text-2xl">Storm</h4>
 					</Content>
 				</div>
@@ -54,13 +58,17 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 							{gameStats.teams.inferno.players.length}
 						</Words>
 						<div>
-							<small className="text-xs text-teal-400">{gameStats.datestamp.split(/[T]/)[0]}</small>
+							<small className="text-xs text-teal-400">
+								{gameStats.datestamp.split(/[T]/)[0]}
+							</small>
 						</div>
 					</Content>
 				</div>
 				<div className="px-1 text-center md:px-2 lg:px-6 flex w-full justify-center">
 					<Content>
-						<h1 className="text-4xl mb-1 font-bold text-white ">{gameStats.teams.inferno.score}</h1>
+						<h1 className="text-4xl mb-1 font-bold text-white ">
+							{gameStats.teams.inferno.score}
+						</h1>
 						<h4 className="text-2xl">Inferno</h4>
 					</Content>
 				</div>
@@ -87,14 +95,18 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 									<tr>
 										<td className="px-1 py-4 whitespace-no-wrap  leading-5 font-medium md:px-2 lg:px-6">
 											<small>
-												<Link to={`/player/${player.playerGuid}`}>{player.playerName}</Link>
+												<Link to={`/player/${player.playerGuid}`}>
+													{player.playerName}
+												</Link>
 											</small>
 										</td>
 										<td className="px-1 py-4 whitespace-no-wrap text-sm leading-5 md:px-2 lg:px-6">
 											{player.stats.scoreTG}
 										</td>
 										<td className="px-1 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium md:px-2 lg:px-6">
-											<Button onClick={() => fireModal(!isOpen, player)}>More</Button>
+											<Button onClick={() => fireModal(!isOpen, player)}>
+												More
+											</Button>
 										</td>
 									</tr>
 								))}
@@ -117,21 +129,27 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 										<th className="px-1 pt-2 md:px-2 lg:px-6" />
 									</tr>
 								</thead>
-								{gameStats.teams.inferno.players.map((player: any, index: number) => (
-									<tr>
-										<td className="px-1 py-4 whitespace-no-wrap  leading-5 font-medium md:px-2 lg:px-6">
-											<small>
-												<Link to={`/player/${player.playerGuid}`}>{player.playerName}</Link>
-											</small>
-										</td>
-										<td className="px-1 py-4 whitespace-no-wrap text-sm leading-5 md:px-2 lg:px-6">
-											{player.stats.scoreTG}
-										</td>
-										<td className="px-1 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium lg:px-6">
-											<Button onClick={() => fireModal(!isOpen, player)}>More</Button>
-										</td>
-									</tr>
-								))}
+								{gameStats.teams.inferno.players.map(
+									(player: any, index: number) => (
+										<tr>
+											<td className="px-1 py-4 whitespace-no-wrap  leading-5 font-medium md:px-2 lg:px-6">
+												<small>
+													<Link to={`/player/${player.playerGuid}`}>
+														{player.playerName}
+													</Link>
+												</small>
+											</td>
+											<td className="px-1 py-4 whitespace-no-wrap text-sm leading-5 md:px-2 lg:px-6">
+												{player.stats.scoreTG}
+											</td>
+											<td className="px-1 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium lg:px-6">
+												<Button onClick={() => fireModal(!isOpen, player)}>
+													More
+												</Button>
+											</td>
+										</tr>
+									),
+								)}
 							</table>
 						</Content>
 					</CardDisplay>
@@ -157,28 +175,31 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 									'Grabs',
 									'Defends',
 									'Returns',
-									'Carrier Kills'
+									'Carrier Kills',
 								]}
-								dataset={fullPlayerListByScore.map(
-									(player) =>
-										player.stats.scoreTG > 0
-											? [
-													<Link to={`/player/${player.playerGuid}`}>{player.playerName}</Link>,
-													player.stats.scoreTG,
-													player.stats.dtTeamGame === 1
-														? 'Storm'
-														: player.stats.dtTeamGame === 2 ? 'Inferno' : 'Obs',
-													player.stats.killsTG,
-													player.stats.assistTG,
-													player.stats.totalMATG,
-													player.stats.killStreakTG,
-													player.stats.flagCapsTG,
-													player.stats.flagGrabsTG,
-													player.stats.flagDefendsTG,
-													player.stats.flagReturnsTG,
-													player.stats.carrierKillsTG
-												]
-											: []
+								dataset={fullPlayerListByScore.map((player) =>
+									player.stats.scoreTG > 0
+										? [
+												<Link to={`/player/${player.playerGuid}`}>
+													{player.playerName}
+												</Link>,
+												player.stats.scoreTG,
+												player.stats.dtTeamGame === 1
+													? 'Storm'
+													: player.stats.dtTeamGame === 2
+													? 'Inferno'
+													: 'Obs',
+												player.stats.killsTG,
+												player.stats.assistTG,
+												player.stats.totalMATG,
+												player.stats.killStreakTG,
+												player.stats.flagCapsTG,
+												player.stats.flagGrabsTG,
+												player.stats.flagDefendsTG,
+												player.stats.flagReturnsTG,
+												player.stats.carrierKillsTG,
+										  ]
+										: [],
 								)}
 							/>
 						</div>
@@ -218,7 +239,11 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 											onClick={() => fireModal(false, {})}
 											className="text-xs"
 										>
-											<svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+											<svg
+												className="h-3 w-3"
+												viewBox="0 0 20 20"
+												fill="currentColor"
+											>
 												<path
 													fillRule="evenodd"
 													d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
