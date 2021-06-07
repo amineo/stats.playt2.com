@@ -20,7 +20,7 @@ export const PlayersApi = {
 		try {
 			// @ts-ignore
 			const response: AxiosResponse<any> = await this.get<
-				IGame,
+				IPlayer,
 				AxiosResponse<any>
 			>('/players?limit=300');
 
@@ -37,7 +37,7 @@ export const PlayersApi = {
 		try {
 			// @ts-ignore
 			const response: AxiosResponse<any> = await this.get<
-				IGame,
+				IPlayer,
 				AxiosResponse<any>
 			>('/player/' + playerId);
 
@@ -60,7 +60,7 @@ export const PlayersApi = {
 		try {
 			// @ts-ignore
 			const response: AxiosResponse<any> = await this.get<
-				IGame,
+				IPlayer,
 				AxiosResponse<any>
 			>('/players/top/accuracy', {
 				params,
@@ -83,7 +83,7 @@ export const PlayersApi = {
 		try {
 			// @ts-ignore
 			const response: AxiosResponse<any> = await this.get<
-				IGame,
+				IPlayer,
 				AxiosResponse<any>
 			>('/players/top/wins', {
 				params,
