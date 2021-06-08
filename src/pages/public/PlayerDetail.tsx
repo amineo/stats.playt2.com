@@ -16,7 +16,7 @@ import {
 	PolarRadiusAxis,
 	Tooltip,
 	Legend,
-	ResponsiveContainer
+	ResponsiveContainer,
 } from 'recharts';
 import AccuracyChart from 'Components/AccuracyChart';
 
@@ -29,12 +29,14 @@ function getWindowDimensions() {
 	const { innerWidth: width, innerHeight: height } = window;
 	return {
 		width,
-		height
+		height,
 	};
 }
 
 function useWindowDimensions() {
-	const [ windowDimensions, setWindowDimensions ] = useState(getWindowDimensions());
+	const [windowDimensions, setWindowDimensions] = useState(
+		getWindowDimensions(),
+	);
 
 	useEffect(() => {
 		function handleResize() {
@@ -54,67 +56,67 @@ const returnWeaponTotals = (statTotals: any) => {
 		{
 			weapon: 'Chaingun',
 			kills: statTotals['cgKillsTG'],
-			dmg: parseFloat(statTotals['cgDmgTG'].toFixed(2))
+			dmg: parseFloat(statTotals['cgDmgTG'].toFixed(2)),
 		},
 		{
 			weapon: 'Disc',
 			kills: statTotals['discKillsTG'],
-			dmg: parseFloat(statTotals['discDmgTG'].toFixed(2))
+			dmg: parseFloat(statTotals['discDmgTG'].toFixed(2)),
 		},
 		{
 			weapon: 'Grenade Launcher',
 			kills: statTotals['grenadeKillsTG'],
-			dmg: parseFloat(statTotals['grenadeDmgTG'].toFixed(2))
+			dmg: parseFloat(statTotals['grenadeDmgTG'].toFixed(2)),
 		},
 		{
 			weapon: 'Shocklance',
 			kills: statTotals['shockKillsTG'],
-			dmg: parseFloat(statTotals['shockDmgTG'].toFixed(2))
+			dmg: parseFloat(statTotals['shockDmgTG'].toFixed(2)),
 		},
 		{
 			weapon: 'Laser Rifle',
 			kills: statTotals['laserKillsTG'],
-			dmg: parseFloat(statTotals['laserDmgTG'].toFixed(2))
+			dmg: parseFloat(statTotals['laserDmgTG'].toFixed(2)),
 		},
 		{
 			weapon: 'Blaster',
 			kills: statTotals['blasterKillsTG'],
-			dmg: parseFloat(statTotals['blasterDmgTG'].toFixed(2))
+			dmg: parseFloat(statTotals['blasterDmgTG'].toFixed(2)),
 		},
 		{
 			weapon: 'Plasma Rifle',
 			kills: statTotals['plasmaKillsTG'],
-			dmg: parseFloat(statTotals['plasmaDmgTG'].toFixed(2))
+			dmg: parseFloat(statTotals['plasmaDmgTG'].toFixed(2)),
 		},
 		{
 			weapon: 'Mortar Launcher',
 			kills: statTotals['mortarKillsTG'],
-			dmg: parseFloat(statTotals['mortarDmgTG'].toFixed(2))
+			dmg: parseFloat(statTotals['mortarDmgTG'].toFixed(2)),
 		},
 		{
 			weapon: 'Missile Launcher',
 			kills: statTotals['missileKillsTG'],
-			dmg: parseFloat(statTotals['missileDmgTG'].toFixed(2))
+			dmg: parseFloat(statTotals['missileDmgTG'].toFixed(2)),
 		},
 		{
 			weapon: 'Hand Grenade',
 			kills: statTotals['hGrenadeKillsTG'],
-			dmg: parseFloat(statTotals['hGrenadeDmgTG'].toFixed(2))
+			dmg: parseFloat(statTotals['hGrenadeDmgTG'].toFixed(2)),
 		},
 		{
 			weapon: 'Mine',
 			kills: statTotals['mineKillsTG'],
-			dmg: parseFloat(statTotals['mineDmgTG'].toFixed(2))
+			dmg: parseFloat(statTotals['mineDmgTG'].toFixed(2)),
 		},
 		{
 			weapon: 'Satchel',
 			kills: statTotals['satchelKillsTG'],
-			dmg: parseFloat(statTotals['satchelDmgTG'].toFixed(2))
-		}
+			dmg: parseFloat(statTotals['satchelDmgTG'].toFixed(2)),
+		},
 	];
 
 	// dont return if the val is 0
-	return totals.filter(function(el) {
+	return totals.filter(function (el) {
 		return el.dmg > 0;
 	});
 };
@@ -128,7 +130,11 @@ const weaponLegend = (props: any) => {
 					<svg
 						width="14"
 						height="14"
-						style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '4px' }}
+						style={{
+							display: 'inline-block',
+							verticalAlign: 'middle',
+							marginRight: '4px',
+						}}
 						viewBox="0 0 32 32"
 						version="1.1"
 					>
@@ -153,7 +159,8 @@ const WeaponTooltip = ({ payload, label }: any) => {
 	return (
 		<div className="bg-opacity-50 bg-black px-6 shadow">
 			<h5>
-				{label} - Kills: {payload[0].payload.kills}; Damage: {payload[0].payload.dmg}
+				{label} - Kills: {payload[0].payload.kills}; Damage:{' '}
+				{payload[0].payload.dmg}
 			</h5>
 		</div>
 	);
@@ -161,7 +168,14 @@ const WeaponTooltip = ({ payload, label }: any) => {
 
 const GameStatCard = (game: any) => {
 	return game.stats ? (
-		<Frame key={game.stats.gameID} animate level={1} corners={3} layer={'header'} className="mb-6">
+		<Frame
+			key={game.stats.gameID}
+			animate
+			level={1}
+			corners={3}
+			layer={'header'}
+			className="mb-6"
+		>
 			<div className="py-1 px-1 md:px-4 md:py-4">
 				<div className="table w-full mb-4">
 					<div className="table-cell align-top">
@@ -189,7 +203,7 @@ const GameStatCard = (game: any) => {
 						'Grabs',
 						'Defends',
 						'Returns',
-						'Carrier Kills'
+						'Carrier Kills',
 					]}
 					dataset={[
 						[
@@ -202,8 +216,8 @@ const GameStatCard = (game: any) => {
 							game.stats.flagGrabsTG,
 							game.stats.flagDefendsTG,
 							game.stats.flagReturnsTG,
-							game.stats.carrierKillsTG
-						]
+							game.stats.carrierKillsTG,
+						],
 					]}
 				/>
 			</div>
@@ -219,10 +233,14 @@ const PlayerDetail = () => {
 	const { width } = useWindowDimensions();
 	const { playerGuid } = useParams<IPlayerDetailParams>();
 
-	const playerQuery = useQuery([ 'player', playerGuid ], () => apiClient.getPlayerById(playerGuid), {
-		refetchOnWindowFocus: false,
-		staleTime: Infinity
-	});
+	const playerQuery = useQuery(
+		['player', playerGuid],
+		() => apiClient.getPlayerById(playerGuid),
+		{
+			refetchOnWindowFocus: false,
+			staleTime: Infinity,
+		},
+	);
 
 	const cappedGameDetailList = [];
 
@@ -241,16 +259,36 @@ const PlayerDetail = () => {
 			) : (
 				<div>
 					<Helmet>
-						<title>{playerQuery.data.playerName} | Tribes 2 Stats Project</title>
-						<link rel="canonical" href={`https://stats.playt2.com/player/${playerQuery.data.playerGuid}`}></link>
-						<meta name="description" content={`Total Score: ${playerQuery.data.statTotals.scoreTG}; Total Games: ${playerQuery.data.gameDetails.length}; Kills: ${playerQuery.data.statTotals.killsTG}; Assists: ${playerQuery.data.statTotals.assistTG}; MAs: ${playerQuery.data.statTotals.totalMATG}`}/>
+						<title>
+							{playerQuery.data.playerName} | Tribes 2 Stats Project
+						</title>
+						<link
+							rel="canonical"
+							href={`https://stats.playt2.com/player/${playerQuery.data.playerGuid}`}
+						></link>
+						<meta
+							name="description"
+							content={`Total Score: ${playerQuery.data.statTotals.scoreTG}; Total Games: ${playerQuery.data.gameDetails.length}; Kills: ${playerQuery.data.statTotals.killsTG}; Assists: ${playerQuery.data.statTotals.assistTG}; MAs: ${playerQuery.data.statTotals.totalMATG}`}
+						/>
 
 						<meta property="og:site_name" content="Tribes 2 Stats Project" />
-						<meta property="og:url" content={`https://stats.playt2.com/player/${playerQuery.data.playerGuid}`} />
+						<meta
+							property="og:url"
+							content={`https://stats.playt2.com/player/${playerQuery.data.playerGuid}`}
+						/>
 						<meta property="og:type" content="article" />
-						<meta property="og:title" content={`${playerQuery.data.playerName} | Tribes 2 Stats Project`} />
-						<meta property="og:description" content={`Total Score: ${playerQuery.data.statTotals.scoreTG}; Total Games: ${playerQuery.data.gameDetails.length}; Kills: ${playerQuery.data.statTotals.killsTG}; Assists: ${playerQuery.data.statTotals.assistTG}; MAs: ${playerQuery.data.statTotals.totalMATG}`} />
-						<meta property="og:image" content={`https://stats.playt2.com/logo512.png`} /> 
+						<meta
+							property="og:title"
+							content={`${playerQuery.data.playerName} | Tribes 2 Stats Project`}
+						/>
+						<meta
+							property="og:description"
+							content={`Total Score: ${playerQuery.data.statTotals.scoreTG}; Total Games: ${playerQuery.data.gameDetails.length}; Kills: ${playerQuery.data.statTotals.killsTG}; Assists: ${playerQuery.data.statTotals.assistTG}; MAs: ${playerQuery.data.statTotals.totalMATG}`}
+						/>
+						<meta
+							property="og:image"
+							content={`https://stats.playt2.com/logo512.png`}
+						/>
 					</Helmet>
 					<div className="py-4 mb-4">
 						<Header>
@@ -260,7 +298,8 @@ const PlayerDetail = () => {
 								</div>
 								<div className="table-cell text-right w-6/12">
 									<h5>
-										<small>Last Played:</small> {playerQuery.data.updatedAt.split(/[T]/)[0]}
+										<small>Last Played:</small>{' '}
+										{playerQuery.data.updatedAt.split(/[T]/)[0]}
 									</h5>
 								</div>
 							</div>
@@ -280,7 +319,7 @@ const PlayerDetail = () => {
 										' -',
 										' -',
 										' -',
-										'Games Played'
+										'Games Played',
 
 										// 'Kill Streak',
 										// 'Flag Caps',
@@ -298,7 +337,7 @@ const PlayerDetail = () => {
 											' -',
 											' -',
 											' -',
-											playerQuery.data.gameDetails.length
+											playerQuery.data.gameDetails.length,
 
 											// playerQuery.data.statTotals.killStreakTG,
 											// playerQuery.data.statTotals.flagCapsTG,
@@ -306,31 +345,36 @@ const PlayerDetail = () => {
 											// playerQuery.data.statTotals.flagDefendsTG,
 											// playerQuery.data.statTotals.flagReturnsTG,
 											// playerQuery.data.statTotals.carrierKillsTG,
-										]
+										],
 									]}
 								/>
 							</div>
 
 							<div className="flex justify-around items-center flex-col xl:flex-row">
 								<div className="w-full xl:w-5/12">
-									<ResponsiveContainer width="100%" height={width > 740 ? 500 : 300}>
+									<ResponsiveContainer
+										width="100%"
+										height={width > 740 ? 500 : 300}
+									>
 										<RadarChart
 											outerRadius={width > 740 ? 150 : 75}
 											margin={{
 												// Account for label lengths
 												left: 80,
-												right: 80
+												right: 80,
 											}}
 											data={
-												returnWeaponTotals(playerQuery.data.statTotals).length ? (
-													returnWeaponTotals(playerQuery.data.statTotals)
-												) : (
-													[ { weapon: 'No Data', val: 1 } ]
-												)
+												returnWeaponTotals(playerQuery.data.statTotals).length
+													? returnWeaponTotals(playerQuery.data.statTotals)
+													: [{ weapon: 'No Data', val: 1 }]
 											}
 											className="text-xs text-white mx-auto"
 										>
-											<Legend verticalAlign="top" iconType="circle" content={weaponLegend} />
+											<Legend
+												verticalAlign="top"
+												iconType="circle"
+												content={weaponLegend}
+											/>
 											<PolarGrid stroke="#035659" />
 											<PolarAngleAxis dataKey="weapon" stroke="#A1ECFB" />
 											<PolarRadiusAxis stroke="#DF9527" />
@@ -352,7 +396,10 @@ const PlayerDetail = () => {
 										</RadarChart>
 									</ResponsiveContainer>
 								</div>
-								<AccuracyChart player={playerQuery.data} height={width > 740 ? 450 : 350} />
+								<AccuracyChart
+									player={playerQuery.data}
+									height={width > 740 ? 450 : 350}
+								/>
 							</div>
 						</Frame>
 					</div>

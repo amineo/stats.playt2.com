@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from 'react';
-import { Link, } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { mix } from 'polished';
 
@@ -14,7 +14,7 @@ import {
 	XAxis,
 	YAxis,
 	CartesianGrid,
-	Bar
+	Bar,
 } from 'recharts';
 
 import { FetchContext } from 'Context/FetchContext';
@@ -87,10 +87,7 @@ export default function AccuracyLeaderboard() {
 	const apiClient = fetchContext.apiClient;
 
 	const [params, setQueryParams] = useQueryParams();
-	const {
-		stat = 'discMATG',
-		gameType = null,
-	} = params;
+	const { stat = 'discMATG', gameType = null } = params;
 
 	const accuracyQuery = useQuery(
 		['accuracy', stat, gameType],
@@ -98,8 +95,8 @@ export default function AccuracyLeaderboard() {
 		{
 			refetchOnWindowFocus: false,
 			staleTime: Infinity,
-			keepPreviousData: true
-		}
+			keepPreviousData: true,
+		},
 	);
 
 	const data = useMemo(() => {
@@ -111,9 +108,9 @@ export default function AccuracyLeaderboard() {
 					index,
 					vsTopPlayer: topPlayer.accuracy
 						? player.accuracy / topPlayer.accuracy
-						: 1
+						: 1,
 				};
-			})
+			});
 		} else {
 			return [];
 		}
@@ -124,26 +121,43 @@ export default function AccuracyLeaderboard() {
 			<header className="py-3 text-center">
 				<h5 className="normal-case text-shadow-none">
 					Accuracy of{' '}
-					<select value={stat} onChange={event => {
-						setQueryParams({ stat: event.target.value });
-					}}>
-						{Object.entries(statOptions).map(([value, option]) =>
-							<option key={value} value={value}>{option.label}</option>)}
-					</select>
-					{' '}in{' '}
-					<select value={gameType || ''} onChange={event => {
-						setQueryParams({ gameType: event.target.value || null });
-					}}>
+					<select
+						value={stat}
+						onChange={(event) => {
+							setQueryParams({ stat: event.target.value });
+						}}
+					>
+						{Object.entries(statOptions).map(([value, option]) => (
+							<option key={value} value={value}>
+								{option.label}
+							</option>
+						))}
+					</select>{' '}
+					in{' '}
+					<select
+						value={gameType || ''}
+						onChange={(event) => {
+							setQueryParams({ gameType: event.target.value || null });
+						}}
+					>
 						<option value="">all</option>
-						{Object.entries(gameTypeOptions).map(([value, option]) =>
-							<option key={value} value={value}>{option.label}</option>)}
-					</select>
-					{' '}games
+						{Object.entries(gameTypeOptions).map(([value, option]) => (
+							<option key={value} value={value}>
+								{option.label}
+							</option>
+						))}
+					</select>{' '}
+					games
 				</h5>
 			</header>
 			{accuracyQuery.isFetching ? (
-				<div className={`mx-auto w-32 h-32 my-8 ${data.length ? 'absolute inset-x-0' : 'relative'}`}>
-					<Loading animate full /></div>
+				<div
+					className={`mx-auto w-32 h-32 my-8 ${
+						data.length ? 'absolute inset-x-0' : 'relative'
+					}`}
+				>
+					<Loading animate full />
+				</div>
 			) : null}
 			{data.length ? (
 				<ResponsiveContainer width="100%" height={90 + data.length * 28}>
@@ -154,15 +168,11 @@ export default function AccuracyLeaderboard() {
 							top: 20,
 							left: 90,
 							right: 50,
-							bottom: 30
+							bottom: 30,
 						}}
 					>
 						<Tooltip content={<AccuracyTooltip />} />
-						<CartesianGrid
-							horizontal={false}
-							stroke="#8ec8c8"
-							opacity={0.3}
-						/>
+						<CartesianGrid horizontal={false} stroke="#8ec8c8" opacity={0.3} />
 						<XAxis
 							type="number"
 							orientation="top"
@@ -173,9 +183,9 @@ export default function AccuracyLeaderboard() {
 							tick={{
 								fontSize: 15,
 								fill: 'white',
-								opacity: 0.8
+								opacity: 0.8,
 							}}
-							tickFormatter={value => `${(100 * value).toFixed(0)}%`}
+							tickFormatter={(value) => `${(100 * value).toFixed(0)}%`}
 						/>
 						<YAxis
 							type="category"
@@ -185,13 +195,19 @@ export default function AccuracyLeaderboard() {
 							tickSize={0}
 							tickMargin={10}
 							minTickGap={0}
-							tick={<PlayerLabel data={data} isLoading={accuracyQuery.isFetching} />}
+							tick={
+								<PlayerLabel data={data} isLoading={accuracyQuery.isFetching} />
+							}
 						/>
 						<Bar dataKey="accuracy" barSize={12}>
 							{data.map((player: any, index: number) => (
 								<Cell
 									key={index}
-									fill={mix(player.vsTopPlayer, 'rgba(157, 255, 233, 1)', 'rgba(80, 177, 170, 0.7)')}
+									fill={mix(
+										player.vsTopPlayer,
+										'rgba(157, 255, 233, 1)',
+										'rgba(80, 177, 170, 0.7)',
+									)}
 									opacity={accuracyQuery.isFetching ? 0.2 : 1}
 								/>
 							))}
@@ -199,9 +215,9 @@ export default function AccuracyLeaderboard() {
 					</ComposedChart>
 				</ResponsiveContainer>
 			) : null}
-			{accuracyQuery.isFetched && !data.length
-				? <p className="text-center text-red-500 p-8">Not Enough Data</p>
-				: null}
+			{accuracyQuery.isFetched && !data.length ? (
+				<p className="text-center text-red-500 p-8">Not Enough Data</p>
+			) : null}
 		</section>
 	);
 }

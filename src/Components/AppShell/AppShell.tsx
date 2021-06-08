@@ -24,7 +24,10 @@ const AppShell: React.FC = ({ children }) => {
 								<div className="md:block z-10">
 									<div className="ml-3 flex items-baseline md:ml-10">
 										<Content>
-											<Link to="/games" className="ml-3 px-3 py-2 rounded-md text-sm md:ml-4">
+											<Link
+												to="/games"
+												className="ml-3 px-3 py-2 rounded-md text-sm md:ml-4"
+											>
 												Games
 											</Link>
 											<Link
@@ -80,7 +83,10 @@ const AppShell: React.FC = ({ children }) => {
 					<div className="flex justify-center md:order-2">
 						<span className="text-xs">Wanna help out?</span>
 
-						<a href="https://github.com/amineo/stats.playt2.com" className="ml-6">
+						<a
+							href="https://github.com/amineo/stats.playt2.com"
+							className="ml-6"
+						>
 							<span className="sr-only">GitHub</span>
 							<svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
 								<path
@@ -92,7 +98,9 @@ const AppShell: React.FC = ({ children }) => {
 						</a>
 					</div>
 					<div className="mt-8 md:mt-0 md:order-1">
-						<p className="text-center text-sm leading-6">A Tribes 2 Community Project</p>
+						<p className="text-center text-sm leading-6">
+							A Tribes 2 Community Project
+						</p>
 					</div>
 				</div>
 			</Footer>

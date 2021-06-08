@@ -39,6 +39,7 @@
 	"scripts": {
 		"start": "npm run build:css && react-scripts start",
 		"build": "npm run build:css && react-scripts build",
+		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,html,css}\"",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"storybook": "start-storybook -p 9009 -s public",
@@ -77,6 +78,7 @@
 		"@storybook/preset-create-react-app": "^3.1.4",
 		"@storybook/react": "^6.0.18",
 		"babel-loader": "8.1.0",
+		"prettier": "^2.3.1",
 		"react-is": "^16.13.1",
 		"react-snap": "^1.23.0"
 	}

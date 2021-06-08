@@ -13,43 +13,64 @@ const Home = () => {
 	const fetchContext = useContext(FetchContext);
 	const apiClient = fetchContext.apiClient;
 
-	const ctfGamesQuery = useQuery([ 'latest', 'CTFGame' ], () => apiClient.getGamesByGametype('CTFGame', 15), {
-		refetchOnWindowFocus: false,
-		staleTime: 300000
-	});
+	const ctfGamesQuery = useQuery(
+		['latest', 'CTFGame'],
+		() => apiClient.getGamesByGametype('CTFGame', 15),
+		{
+			refetchOnWindowFocus: false,
+			staleTime: 300000,
+		},
+	);
 
 	const lakGamesQuery = useQuery(
-		[ 'latest', 'LakRabbitGame' ],
+		['latest', 'LakRabbitGame'],
 		() => apiClient.getGamesByGametype('LakRabbitGame', 18),
 		{
 			refetchOnWindowFocus: false,
-			staleTime: 300000
-		}
+			staleTime: 300000,
+		},
 	);
 
-	const ltCtfGamesQuery = useQuery([ 'latest', 'SCtFGame' ], () => apiClient.getGamesByGametype('SCtFGame', 11), {
-		refetchOnWindowFocus: false,
-		staleTime: 300000
-	});
+	const ltCtfGamesQuery = useQuery(
+		['latest', 'SCtFGame'],
+		() => apiClient.getGamesByGametype('SCtFGame', 11),
+		{
+			refetchOnWindowFocus: false,
+			staleTime: 300000,
+		},
+	);
 
-	const dmGamesQuery = useQuery([ 'latest', 'DMGame' ], () => apiClient.getGamesByGametype('DMGame', 14), {
-		refetchOnWindowFocus: false,
-		staleTime: 300000
-	});
+	const dmGamesQuery = useQuery(
+		['latest', 'DMGame'],
+		() => apiClient.getGamesByGametype('DMGame', 14),
+		{
+			refetchOnWindowFocus: false,
+			staleTime: 300000,
+		},
+	);
 
 	return (
 		<Content>
 			<Helmet>
 				<title>Tribes 2 Stats Project</title>
 				<link rel="canonical" href={`https://stats.playt2.com/`}></link>
-				<meta name="description" content={`Tribes 2 player stats compiled and updated daily`}/>
+				<meta
+					name="description"
+					content={`Tribes 2 player stats compiled and updated daily`}
+				/>
 
 				<meta property="og:site_name" content="Tribes 2 Stats Project" />
 				<meta property="og:url" content={`https://stats.playt2.com/`} />
 				<meta property="og:type" content="article" />
 				<meta property="og:title" content={`Tribes 2 Stats Project`} />
-				<meta property="og:description" content={`Tribes 2 player stats compiled and updated daily`} />
-				<meta property="og:image" content={`https://stats.playt2.com/logo512.png`} /> 
+				<meta
+					property="og:description"
+					content={`Tribes 2 player stats compiled and updated daily`}
+				/>
+				<meta
+					property="og:image"
+					content={`https://stats.playt2.com/logo512.png`}
+				/>
 			</Helmet>
 			<Header className="py-4 mb-4 text-center">
 				<h5>Latest Games</h5>
@@ -65,12 +86,12 @@ const Home = () => {
 									key={game.gameId}
 									onMouseEnter={() => {
 										queryCache.prefetchQuery(
-											[ 'game', game.gameId ],
+											['game', game.gameId],
 											() => apiClient.getGameStatsById(game.gameId),
 											{
 												refetchOnWindowFocus: false,
-												staleTime: Infinity
-											}
+												staleTime: Infinity,
+											},
 										);
 									}}
 								>
@@ -90,12 +111,12 @@ const Home = () => {
 									key={game.gameId}
 									onMouseEnter={() => {
 										queryCache.prefetchQuery(
-											[ 'game', game.gameId ],
+											['game', game.gameId],
 											() => apiClient.getGameStatsById(game.gameId),
 											{
 												refetchOnWindowFocus: false,
-												staleTime: Infinity
-											}
+												staleTime: Infinity,
+											},
 										);
 									}}
 								>
@@ -118,12 +139,12 @@ const Home = () => {
 									key={game.gameId}
 									onMouseEnter={() => {
 										queryCache.prefetchQuery(
-											[ 'game', game.gameId ],
+											['game', game.gameId],
 											() => apiClient.getGameStatsById(game.gameId),
 											{
 												refetchOnWindowFocus: false,
-												staleTime: Infinity
-											}
+												staleTime: Infinity,
+											},
 										);
 									}}
 								>
@@ -143,12 +164,12 @@ const Home = () => {
 									key={game.gameId}
 									onMouseEnter={() => {
 										queryCache.prefetchQuery(
-											[ 'game', game.gameId ],
+											['game', game.gameId],
 											() => apiClient.getGameStatsById(game.gameId),
 											{
 												refetchOnWindowFocus: false,
-												staleTime: Infinity
-											}
+												staleTime: Infinity,
+											},
 										);
 									}}
 								>

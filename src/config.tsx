@@ -23,8 +23,13 @@ interface IConfig {
 const config: IConfig = {
 	apiServer: {
 		endpoint: API_BASE_ENDPOINT,
-		origins: [ DEV_API_ENDPOINT, PROD_API_ENDPOINT, DEV_FE_ORIGIN, PROD_FE_ORIGIN ]
-	}
+		origins: [
+			DEV_API_ENDPOINT,
+			PROD_API_ENDPOINT,
+			DEV_FE_ORIGIN,
+			PROD_FE_ORIGIN,
+		],
+	},
 };
 
 export default config;

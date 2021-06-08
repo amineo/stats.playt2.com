@@ -19,7 +19,10 @@ export const PlayersApi = {
 	async getAllPlayers(): Promise<any> {
 		try {
 			// @ts-ignore
-			const response: AxiosResponse<any> = await this.get<IGame, AxiosResponse<any>>('/players?limit=300');
+			const response: AxiosResponse<any> = await this.get<
+				IPlayer,
+				AxiosResponse<any>
+			>('/players?limit=300');
 
 			return this.success(response);
 		} catch (error) {
@@ -33,7 +36,10 @@ export const PlayersApi = {
 	async getPlayerById(playerId: string): Promise<any> {
 		try {
 			// @ts-ignore
-			const response: AxiosResponse<any> = await this.get<IGame, AxiosResponse<any>>('/player/' + playerId);
+			const response: AxiosResponse<any> = await this.get<
+				IPlayer,
+				AxiosResponse<any>
+			>('/player/' + playerId);
 
 			return this.success(response);
 		} catch (error) {
@@ -45,16 +51,19 @@ export const PlayersApi = {
 	},
 
 	async getTopPlayersByAccuracy(params: {
-		stat: string,
-		gameType?: string,
-		minGames?: number,
-		minShots?: number,
-		limit?: number
+		stat: string;
+		gameType?: string;
+		minGames?: number;
+		minShots?: number;
+		limit?: number;
 	}): Promise<any> {
 		try {
 			// @ts-ignore
-			const response: AxiosResponse<any> = await this.get<IGame, AxiosResponse<any>>('/players/top/accuracy', {
-				params
+			const response: AxiosResponse<any> = await this.get<
+				IPlayer,
+				AxiosResponse<any>
+			>('/players/top/accuracy', {
+				params,
 			});
 
 			return this.success(response);
@@ -67,14 +76,17 @@ export const PlayersApi = {
 	},
 
 	async getTopPlayersByWins(params: {
-		gameType?: string,
-		minGames?: number,
-		limit?: number
+		gameType?: string;
+		minGames?: number;
+		limit?: number;
 	}): Promise<any> {
 		try {
 			// @ts-ignore
-			const response: AxiosResponse<any> = await this.get<IGame, AxiosResponse<any>>('/players/top/wins', {
-				params
+			const response: AxiosResponse<any> = await this.get<
+				IPlayer,
+				AxiosResponse<any>
+			>('/players/top/wins', {
+				params,
 			});
 
 			return this.success(response);
@@ -84,5 +96,5 @@ export const PlayersApi = {
 			this.error(err);
 			throw err;
 		}
-	}
+	},
 } as IApiClientMethods;

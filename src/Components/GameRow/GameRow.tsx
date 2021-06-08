@@ -19,7 +19,9 @@ const RowCTF: React.FC = (game: any) => {
 					<div className="min-w-0 flex-1 md:grid md:grid-cols-2 md:gap-4">
 						<div className="leading-5 font-medium truncate">{game.map}</div>
 						<div className="md:block">
-							<div className="flex items-center text-sm">{formatDate(game.datestamp)}</div>
+							<div className="flex items-center text-sm">
+								{formatDate(game.datestamp)}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -48,7 +50,9 @@ const RowDefault: React.FC = (game: any) => {
 					<div className="min-w-0 flex-1 md:grid md:grid-cols-2 md:gap-4">
 						<div className="leading-5 font-medium truncate">{game.map}</div>
 						<div className="md:block">
-							<div className="flex items-center text-sm">{formatDate(game.datestamp)}</div>
+							<div className="flex items-center text-sm">
+								{formatDate(game.datestamp)}
+							</div>
 						</div>
 					</div>
 				</div>
