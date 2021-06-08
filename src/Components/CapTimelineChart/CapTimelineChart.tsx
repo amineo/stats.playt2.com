@@ -150,6 +150,7 @@ export default function CapTimelineChart({
 					strokeWidth={2}
 					type="stepAfter"
 					connectNulls
+					dot={false}
 				/>
 				<Line
 					dataKey="infernoScore"
