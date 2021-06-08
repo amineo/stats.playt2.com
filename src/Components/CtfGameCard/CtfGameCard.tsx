@@ -1,10 +1,33 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Transition } from '@tailwindui/react';
 // @ts-ignore
 import { Content, Frame, Table, Words, Header, Line, Button } from 'arwes';
 import CardDisplay from 'Components/CardDisplay';
 import PlayerStatModal from 'Components/PlayerStatModal';
+import CapTimelineChart from 'Components/CapTimelineChart';
+
+// Assume cap times can come from the API as a comma-separated string, a 1-array
+// containing that string, or a pre-parsed array of cap times.
+function parseCapTimes(data: any) {
+	let capTimes: number[] = [];
+
+	// Unwrap string.
+	if (Array.isArray(data) && data.length === 1 && typeof data[0] === 'string') {
+		data = data[0];
+	}
+
+	if (typeof data === 'string') {
+		capTimes = data.split(',').filter(Boolean).map(Number);
+	} else {
+		capTimes = data;
+	}
+
+	// If the first cap time is 0, it's not an actual cap. In v9.2 it means that
+	// the team never capped; in later versions the first number is always just 0
+	// and never represents a cap.
+	return capTimes.filter((time, i) => !(time === 0 && i === 0));
+}
 
 const CtfGameCard: React.FC = (gameStats: any) => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +40,33 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 	];
 	// sort by high score
 	fullPlayerListByScore.sort((a, b) => b.stats.scoreTG - a.stats.scoreTG);
+
+	// Find a player who has cap timeline data populated.
+	const capTimelineHost = fullPlayerListByScore.find((player) => {
+		console.log(player.stats);
+		return (
+			player.stats.versionNum >= 9.2 &&
+			player.stats.teamOneCapTimesGame != null &&
+			player.stats.teamTwoCapTimesGame != null
+		);
+	});
+
+	const capTimelineData = useMemo(() => {
+		if (capTimelineHost) {
+			const teamOneCapTimesGame = parseCapTimes(
+				capTimelineHost.stats.teamOneCapTimesGame,
+			);
+			const teamTwoCapTimesGame = parseCapTimes(
+				capTimelineHost.stats.teamTwoCapTimesGame,
+			);
+
+			return {
+				teamOneCapTimesGame,
+				teamTwoCapTimesGame,
+				matchRunTimeTG: capTimelineHost.stats.matchRunTimeTG,
+			};
+		}
+	}, [capTimelineHost]);
 
 	function fireModal(toggle: boolean, player: any) {
 		setIsOpen(toggle);
@@ -206,6 +256,18 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 					</Content>
 				</Frame>
 			</div>
+			{capTimelineData ? (
+				<div className="my-6">
+					<Frame border={false} corners={2} layer={'header'}>
+						<Content>
+							<div className="px-1 py-1 md:px-2 lg:px-6 md:py-4">
+								<h4>Score Timeline</h4>
+								<CapTimelineChart {...capTimelineData} />
+							</div>
+						</Content>
+					</Frame>
+				</div>
+			) : null}
 
 			<Transition
 				show={isOpen}
