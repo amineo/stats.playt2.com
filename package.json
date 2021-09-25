@@ -8,9 +8,9 @@
 		"@testing-library/jest-dom": "^5.11.2",
 		"@testing-library/react": "^10.4.7",
 		"@testing-library/user-event": "^12.0.17",
-		"@types/jest": "^26.0.9",
+		"@types/jest": "^27.0.2",
 		"@types/lodash.orderby": "^4.6.6",
-		"@types/node": "^15.0.1",
+		"@types/node": "^16.10.1",
 		"@types/react": "^17.0.4",
 		"@types/react-dom": "^17.0.3",
 		"@types/react-helmet": "^6.1.0",
@@ -18,7 +18,7 @@
 		"@types/react-transition-group": "^4.4.0",
 		"arwes": "1.0.0-alpha.5",
 		"autoprefixer": "^9.8.0",
-		"axios": "^0.20.0",
+		"axios": "^0.21.4",
 		"babel-plugin-add-react-displayname": "^0.0.5",
 		"dayjs": "^1.9.1",
 		"lodash.orderby": "^4.6.0",
@@ -34,7 +34,7 @@
 		"react-transition-group": "^4.4.1",
 		"recharts": "^2.0.9",
 		"tailwindcss": "^1.7.4",
-		"typescript": "^4.0.2"
+		"typescript": "^4.4.3"
 	},
 	"scripts": {
 		"start": "npm run build:css && react-scripts start",
