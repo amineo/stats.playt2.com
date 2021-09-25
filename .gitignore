@@ -21,7 +21,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # Generated
-yarn.lock
 src/assets/app.gen.css
 
 _notes.md
