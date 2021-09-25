@@ -211,7 +211,7 @@ export class ApiClient {
 	 * @returns {T} - expected object.
 	 * @memberof ApiClient
 	 */
-	public error<T>(error: AxiosError<Error>) {
+	public error<T>(error: AxiosError<Error>): T {
 		throw error;
 	}
 }
