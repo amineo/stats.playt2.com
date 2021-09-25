@@ -28,6 +28,9 @@ const statOptions = {
 	laserHitsTG: { label: 'laser hits' },
 	cgHitsTG: { label: 'chaingun hits' },
 	shockHitsTG: { label: 'shocklance hits' },
+	grenadeMATG: { label: 'grenade MAs' },
+	grenadeHitsTG: { label: 'grenade hits (direct)' },
+	grenadeDmgHitsTG: { label: 'grenade hits (incl. splash)' },
 } as const;
 
 const gameTypeOptions = {

@@ -26,6 +26,7 @@ export const GamesApi = {
 
 			return this.success(response);
 		} catch (error) {
+			// @ts-ignore
 			let err: AxiosError = error;
 
 			this.error(err);
@@ -43,6 +44,7 @@ export const GamesApi = {
 
 			return this.success(response);
 		} catch (error) {
+			// @ts-ignore
 			let err: AxiosError = error;
 
 			this.error(err);
@@ -61,6 +63,7 @@ export const GamesApi = {
 
 			return this.success(response);
 		} catch (error) {
+			// @ts-ignore
 			let err: AxiosError = error;
 
 			this.error(err);
@@ -78,6 +81,7 @@ export const GamesApi = {
 
 			return this.success(response);
 		} catch (error) {
+			// @ts-ignore
 			let err: AxiosError = error;
 
 			this.error(err);

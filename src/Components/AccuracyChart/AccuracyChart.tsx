@@ -50,6 +50,9 @@ function useAccuracyData({
 			laserHitsTG: 'laserShotsFiredTG',
 			cgHitsTG: 'cgShotsFiredTG',
 			shockHitsTG: 'shockShotsFiredTG',
+			grenadeMATG: 'grenadeShotsFiredTG',
+			grenadeHitsTG: 'grenadeShotsFiredTG',
+			grenadeDmgHitsTG: 'grenadeShotsFiredTG',
 		}[stat] as string;
 
 		const gamesByDate = new Map();
@@ -233,6 +236,11 @@ export default function AccuracyChart({
 						<option value="laserHitsTG">laser hits</option>
 						<option value="cgHitsTG">chaingun hits</option>
 						<option value="shockHitsTG">shocklance hits</option>
+						<option value="grenadeMATG">grenade MAs</option>
+						<option value="grenadeHitsTG">grenade hits (direct)</option>
+						<option value="grenadeDmgHitsTG">
+							grenade hits (incl. splash)
+						</option>
 					</select>{' '}
 					in{' '}
 					<select
