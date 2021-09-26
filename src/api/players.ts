@@ -58,6 +58,7 @@ export const PlayersApi = {
 		minGames?: number;
 		minShots?: number;
 		limit?: number;
+		timePeriod?: string;
 	}): Promise<any> {
 		try {
 			// @ts-ignore
@@ -82,6 +83,7 @@ export const PlayersApi = {
 		gameType?: string;
 		minGames?: number;
 		limit?: number;
+		timePeriod?: string;
 	}): Promise<any> {
 		try {
 			// @ts-ignore
