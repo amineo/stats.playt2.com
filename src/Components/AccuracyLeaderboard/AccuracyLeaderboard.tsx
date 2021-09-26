@@ -38,6 +38,11 @@ const gameTypeOptions = {
 	LakRabbitGame: { label: 'LakRabbit' },
 } as const;
 
+const timePeriodOptions = {
+	'1 year': { label: 'the past year' },
+	'90 days': { label: 'the past 90 days' },
+} as const;
+
 const AccuracyTooltip = ({ payload, label }: any) => {
 	if (!payload || !payload.length) {
 		return <div />;
@@ -90,11 +95,12 @@ export default function AccuracyLeaderboard() {
 	const apiClient = fetchContext.apiClient;
 
 	const [params, setQueryParams] = useQueryParams();
-	const { stat = 'discMATG', gameType = null } = params;
+	const { stat = 'discMATG', gameType = null, timePeriod = null } = params;
 
 	const accuracyQuery = useQuery(
-		['accuracy', stat, gameType],
-		() => apiClient.getTopPlayersByAccuracy({ stat, gameType, limit }),
+		['accuracy', stat, gameType, timePeriod],
+		() =>
+			apiClient.getTopPlayersByAccuracy({ stat, gameType, limit, timePeriod }),
 		{
 			refetchOnWindowFocus: false,
 			staleTime: Infinity,
@@ -122,35 +128,55 @@ export default function AccuracyLeaderboard() {
 	return (
 		<section>
 			<header className="py-3 text-center">
-				<h5 className="normal-case text-shadow-none">
-					Accuracy of{' '}
-					<select
-						value={stat}
-						onChange={(event) => {
-							setQueryParams({ stat: event.target.value });
-						}}
-					>
-						{Object.entries(statOptions).map(([value, option]) => (
-							<option key={value} value={value}>
-								{option.label}
-							</option>
-						))}
-					</select>{' '}
-					in{' '}
-					<select
-						value={gameType || ''}
-						onChange={(event) => {
-							setQueryParams({ gameType: event.target.value || null });
-						}}
-					>
-						<option value="">all</option>
-						{Object.entries(gameTypeOptions).map(([value, option]) => (
-							<option key={value} value={value}>
-								{option.label}
-							</option>
-						))}
-					</select>{' '}
-					games
+				<h5 className="normal-case text-shadow-none px-3">
+					<div className="inline-block">
+						Accuracy of{' '}
+						<select
+							value={stat}
+							onChange={(event) => {
+								setQueryParams({ stat: event.target.value });
+							}}
+						>
+							{Object.entries(statOptions).map(([value, option]) => (
+								<option key={value} value={value}>
+									{option.label}
+								</option>
+							))}
+						</select>
+					</div>{' '}
+					<div className="inline-block">
+						in{' '}
+						<select
+							value={gameType || ''}
+							onChange={(event) => {
+								setQueryParams({ gameType: event.target.value || null });
+							}}
+						>
+							<option value="">all</option>
+							{Object.entries(gameTypeOptions).map(([value, option]) => (
+								<option key={value} value={value}>
+									{option.label}
+								</option>
+							))}
+						</select>{' '}
+						games
+					</div>{' '}
+					<div className="inline-block">
+						from{' '}
+						<select
+							value={timePeriod || ''}
+							onChange={(event) => {
+								setQueryParams({ timePeriod: event.target.value || null });
+							}}
+						>
+							<option value="">all time</option>
+							{Object.entries(timePeriodOptions).map(([value, option]) => (
+								<option key={value} value={value}>
+									{option.label}
+								</option>
+							))}
+						</select>
+					</div>
 				</h5>
 			</header>
 			{accuracyQuery.isFetching ? (

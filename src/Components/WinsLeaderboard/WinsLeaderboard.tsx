@@ -32,6 +32,11 @@ const minGamesOptions = {
 	1000: { label: '1,000' },
 } as const;
 
+const timePeriodOptions = {
+	'1 year': { label: 'the past year' },
+	'90 days': { label: 'the past 90 days' },
+} as const;
+
 const WinsTooltip = ({ payload, label }: any) => {
 	if (!payload || !payload.length) {
 		return <div />;
@@ -86,11 +91,11 @@ export default function WinsLeaderboard() {
 	const apiClient = fetchContext.apiClient;
 
 	const [params, setQueryParams] = useQueryParams();
-	const { minGames = '50', gameType = 'CTFGame' } = params;
+	const { minGames = '50', gameType = 'CTFGame', timePeriod = null } = params;
 
 	const winsQuery = useQuery(
-		['wins', gameType, minGames],
-		() => apiClient.getTopPlayersByWins({ minGames, limit }),
+		['wins', gameType, minGames, timePeriod],
+		() => apiClient.getTopPlayersByWins({ minGames, limit, timePeriod }),
 		{
 			refetchOnWindowFocus: false,
 			staleTime: Infinity,
@@ -118,40 +123,59 @@ export default function WinsLeaderboard() {
 	return (
 		<section>
 			<header className="py-3 text-center">
-				<h5 className="normal-case text-shadow-none">
-					Winning percentage in{' '}
-					<select
-						value={gameType || ''}
-						onChange={(event) => {
-							setQueryParams({ gameType: event.target.value || null });
-						}}
-					>
-						{Object.entries(gameTypeOptions).map(([value, option]) => (
-							<option key={value} value={value}>
-								{option.label}
-							</option>
-						))}
-					</select>
-					<br />
-					with min.{' '}
-					<select
-						value={minGames || ''}
-						onChange={(event) => {
-							setQueryParams({ minGames: event.target.value || null });
-						}}
-					>
-						{Object.entries(minGamesOptions).map(([value, option]) => (
-							<option key={value} value={value}>
-								{option.label}
-							</option>
-						))}
-						{minGames in minGamesOptions ? null : (
-							<option key={minGames} value={minGames}>
-								{minGames} (custom)
-							</option>
-						)}
-					</select>{' '}
-					games played
+				<h5 className="normal-case text-shadow-none px-3">
+					<div className="inline-block">
+						Winning percentage in{' '}
+						<select
+							value={gameType || ''}
+							onChange={(event) => {
+								setQueryParams({ gameType: event.target.value || null });
+							}}
+						>
+							{Object.entries(gameTypeOptions).map(([value, option]) => (
+								<option key={value} value={value}>
+									{option.label}
+								</option>
+							))}
+						</select>
+					</div>{' '}
+					<div className="inline-block">
+						with min.{' '}
+						<select
+							value={minGames || ''}
+							onChange={(event) => {
+								setQueryParams({ minGames: event.target.value || null });
+							}}
+						>
+							{Object.entries(minGamesOptions).map(([value, option]) => (
+								<option key={value} value={value}>
+									{option.label}
+								</option>
+							))}
+							{minGames in minGamesOptions ? null : (
+								<option key={minGames} value={minGames}>
+									{minGames} (custom)
+								</option>
+							)}
+						</select>
+						games played
+					</div>{' '}
+					<div className="inline-block">
+						from{' '}
+						<select
+							value={timePeriod || ''}
+							onChange={(event) => {
+								setQueryParams({ timePeriod: event.target.value || null });
+							}}
+						>
+							<option value="">all time</option>
+							{Object.entries(timePeriodOptions).map(([value, option]) => (
+								<option key={value} value={value}>
+									{option.label}
+								</option>
+							))}
+						</select>
+					</div>
 				</h5>
 			</header>
 			{winsQuery.isFetching ? (
