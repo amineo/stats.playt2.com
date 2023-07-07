@@ -314,7 +314,7 @@ const CtfGameCard: React.FC = (gameStats: any) => {
 											</svg>
 										</Button>
 									</div>
-									<PlayerStatModal {...modalPlayerData} />
+									{/* <PlayerStatModal {...modalPlayerData} /> */}
 
 									<div className="mt-5 sm:mt-6">
 										<span className="flex w-full rounded-md shadow-sm">

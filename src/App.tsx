@@ -11,14 +11,16 @@ import { Arwes, Loading, createLoader } from 'arwes';
 import AppShell from 'Components/AppShell';
 
 // Public Pages
-import Home from 'pages/public/Home';
-import GameDetail from 'pages/public/GameDetail';
-import Players from 'pages/public/Players';
-import PlayerDetail from 'pages/public/PlayerDetail';
-import TopPlayersAccuracy from 'pages/public/TopPlayersAccuracy';
-import TopPlayersWins from 'pages/public/TopPlayersWins';
+// import Home from 'pages/public/Home';
+// import GameDetail from 'pages/public/GameDetail';
+// import Players from 'pages/public/Players';
+// import PlayerDetail from 'pages/public/PlayerDetail';
+// import TopPlayersAccuracy from 'pages/public/TopPlayersAccuracy';
+// import TopPlayersWins from 'pages/public/TopPlayersWins';
 
-import FourOFour from 'pages/error/404';
+// import FourOFour from 'pages/error/404';
+
+import ThankYou from 'pages/public/ThankYou';
 
 const LoadingFallback: React.FC = () => <div className="p-4">Loading...</div>;
 
@@ -28,7 +30,7 @@ const AppRoutes: React.FC = () => {
 			<Switch>
 				<FetchProvider>
 					<Switch>
-						<Route exact path="/">
+						{/* <Route exact path="/">
 							<Home />
 						</Route>
 						<Route exact path="/games">
@@ -48,9 +50,10 @@ const AppRoutes: React.FC = () => {
 						</Route>
 						<Route exact path="/player/:playerGuid">
 							<PlayerDetail />
-						</Route>
-						{/** Site 404 */}
-						<Route component={FourOFour} />
+						</Route> */}
+						{/* * Site 404
+						<Route component={FourOFour} /> */}
+						<Route component={ThankYou} /> 
 					</Switch>
 				</FetchProvider>
 			</Switch>

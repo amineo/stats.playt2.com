@@ -23,7 +23,7 @@ const AppShell: React.FC = ({ children }) => {
 								</div>
 								<div className="md:block z-10">
 									<div className="ml-3 flex items-baseline md:ml-10">
-										<Content>
+										{/* <Content>
 											<Link
 												to="/games"
 												className="ml-3 px-3 py-2 rounded-md text-sm md:ml-4"
@@ -42,20 +42,20 @@ const AppShell: React.FC = ({ children }) => {
 											>
 												Leaderboards
 											</Link>
-										</Content>
+										</Content> */}
 									</div>
 								</div>
 							</div>
 							<div className="md:block">
 								<div className="mr-0 flex items-center md:ml-4">
 									<div className="mr-0 invisible lg:visible lg:mr-4">
-										<Frame border={false} corners={1} layer={'secondary'}>
+										{/* <Frame border={false} corners={1} layer={'secondary'}>
 											<Content>
 												<small className="px-0 text-sm block text-orange-200 sm:px-3 md:px-6">
 													Hey! Things aren't quite finished yet. Stay tuned!
 												</small>
 											</Content>
-										</Frame>
+										</Frame> */}
 									</div>
 									<span className="px-1 whitespace-no-wrap rounded-md shadow-sm mr-2">
 										<a
